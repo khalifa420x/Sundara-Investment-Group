@@ -578,19 +578,21 @@ function renderCard(id, villa) {
     ? (lang === 'fr' ? '\u00a0/ nuit' : '\u00a0/ night')
     : (lang === 'fr' ? '\u00a0/ mois' : '\u00a0/ month');
   const badgeClass = villa.status === 'demand' ? 'card-badge badge-demand' : 'card-badge';
-  return `<a href="villa.html?id=${id}" class="villa-card reveal">
-    <div class="card-img-wrap">
+  const ctaLabel = lang === 'fr' ? 'Vérifier disponibilités →' : 'Check availability →';
+  return `<div class="villa-card reveal" onclick="window.location='villa.html?id=${id}'" style="cursor:pointer;">
+    <a href="villa.html?id=${id}" class="card-img-wrap" style="display:block;">
       <img src="${img}" alt="${name}" loading="lazy">
       <span class="${badgeClass}">${badge}</span>
       <div class="card-overlay"><span>${lang === 'fr' ? 'Voir la villa →' : 'View villa →'}</span></div>
-    </div>
+    </a>
     <div class="card-body">
       <p class="card-location">${location}</p>
       <h3 class="card-name">${name}</h3>
       <p class="card-specs">${villa.bedrooms} bed · ${villa.surface_build}</p>
       <p class="card-price" data-price-idr="${priceIdr}" data-price-suffix="${suffix}">${convertPrice(priceIdr, selectedCurrency)}${suffix}</p>
+      <a href="contact.html?type=rental&villa=${id}" onclick="event.stopPropagation();" style="display:inline-block;margin-top:14px;font-family:'Outfit',sans-serif;font-size:0.72rem;font-weight:400;letter-spacing:0.12em;color:#C6A96B;text-decoration:none;text-transform:uppercase;border-bottom:1px solid rgba(198,169,107,0.35);padding-bottom:2px;">${ctaLabel}</a>
     </div>
-  </a>`;
+  </div>`;
 }
 
 // ── INIT ──────────────────────────────────────────────────

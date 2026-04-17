@@ -621,6 +621,7 @@ section { position: relative; }
   border-radius: 12px;
   overflow: hidden;
   transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
+  cursor: pointer;
 }
 .villa-card:hover { transform: translateY(-6px); }
 .villa-card-img {
