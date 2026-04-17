@@ -153,18 +153,18 @@ document.querySelectorAll('img').forEach(img => {
 function openMobileMenu() {
   const m = document.getElementById('mobile-menu');
   if (!m) return;
-  m.classList.add('open');
+  m.style.display = 'flex';
   document.body.style.overflow = 'hidden';
 }
 
 function closeMobileMenu() {
   const m = document.getElementById('mobile-menu');
   if (!m) return;
-  m.classList.remove('open');
+  m.style.display = 'none';
   document.body.style.overflow = '';
 }
 
-// Close on swipe right (mobile gesture)
+// Close on swipe right
 let touchStartX = 0;
 document.addEventListener('touchstart', e => {
   touchStartX = e.touches[0].clientX;
@@ -172,7 +172,7 @@ document.addEventListener('touchstart', e => {
 document.addEventListener('touchend', e => {
   const diff = e.changedTouches[0].clientX - touchStartX;
   const menu = document.getElementById('mobile-menu');
-  if (diff > 80 && menu && menu.classList.contains('open')) {
+  if (diff > 80 && menu && menu.style.display === 'flex') {
     closeMobileMenu();
   }
 }, { passive: true });
@@ -184,15 +184,4 @@ document.addEventListener('keydown', e => {
 
 window.openMobileMenu = openMobileMenu;
 window.closeMobileMenu = closeMobileMenu;
-
-// === CLICK OUTSIDE TO CLOSE MOBILE MENU ===
-document.addEventListener('click', function(e) {
-  const m = document.getElementById('mobile-menu');
-  const btn = document.querySelector('.nav-hamburger, #hamburger');
-  if (m && m.classList.contains('open')) {
-    if (!m.contains(e.target) && (!btn || !btn.contains(e.target))) {
-      closeMobileMenu();
-    }
-  }
-});
 
