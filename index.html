@@ -128,13 +128,16 @@ section { position: relative; }
   top: 0; left: 0; right: 0;
   z-index: 1000;
   padding: 28px 0;
+  background: rgba(11,11,11,0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   transition: padding 0.4s ease, background 0.4s ease, backdrop-filter 0.4s ease;
 }
 #nav.scrolled {
   padding: 16px 0;
-  background: rgba(19,19,19,0.72);
-  backdrop-filter: blur(28px);
-  -webkit-backdrop-filter: blur(28px);
+  background: rgba(11,11,11,0.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
 }
 .nav-inner {
   display: flex;
@@ -220,6 +223,7 @@ section { position: relative; }
   text-transform: uppercase;
   color: var(--gold);
   text-decoration: none;
+  border-radius: 12px;
   transition: opacity 0.25s;
 }
 .nav-cta:hover { opacity: 0.7; }
@@ -364,6 +368,7 @@ section { position: relative; }
   border: 1px solid rgba(198,169,107,0.55);
   padding: 16px 36px;
   text-decoration: none;
+  border-radius: 12px;
   transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 .btn-outline-gold:hover {
@@ -382,6 +387,7 @@ section { position: relative; }
   background: var(--gold);
   padding: 18px 44px;
   text-decoration: none;
+  border-radius: 12px;
   transition: opacity 0.25s ease;
 }
 .btn-solid-gold:hover { opacity: 0.85; }
@@ -502,6 +508,7 @@ section { position: relative; }
 .stat-item {
   padding: 40px 48px;
   border-left: 1px solid rgba(198,169,107,0.18);
+  border-radius: 8px;
 }
 .stat-item:first-child { border-left: none; padding-left: 0; }
 .stat-number {
@@ -557,6 +564,7 @@ section { position: relative; }
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--gold);
+  border-radius: 8px;
 }
 .active-dot {
   width: 6px; height: 6px;
@@ -577,6 +585,8 @@ section { position: relative; }
 }
 .villa-card {
   background: var(--bg);
+  border-radius: 12px;
+  overflow: hidden;
   transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
 }
 .villa-card:hover { transform: translateY(-6px); }
@@ -584,11 +594,13 @@ section { position: relative; }
   overflow: hidden;
   aspect-ratio: 3/2;
   position: relative;
+  border-radius: 12px 12px 0 0;
 }
 .villa-card-img img {
   width: 100%; height: 100%;
   object-fit: cover;
   display: block;
+  border-radius: 12px 12px 0 0;
   transition: transform 0.7s cubic-bezier(0.22,1,0.36,1);
   filter: contrast(1.04) saturate(0.85);
 }
@@ -621,6 +633,7 @@ section { position: relative; }
   font-size: 1.1rem;
   color: var(--text);
   margin-bottom: 20px;
+  border-radius: 8px;
 }
 .villa-cta {
   font-family: var(--font-sans);
@@ -693,6 +706,8 @@ section { position: relative; }
 }
 .sel-card {
   background: #1A1A1A;
+  border-radius: 12px;
+  overflow: hidden;
   transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
 }
 .sel-card:hover { transform: translateY(-6px); }
@@ -700,11 +715,13 @@ section { position: relative; }
   position: relative;
   overflow: hidden;
   aspect-ratio: 4/3;
+  border-radius: 12px 12px 0 0;
 }
 .sel-card-img img {
   width: 100%; height: 100%;
   object-fit: cover;
   display: block;
+  border-radius: 12px 12px 0 0;
   transition: transform 0.7s cubic-bezier(0.22,1,0.36,1);
   filter: contrast(1.05) saturate(0.8) brightness(0.92);
 }
@@ -722,6 +739,7 @@ section { position: relative; }
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--gold);
+  border-radius: 8px;
 }
 .sel-card-body { padding: 24px; }
 .sel-card-location {
