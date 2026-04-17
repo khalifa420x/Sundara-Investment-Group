@@ -176,7 +176,6 @@ function openMobileMenu() {
   const m = document.getElementById('mobile-menu');
   if (!m) return;
   m.classList.add('open');
-  m.style.display = 'flex';
   document.body.style.overflow = 'hidden';
 }
 
@@ -184,7 +183,6 @@ function closeMobileMenu() {
   const m = document.getElementById('mobile-menu');
   if (!m) return;
   m.classList.remove('open');
-  m.style.display = 'none';
   document.body.style.overflow = '';
 }
 
@@ -196,7 +194,7 @@ document.addEventListener('touchstart', e => {
 document.addEventListener('touchend', e => {
   const diff = e.changedTouches[0].clientX - touchStartX;
   const menu = document.getElementById('mobile-menu');
-  if (diff > 80 && menu && (menu.classList.contains('open') || menu.style.display === 'flex')) {
+  if (diff > 80 && menu && menu.classList.contains('open')) {
     closeMobileMenu();
   }
 }, { passive: true });
@@ -212,46 +210,10 @@ window.closeMobileMenu = closeMobileMenu;
 // === CLICK OUTSIDE TO CLOSE MOBILE MENU ===
 document.addEventListener('click', function(e) {
   const m = document.getElementById('mobile-menu');
-  const btn = document.querySelector('.nav-hamburger, .hamburger-btn, [onclick="openMobileMenu()"]');
-  const isOpen = m && (m.classList.contains('open') || m.style.display === 'flex');
-  if (isOpen) {
+  const btn = document.querySelector('.nav-hamburger, #hamburger');
+  if (m && m.classList.contains('open')) {
     if (!m.contains(e.target) && (!btn || !btn.contains(e.target))) {
       closeMobileMenu();
     }
   }
 });
-
-function setLang(lang) {
-  localStorage.setItem('sundara-lang', lang);
-
-  // Handle .en-text / .fr-text classes
-  document.querySelectorAll('.en-text').forEach(el => {
-    el.style.display = lang === 'en' ? '' : 'none';
-  });
-  document.querySelectorAll('.fr-text').forEach(el => {
-    el.style.display = lang === 'fr' ? '' : 'none';
-  });
-
-  // Handle data-en / data-fr attributes
-  document.querySelectorAll('[data-en]').forEach(el => {
-    el.style.display = lang === 'en' ? '' : 'none';
-  });
-  document.querySelectorAll('[data-fr]').forEach(el => {
-    el.style.display = lang === 'fr' ? '' : 'none';
-  });
-
-  // Update button active states
-  document.querySelectorAll('.lang-btn, .lang-toggle-btn').forEach(btn => {
-    btn.style.color = btn.dataset.lang === lang
-      ? '#C6A96B'
-      : 'rgba(245,245,245,0.4)';
-  });
-
-  document.documentElement.lang = lang;
-}
-
-// Apply saved lang on homepage load too
-const savedLang = localStorage.getItem('sundara-lang') || 'en';
-setLang(savedLang);
-
-window.setLang = setLang;

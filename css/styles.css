@@ -1383,7 +1383,10 @@ img { display: block; }
   }
 
   .nav-logo-sub {
-    display: none !important;
+    font-size: clamp(7px, 1.8vw, 10px) !important;
+    letter-spacing: 0.05em !important;
+    opacity: 0.65 !important;
+    display: block !important;
   }
 }
 
@@ -1419,4 +1422,12 @@ img { display: block; }
     font-size: 10px;
     letter-spacing: 0.1em;
   }
+}
+
+/* === MOBILE MENU SHOW/HIDE === */
+#mobile-menu {
+  display: none;
+}
+#mobile-menu.open {
+  display: flex !important;
 }
