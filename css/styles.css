@@ -1346,6 +1346,25 @@ img { display: block; }
     margin-left: auto;
     background: none;
     border: none;
+    min-width: 44px;
+  }
+
+  /* FIX 1 — logo no-wrap */
+  .nav-logo, .logo, header .logo-text, nav .brand {
+    white-space: nowrap;
+    font-size: clamp(11px, 3.5vw, 16px) !important;
+    max-width: calc(100% - 60px);
+  }
+
+  .nav-logo-sub, .logo-subtitle, .nav-subtitle, .brand-sub {
+    display: inline !important;
+    font-size: clamp(9px, 2.5vw, 13px) !important;
+    letter-spacing: 0.08em !important;
+  }
+
+  .nav-inner {
+    flex-wrap: nowrap !important;
+    gap: 0 !important;
   }
 }
 
@@ -1353,5 +1372,32 @@ img { display: block; }
 @media (max-width: 900px) {
   .hamburger-btn {
     display: flex !important;
+  }
+}
+
+/* === FIX: hide scroll indicator on mobile === */
+@media (max-width: 900px) {
+  .scroll-indicator,
+  .hero-scroll,
+  [class*="scroll-hint"],
+  [class*="scroll-label"] {
+    display: none !important;
+  }
+}
+
+/* === FIX: trust bar — remove bullet points, use dots === */
+.trust-bar ul, .trust-bar li {
+  list-style: none !important;
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+}
+
+@media (max-width: 768px) {
+  .trust-bar {
+    padding: 20px 24px;
+  }
+  .trust-item {
+    font-size: 10px;
+    letter-spacing: 0.1em;
   }
 }
