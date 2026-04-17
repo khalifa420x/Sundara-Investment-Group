@@ -174,21 +174,37 @@ document.querySelectorAll('img').forEach(img => {
 // === MOBILE MENU ===
 function openMobileMenu() {
   const menu = document.getElementById('mobile-menu');
-  if (menu) {
-    menu.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-  }
+  if (!menu) return;
+  menu.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  document.body.style.position = 'fixed';
+  document.body.style.width = '100%';
 }
 
 function closeMobileMenu() {
   const menu = document.getElementById('mobile-menu');
-  if (menu) {
-    menu.style.display = 'none';
-    document.body.style.overflow = '';
-  }
+  if (!menu) return;
+  menu.style.display = 'none';
+  document.body.style.overflow = '';
+  document.body.style.position = '';
+  document.body.style.width = '';
 }
 
-document.addEventListener('keydown', (e) => {
+// Close on swipe right (mobile gesture)
+let touchStartX = 0;
+document.addEventListener('touchstart', e => {
+  touchStartX = e.touches[0].clientX;
+}, { passive: true });
+document.addEventListener('touchend', e => {
+  const diff = e.changedTouches[0].clientX - touchStartX;
+  const menu = document.getElementById('mobile-menu');
+  if (diff > 80 && menu && menu.style.display === 'flex') {
+    closeMobileMenu();
+  }
+}, { passive: true });
+
+// Close on escape
+document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeMobileMenu();
 });
 
