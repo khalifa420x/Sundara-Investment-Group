@@ -1,23 +1,37 @@
 (function() {
   var LANG_KEY = 'sundara-lang';
   var HERO_TITLE = {
-    en: 'Luxury villas in Bali. Stay or invest.',
-    fr: 'Villas de luxe à Bali. Séjournez ou investissez.'
+    en: 'Luxury villas in Bali.',
+    fr: 'Villas de luxe à Bali.'
+  };
+  var HERO_DESCRIPTION = {
+    en: 'Designed for investment and rental income.',
+    fr: 'Conçues pour l’investissement et la location.'
   };
 
-  function syncHeroTitle() {
+  function syncHeroCopy() {
     var heroTitle = document.querySelector('.hero-title');
-    if (!heroTitle) return;
+    var heroDescription = document.querySelector('.hero-description');
 
-    var heroEN = heroTitle.querySelector('.lang-en-inline');
-    var heroFR = heroTitle.querySelector('.lang-fr-inline');
+    if (heroTitle) {
+      var heroEN = heroTitle.querySelector('.lang-en-inline');
+      var heroFR = heroTitle.querySelector('.lang-fr-inline');
 
-    if (heroEN) heroEN.textContent = HERO_TITLE.en;
-    if (heroFR) heroFR.textContent = HERO_TITLE.fr;
+      if (heroEN) heroEN.textContent = HERO_TITLE.en;
+      if (heroFR) heroFR.textContent = HERO_TITLE.fr;
+    }
+
+    if (heroDescription) {
+      var descriptionEN = heroDescription.querySelector('.lang-en-inline');
+      var descriptionFR = heroDescription.querySelector('.lang-fr-inline');
+
+      if (descriptionEN) descriptionEN.textContent = HERO_DESCRIPTION.en;
+      if (descriptionFR) descriptionFR.textContent = HERO_DESCRIPTION.fr;
+    }
   }
 
   function applyLang(lang) {
-    syncHeroTitle();
+    syncHeroCopy();
     if (lang === 'fr') {
       document.body.classList.add('fr');
     } else {
@@ -32,7 +46,7 @@
   }
 
   function init() {
-    syncHeroTitle();
+    syncHeroCopy();
     var saved = localStorage.getItem(LANG_KEY) || 'en';
     applyLang(saved);
   }
