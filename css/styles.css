@@ -2074,23 +2074,21 @@ img { display: block; }
    RENTALS — DARK CTA
 ═══════════════════════════════════════════ */
 .rent-dark-cta {
-  background: #0B0B0B;
-  background-image: url('https://images.unsplash.com/photo-1604999333679-b86d54738315?w=1600&q=80');
+  background:
+    linear-gradient(rgba(0,0,0,0.60), rgba(0,0,0,0.60)),
+    url('https://images.unsplash.com/photo-1604999333679-b86d54738315?w=1600&q=80');
   background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  background-position: center center;
+  background-repeat: no-repeat;
   padding: 100px clamp(32px,7vw,96px);
   text-align: center;
   position: relative;
 }
-.rent-dark-cta::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.62);
-  z-index: 0;
+.rent-dark-cta > * {
+  position: relative;
+  z-index: 1;
 }
-.rent-dark-cta-inner { max-width: 600px; margin: 0 auto; position: relative; z-index: 1; }
+.rent-dark-cta-inner { max-width: 600px; margin: 0 auto; }
 .rent-dark-cta-line {
   width: 40px; height: 1px; background: var(--gold);
   margin: 0 auto 40px; opacity: 0.65;
