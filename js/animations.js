@@ -220,6 +220,7 @@ document.addEventListener('click', function(e) {
 
 // === LANGUAGE SETTER (mobile menu) ===
 function setLang(lang) {
+  localStorage.setItem('sundara-lang', lang);
   if (lang === 'fr') {
     document.body.classList.add('fr');
   } else {

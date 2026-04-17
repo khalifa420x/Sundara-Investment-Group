@@ -628,6 +628,12 @@ function applyLang(lang) {
   currentLang = lang;
   localStorage.setItem(LANG_KEY, lang);
 
+  if (lang === 'fr') {
+    document.body.classList.add('fr');
+  } else {
+    document.body.classList.remove('fr');
+  }
+
   // Show/hide all translated elements
   document.querySelectorAll('[data-en]').forEach(el => {
     el.style.display = lang === 'en' ? '' : 'none';
