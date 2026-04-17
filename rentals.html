@@ -12,8 +12,8 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background: #0B0B0B;
-      color: #F5F5F5;
+      background: #FAFAF8;
+      color: #1A1A1A;
       font-family: 'Outfit', sans-serif;
       cursor: none;
       -webkit-font-smoothing: antialiased;
@@ -118,9 +118,9 @@
     body.fr .lang-en-inline { display: none; }
 
     .r-hero {
-      padding: clamp(120px, 16vw, 180px) clamp(24px, 7vw, 96px) clamp(56px, 8vw, 96px);
+      background: #0F0F0F;
+      padding: clamp(140px, 16vw, 200px) clamp(24px, 7vw, 96px) clamp(72px, 8vw, 96px);
     }
-
     .r-eyebrow {
       font-size: 9px;
       letter-spacing: 0.32em;
@@ -147,6 +147,7 @@
       line-height: 1.1;
       max-width: 700px;
       margin-bottom: 24px;
+      color: #F5F5F5;
     }
     .r-title em {
       font-style: italic;
@@ -165,7 +166,7 @@
       padding: 0 clamp(24px, 7vw, 96px) 48px;
       display: flex;
       align-items: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      border-bottom: 1px solid rgba(26, 26, 26, 0.1);
       margin-bottom: 64px;
     }
 
@@ -179,7 +180,7 @@
       font-weight: 500;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.35);
+      color: rgba(26, 26, 26, 0.4);
       cursor: pointer;
       transition: color 0.25s, border-bottom-color 0.25s;
     }
@@ -187,7 +188,7 @@
       color: #C6A96B;
       border-bottom-color: #C6A96B;
     }
-    .filter-btn:hover { color: rgba(245, 245, 245, 0.7); }
+    .filter-btn:hover { color: rgba(26, 26, 26, 0.7); }
 
     .villa-section {
       padding: 0 clamp(24px, 7vw, 96px) 80px;
@@ -207,6 +208,7 @@
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(22px, 2.5vw, 32px);
       font-weight: 300;
+      color: #1A1A1A;
     }
 
     .villa-grid {
@@ -224,11 +226,16 @@
     .villa-card {
       display: block;
       text-decoration: none;
-      background: #131313;
+      background: #111111;
+      border: 1px solid rgba(198, 169, 107, 0.14);
+      border-radius: 12px;
       overflow: hidden;
-      transition: transform 0.4s;
+      transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), box-shadow 0.4s ease;
     }
-    .villa-card:hover { transform: translateY(-4px); }
+    .villa-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.18);
+    }
 
     .card-img-wrap {
       position: relative;
@@ -328,20 +335,21 @@
     }
 
     .r-footer-cta {
-      background: #131313;
-      padding: clamp(64px, 8vw, 96px) clamp(24px, 7vw, 96px);
+      background: #0F0F0F;
+      padding: clamp(80px, 10vw, 120px) clamp(24px, 7vw, 96px);
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 28px;
+      gap: 32px;
     }
 
     .r-footer-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(28px, 3.5vw, 48px);
+      font-size: clamp(28px, 3.5vw, 52px);
       font-weight: 300;
       line-height: 1.2;
       max-width: 560px;
+      color: #F5F5F5;
     }
     .r-footer-title em {
       font-style: italic;
@@ -351,20 +359,22 @@
     .r-footer-btn {
       display: inline-block;
       padding: 16px 40px;
-      background: #C6A96B;
-      color: #0B0B0B;
+      background: transparent;
+      color: #C6A96B;
+      border: 1px solid rgba(198, 169, 107, 0.55);
       font-family: 'Outfit', sans-serif;
       font-size: 10px;
-      font-weight: 500;
+      font-weight: 400;
       letter-spacing: 0.22em;
       text-transform: uppercase;
       text-decoration: none;
-      border-radius: 4px;
-      transition: background 0.3s, transform 0.3s;
+      border-radius: 12px;
+      transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
     }
     .r-footer-btn:hover {
-      background: #d4b87a;
-      transform: translateY(-2px);
+      background: #C6A96B;
+      color: #1A1A1A;
+      border-color: #C6A96B;
     }
 
     .reveal {
