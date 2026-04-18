@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Canggu Real Estate Market 2026 — Sundara Investment Group</title>
+  <meta name="description" content="Complete market analysis of Canggu real estate in 2026. Land prices, rental yields, occupancy rates and investment strategy for the most active corridor in Bali."/>
+  <meta name="robots" content="index, follow"/>
+  <meta property="og:title" content="Canggu Real Estate Market 2026 — Sundara Investment Group"/>
+  <meta property="og:description" content="Complete market analysis of Canggu real estate in 2026. Land prices, rental yields, occupancy rates and investment strategy for the most active corridor in Bali."/>
+  <meta property="og:type" content="article"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/styles.css"/>
+  <style>
+body { background: #f5f2ec; }
+.art-hero { position: relative; height: 480px; overflow: hidden; }
+.art-hero img { width: 100%; height: 100%; object-fit: cover; object-position: center 40%; display: block; }
+.art-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.65) 100%); }
+.art-hero-content { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; text-align: center; padding: 0 40px 56px; }
+.art-tag { font-family: 'Outfit', sans-serif; font-size: 0.62rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #c4a464; margin-bottom: 14px; }
+.art-hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 300; color: #f5f2ec; line-height: 1.15; max-width: 800px; }
+.art-body { max-width: 780px; margin: 0 auto; padding: 56px 40px 100px; }
+.art-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 40px; padding-bottom: 24px; border-bottom: 1px solid rgba(196,164,100,0.2); }
+.art-meta span { font-family: 'Outfit', sans-serif; font-size: 0.7rem; color: rgba(26,26,24,0.4); letter-spacing: 0.06em; }
+.art-meta i { width: 3px; height: 3px; border-radius: 50%; background: rgba(196,164,100,0.4); display: inline-block; }
+.art-intro { font-family: 'Cormorant Garamond', serif; font-size: 1.28rem; font-weight: 300; color: #1a1a18; line-height: 1.7; margin-bottom: 36px; }
+.art-h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.55rem; font-weight: 300; color: #1a1a18; margin: 44px 0 16px; }
+.art-p { font-family: 'Outfit', sans-serif; font-size: 0.88rem; font-weight: 300; color: rgba(26,26,24,0.72); line-height: 1.82; margin-bottom: 18px; }
+.art-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin: 36px 0; }
+.art-stat { background: #fff; border: 1px solid rgba(196,164,100,0.18); border-radius: 12px; padding: 24px 20px; text-align: center; }
+.art-stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; color: #c4a464; line-height: 1; margin-bottom: 8px; }
+.art-stat-label { font-family: 'Outfit', sans-serif; font-size: 0.68rem; font-weight: 400; color: rgba(26,26,24,0.52); letter-spacing: 0.06em; line-height: 1.4; }
+.art-quote { border-left: 2px solid #c4a464; padding: 18px 24px; margin: 32px 0; background: rgba(196,164,100,0.05); border-radius: 0 8px 8px 0; }
+.art-quote p { font-family: 'Cormorant Garamond', serif; font-size: 1.18rem; font-weight: 300; font-style: italic; color: #1a1a18; line-height: 1.65; margin: 0; }
+.art-back { display: inline-flex; align-items: center; gap: 6px; font-family: 'Outfit', sans-serif; font-size: 0.65rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: #1a1a18; background: #c4a464; border: 1.5px solid #c4a464; border-radius: 8px; padding: 12px 22px; text-decoration: none; margin-top: 48px; transition: background 0.28s ease, color 0.28s ease; }
+.art-back:hover { background: transparent; color: #c4a464; }
+@media (max-width: 640px) {
+  .art-hero { height: 360px; }
+  .art-body { padding: 36px 20px 80px; }
+  .art-stats { grid-template-columns: 1fr; gap: 12px; }
+  .art-hero-content { padding: 0 20px 36px; }
+}
+  </style>
+</head>
+<body>
+
+<!-- ─── CUSTOM CURSOR ─── -->
+<div id="cursor"></div>
+
+<!-- ─── LOADING ─── -->
+<div class="vd-loading" id="vdLoading">
+  <span class="vd-loading-text">SUNDARA</span>
+</div>
+
+<!-- ─── MOBILE MENU ─── -->
+<div id="mobile-menu" style="
+  display: none;
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: #0d0d0d;
+  z-index: 999;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 32px 48px;
+  overflow-y: auto;
+">
+
+  <!-- CLOSE BUTTON — top right, always visible -->
+  <button onclick="closeMobileMenu()" style="position:fixed;top:18px;right:18px;width:38px;height:38px;border-radius:50%;background:rgba(198,169,107,0.15);border:1px solid rgba(198,169,107,0.4);color:#C6A96B;font-size:20px;cursor:pointer;z-index:1001;display:flex;align-items:center;justify-content:center;">×</button>
+
+  <!-- NAV LINKS -->
+  <nav style="
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    gap: 0;
+  ">
+    <a href="rentals.html" onclick="closeMobileMenu()" style="
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 300;
+      color: #F5F5F5;
+      text-decoration: none;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      display: block;
+      transition: color 0.3s, padding-left 0.3s;
+    " onmouseover="this.style.color='#C6A96B';this.style.paddingLeft='8px'"
+       onmouseout="this.style.color='#F5F5F5';this.style.paddingLeft='0'">
+      <span class="lang-en-inline">Portfolio</span><span class="lang-fr-inline">Portfolio</span>
+    </a>
+    <a href="rentals.html" onclick="closeMobileMenu()" style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:#F5F5F5;text-decoration:none;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.07);display:block;">
+      <span class="lang-en-inline">Rentals</span>
+      <span class="lang-fr-inline">Locations</span>
+    </a>
+    <a href="index.html#why-bali" onclick="closeMobileMenu()" style="
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 300;
+      color: #F5F5F5;
+      text-decoration: none;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      display: block;
+    "><span class="lang-en-inline">Opportunities</span><span class="lang-fr-inline">Opportunités</span></a>
+    <a href="index.html#process" onclick="closeMobileMenu()" style="
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 300;
+      color: #F5F5F5;
+      text-decoration: none;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      display: block;
+    "><span class="lang-en-inline">Process</span><span class="lang-fr-inline">Processus</span></a>
+    <a href="index.html#positioning" onclick="closeMobileMenu()" style="
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 300;
+      color: #F5F5F5;
+      text-decoration: none;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      display: block;
+    "><span class="lang-en-inline">Philosophy</span><span class="lang-fr-inline">Philosophie</span></a>
+    <a href="blog.html" onclick="closeMobileMenu()" style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:#F5F5F5;text-decoration:none;padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.07);display:block;">
+      <span class="lang-en-inline">Insights</span>
+      <span class="lang-fr-inline">Insights</span>
+    </a>
+  </nav>
+
+  <!-- LANG TOGGLE -->
+  <div style="
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+  ">
+    <button onclick="setLang('en'); closeMobileMenu();" style="
+      background: none;
+      border: none;
+      font-family: 'Outfit', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #C6A96B;
+      cursor: pointer;
+      padding: 4px 0;
+    ">EN</button>
+    <span style="color:rgba(255,255,255,0.15);font-size:11px">/</span>
+    <button onclick="setLang('fr'); closeMobileMenu();" style="
+      background: none;
+      border: none;
+      font-family: 'Outfit', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      cursor: pointer;
+      padding: 4px 0;
+    ">FR</button>
+  </div>
+
+  <!-- ENQUIRE CTA -->
+  <a href="contact.html" onclick="closeMobileMenu()" style="
+    display: inline-block;
+    font-family: 'Outfit', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #131313;
+    background: #C6A96B;
+    padding: 15px 32px;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.3s;
+  "><span class="lang-en-inline">Enquire →</span><span class="lang-fr-inline">Contact →</span></a>
+
+</div>
+
+<!-- ═══════════════════════════════════════
+   NAV
+═══════════════════════════════════════ -->
+<header id="nav" role="banner">
+  <div class="container">
+    <div class="nav-inner">
+      <!-- Logo -->
+      <a href="index.html" class="nav-logo" aria-label="Sundara Investment Group">
+        <span class="nav-logo-name">SUNDARA</span>
+        <span class="nav-logo-dot" aria-hidden="true"></span>
+        <span class="nav-logo-sub">Investment Group</span>
+      </a>
+
+      <!-- Center links -->
+      <ul class="nav-links" role="list">
+        <li><a href="rentals.html"><span class="lang-en-inline">Portfolio</span><span class="lang-fr-inline">Portfolio</span></a></li>
+        <li><a href="rentals.html"><span class="lang-en-inline">Rentals</span><span class="lang-fr-inline">Locations</span></a></li>
+        <li><a href="index.html#why-bali"><span class="lang-en-inline">Opportunities</span><span class="lang-fr-inline">Opportunités</span></a></li>
+        <li><a href="index.html#process"><span class="lang-en-inline">Process</span><span class="lang-fr-inline">Processus</span></a></li>
+        <li><a href="index.html#positioning"><span class="lang-en-inline">Philosophy</span><span class="lang-fr-inline">Philosophie</span></a></li>
+        <li><a href="blog.html"><span class="lang-en-inline">Insights</span><span class="lang-fr-inline">Insights</span></a></li>
+      </ul>
+
+      <!-- Right side -->
+      <div class="nav-right">
+        <button class="nav-lang" id="langToggle" onclick="toggleLang()" aria-label="Toggle language">
+          <span class="active-lang" id="langEN">EN</span>
+          <span style="opacity:0.3">/</span>
+          <span id="langFR">FR</span>
+        </button>
+        <a href="contact.html" class="nav-cta">
+          <span class="lang-en-inline">Enquire</span>
+          <span class="lang-fr-inline">Contact</span>
+        </a>
+        <button class="nav-hamburger" id="hamburger" onclick="openMobileMenu()" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ─── ARTICLE CONTENT ─── -->
+<div class="art-hero">
+  <img src="https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=1400&q=85" alt="Canggu Bali beach villas surf" loading="eager">
+  <div class="art-hero-overlay"></div>
+  <div class="art-hero-content">
+    <p class="art-tag"><span class="lang-en-inline">Market Report · April 2026</span><span class="lang-fr-inline">Rapport de Marché · Avril 2026</span></p>
+    <h1 class="art-hero-title">
+      <span class="lang-en-inline">Canggu Real Estate Market 2026 — The Numbers Every Investor Must Know</span>
+      <span class="lang-fr-inline">Marché Immobilier de Canggu 2026 — Les Chiffres Clés pour Investir</span>
+    </h1>
+  </div>
+</div>
+
+<div class="art-body">
+
+  <div class="art-meta">
+    <span><span class="lang-en-inline">By Sundara Investment Group</span><span class="lang-fr-inline">Par Sundara Investment Group</span></span>
+    <i></i>
+    <span><span class="lang-en-inline">April 2026</span><span class="lang-fr-inline">Avril 2026</span></span>
+    <i></i>
+    <span><span class="lang-en-inline">8 min read</span><span class="lang-fr-inline">8 min de lecture</span></span>
+  </div>
+
+  <p class="art-intro">
+    <span class="lang-en-inline">Canggu accounts for 33.5% of all property transactions in Bali — more than any other zone on the island. It is no longer a surf village. It is Bali's most active investment corridor, with land prices, occupancy rates and development activity that rival global luxury markets. Here is what the data actually says in 2026.</span>
+    <span class="lang-fr-inline">Canggu concentre 33,5% de toutes les transactions immobilières de Bali — plus que toute autre zone de l'île. Ce n'est plus un village de surf. C'est le corridor d'investissement le plus actif de Bali, avec des prix fonciers, des taux d'occupation et une activité de développement qui rivalisent avec les marchés de luxe mondiaux. Voici ce que les données disent réellement en 2026.</span>
+  </p>
+
+  <div class="art-stats">
+    <div class="art-stat">
+      <div class="art-stat-num">33.5%</div>
+      <div class="art-stat-label"><span class="lang-en-inline">of all Bali property transactions</span><span class="lang-fr-inline">de toutes les transactions immobilières de Bali</span></div>
+    </div>
+    <div class="art-stat">
+      <div class="art-stat-num">84%</div>
+      <div class="art-stat-label"><span class="lang-en-inline">peak occupancy rate — top 10% villas</span><span class="lang-fr-inline">taux d'occupation — top 10% des villas</span></div>
+    </div>
+    <div class="art-stat">
+      <div class="art-stat-num">8–14%</div>
+      <div class="art-stat-label"><span class="lang-en-inline">gross annual rental yield — well-managed villas</span><span class="lang-fr-inline">rendement locatif brut annuel — villas bien gérées</span></div>
+    </div>
+  </div>
+
+  <h2 class="art-h2"><span class="lang-en-inline">Land Prices: Where Canggu Stands in 2026</span><span class="lang-fr-inline">Prix Fonciers : Où en Est Canggu en 2026</span></h2>
+  <p class="art-p">
+    <span class="lang-en-inline">Prime leasehold land in central Canggu — Berawa, Echo Beach, Batu Bolong — now reaches IDR 5 billion per are, equivalent to approximately $345,000 for 100m². That figure represents a +51% increase from Q1 2024 to Q1 2025 alone, one of the steepest appreciation curves recorded in Southeast Asian real estate. As of Q1 2026, price growth has stabilised: median asking prices moved just +1.1% quarter-on-quarter from Q4 2025, signalling a maturing market rather than a collapse.</span>
+    <span class="lang-fr-inline">Les terrains leasehold premium au cœur de Canggu — Berawa, Echo Beach, Batu Bolong — atteignent désormais 5 milliards IDR par are, soit environ 345 000$ pour 100m². Ce chiffre représente une hausse de +51% entre le T1 2024 et le T1 2025, l'une des courbes d'appréciation les plus marquées d'Asie du Sud-Est. Au T1 2026, la croissance s'est stabilisée : les prix affichés n'ont progressé que de +1,1% d'un trimestre à l'autre, signal d'un marché en phase de maturité plutôt qu'en effondrement.</span>
+  </p>
+  <p class="art-p">
+    <span class="lang-en-inline">For comparison, North Bali land — Lovina, Singaraja — trades at IDR 480,000 to 3,000,000 per m², a fraction of Canggu pricing. The gap creates a clear asymmetry for early-mover investors willing to accept a longer time horizon.</span>
+    <span class="lang-fr-inline">À titre de comparaison, les terrains au nord de Bali — Lovina, Singaraja — se négocient entre 480 000 et 3 000 000 IDR par m², une fraction des prix de Canggu. Cet écart crée une asymétrie claire pour les investisseurs early-mover acceptant un horizon plus long.</span>
+  </p>
+
+  <div class="art-quote">
+    <p><span class="lang-en-inline">"The era of buying a generic three-bedroom pool villa in Berawa and reliably achieving double-digit yields without exceptional management is over. Buy scarcity: quiet streets, premium views, walkable access, genuine design quality."</span><span class="lang-fr-inline">« L'ère où l'on achetait une villa générique à Berawa en espérant un rendement à deux chiffres sans gestion exceptionnelle est révolue. Achetez la rareté : rues calmes, vues premium, accès à pied aux commodités, qualité architecturale authentique. »</span></p>
+  </div>
+
+  <h2 class="art-h2"><span class="lang-en-inline">Rental Performance: The Real Numbers</span><span class="lang-fr-inline">Performance Locative : Les Vrais Chiffres</span></h2>
+  <p class="art-p">
+    <span class="lang-en-inline">Canggu has over 4,100 active Airbnb listings as of 2025. The market is competitive. Average occupancy across all listings sits at 41.1% with an Average Daily Rate of $214 — generating approximately $25,791 median annual revenue per listing. These are market averages. The performance gap is what matters for investors.</span>
+    <span class="lang-fr-inline">Canggu compte plus de 4 100 annonces Airbnb actives en 2025. Le marché est compétitif. L'occupation moyenne toutes annonces confondues est de 41,1% avec un ADR de 214$ — soit environ 25 791$ de revenu annuel médian par annonce. Ce sont des moyennes. L'écart de performance est ce qui compte vraiment pour l'investisseur.</span>
+  </p>
+  <p class="art-p">
+    <span class="lang-en-inline">Top 10% properties achieve 84%+ occupancy. Top 25% maintain 69% or higher. The median sits at 43%. Entry-level properties with poor positioning fall to 20%. The takeaway: location within Canggu, management quality, and design differentiation determine whether your villa generates 8% or 14% gross yield — and that difference, compounded over a 25-year lease, is the difference between a strong investment and an exceptional one.</span>
+    <span class="lang-fr-inline">Les 10% meilleurs biens atteignent 84%+ d'occupation. Les 25% meilleurs maintiennent 69% ou plus. La médiane est à 43%. Les biens mal positionnés tombent à 20%. La conclusion : l'emplacement au sein de Canggu, la qualité de gestion et la différenciation architecturale déterminent si votre villa génère 8% ou 14% de rendement brut — et cet écart, capitalisé sur 25 ans, est la différence entre un bon investissement et un investissement exceptionnel.</span>
+  </p>
+
+  <div class="art-stats">
+    <div class="art-stat">
+      <div class="art-stat-num">$214</div>
+      <div class="art-stat-label"><span class="lang-en-inline">average daily rate Canggu 2026</span><span class="lang-fr-inline">tarif journalier moyen Canggu 2026</span></div>
+    </div>
+    <div class="art-stat">
+      <div class="art-stat-num">41%</div>
+      <div class="art-stat-label"><span class="lang-en-inline">average occupancy — all listings</span><span class="lang-fr-inline">occupation moyenne — toutes annonces</span></div>
+    </div>
+    <div class="art-stat">
+      <div class="art-stat-num">$25.8K</div>
+      <div class="art-stat-label"><span class="lang-en-inline">median annual revenue per listing</span><span class="lang-fr-inline">revenu annuel médian par annonce</span></div>
+    </div>
+  </div>
+
+  <h2 class="art-h2"><span class="lang-en-inline">Investment Strategy: What Works in Canggu in 2026</span><span class="lang-fr-inline">Stratégie d'Investissement : Ce Qui Fonctionne à Canggu en 2026</span></h2>
+  <p class="art-p">
+    <span class="lang-en-inline">The generic villa play is saturated. The opportunity lies in differentiation. Architecturally distinctive villas in Berawa, Pererenan and Umalas — within walking distance of amenities, with genuine design quality — consistently outperform the market. Managed resort communities deliver 17–20% ROI versus approximately 8% for standalone villas, driven by occupancy stability and professional revenue management.</span>
+    <span class="lang-fr-inline">Le modèle de la villa générique est saturé. L'opportunité réside dans la différenciation. Les villas architecturalement distinctives à Berawa, Pererenan et Umalas — à pied des commodités, avec une vraie qualité de design — surperforment systématiquement le marché. Les communautés de villas gérées délivrent 17 à 20% de ROI contre environ 8% pour les villas isolées, grâce à la stabilité d'occupation et à la gestion professionnelle des revenus.</span>
+  </p>
+  <p class="art-p">
+    <span class="lang-en-inline">Operational costs average 30% of gross revenue — covering management, maintenance, utilities and taxes. Net yield after costs for a well-positioned Canggu villa runs 8–10% annually. On a $285,000 entry price, that translates to $22,800–$28,500 net per year. Over a 25-year leasehold, with conservative 5% annual appreciation in land value, the total return profile is compelling for long-horizon investors.</span>
+    <span class="lang-fr-inline">Les coûts opérationnels représentent en moyenne 30% du revenu brut — gestion, entretien, charges et taxes inclus. Le rendement net après charges pour une villa bien positionnée à Canggu est de 8 à 10% par an. Sur un prix d'entrée de 285 000$, cela représente 22 800 à 28 500$ nets par an. Sur 25 ans de leasehold, avec une appréciation foncière conservatrice de 5% par an, le profil de rendement total est convaincant pour les investisseurs à horizon long.</span>
+  </p>
+
+  <div class="art-quote">
+    <p><span class="lang-en-inline">"In a market with expanding supply, operators are choosing volume over yield maximisation. The difference between 12% and 9% net yield comes down to management quality — and a 3% gap on $285,000 is $8,550 per year, every year."</span><span class="lang-fr-inline">« Dans un marché à l'offre croissante, les opérateurs privilégient le volume à l'optimisation du rendement. La différence entre 12% et 9% de rendement net se résume à la qualité de gestion — et un écart de 3% sur 285 000$ représente 8 550$ par an, chaque année. »</span></p>
+  </div>
+
+  <h2 class="art-h2"><span class="lang-en-inline">Our Assessment</span><span class="lang-fr-inline">Notre Évaluation</span></h2>
+  <p class="art-p">
+    <span class="lang-en-inline">Canggu in 2026 is not the opportunity it was in 2020. Land prices have corrected upward significantly. Generic villas face genuine occupancy pressure. But the zone remains the most liquid investment market in Bali — if you need to exit, you can. For investors with capital to deploy in differentiated, professionally managed assets, Canggu still delivers. The key is buying scarcity, not supply.</span>
+    <span class="lang-fr-inline">Canggu en 2026 n'est plus l'opportunité qu'elle était en 2020. Les prix fonciers ont fortement corrigé à la hausse. Les villas génériques font face à une vraie pression sur l'occupation. But la zone reste le marché d'investissement le plus liquide de Bali — si vous devez sortir, vous le pouvez. Pour les investisseurs disposant de capitaux à déployer dans des actifs différenciés et professionnellement gérés, Canggu délivre encore. La clé est d'acheter la rareté, pas l'offre.</span>
+  </p>
+
+  <a href="blog.html" class="art-back">
+    <span class="lang-en-inline">← Back to Insights</span>
+    <span class="lang-fr-inline">← Retour aux Insights</span>
+  </a>
+
+</div>
+
+<script src="js/lang.js"></script>
+<script src="js/animations.js"></script>
+<script>
+  (function () {
+    var loading = document.getElementById('vdLoading');
+    setTimeout(function () {
+      loading.classList.add('hidden');
+      setTimeout(function () { loading.style.display = 'none'; }, 500);
+    }, 300);
+  })();
+</script>
+
+</body>
+</html>
