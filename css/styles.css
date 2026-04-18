@@ -1972,77 +1972,79 @@ img { display: block; }
 
 /* Villa card — rv prefix */
 .rv-card {
-  background: #111111;
-  border: 1px solid rgba(198,169,107,0.18);
-  border-radius: 8px; overflow: hidden;
+  background: linear-gradient(145deg, #141410 0%, #1c1c16 60%, #0e0e0b 100%);
+  border: 1px solid rgba(196,164,100,0.18);
+  border-radius: 16px; overflow: hidden;
   cursor: pointer; display: block; text-decoration: none;
-  transition: transform 0.4s cubic-bezier(0.22,1,0.36,1),
-              border-color 0.4s ease, box-shadow 0.4s ease;
+  transition: transform 0.42s cubic-bezier(0.23,1,0.32,1),
+              box-shadow 0.42s cubic-bezier(0.23,1,0.32,1),
+              border-color 0.42s ease;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.55), 0 1px 0 rgba(196,164,100,0.08) inset;
 }
 .rv-card:hover {
-  transform: translateY(-5px);
-  border-color: rgba(198,169,107,0.50);
-  box-shadow: 0 20px 48px rgba(0,0,0,0.15);
+  transform: translateY(-6px) scale(1.012);
+  border-color: rgba(196,164,100,0.52);
+  box-shadow: 0 20px 48px rgba(0,0,0,0.7), 0 0 0 1px rgba(196,164,100,0.22), 0 0 32px rgba(196,164,100,0.08);
 }
 .rv-card-img {
-  position: relative; overflow: hidden;
-  aspect-ratio: 16/10;
+  height: 220px;
+  overflow: hidden;
+  position: relative;
 }
 .rv-card-img img {
   width: 100%; height: 100%;
   object-fit: cover; display: block;
-  transition: transform 0.6s cubic-bezier(0.22,1,0.36,1);
+  transition: transform 0.65s cubic-bezier(0.23,1,0.32,1);
 }
-.rv-card:hover .rv-card-img img { transform: scale(1.05); }
+.rv-card:hover .rv-card-img img { transform: scale(1.07); }
 .rv-card-badge {
   position: absolute; top: 14px; left: 14px; z-index: 2;
   font-family: var(--font-sans);
-  font-size: 9px; font-weight: 500;
-  letter-spacing: 0.16em; text-transform: uppercase;
-  padding: 5px 10px; border-radius: 6px;
+  font-size: 0.65rem; font-weight: 500;
+  letter-spacing: 0.13em; text-transform: uppercase;
+  padding: 5px 10px; border-radius: 50px;
   backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
 }
 .rv-badge-green {
-  background: rgba(198,169,107,0.12);
-  border: 1px solid rgba(198,169,107,0.45);
-  color: var(--gold);
+  background: rgba(34,197,94,0.18);
+  border: 1px solid rgba(34,197,94,0.45);
+  color: #86efac;
 }
 .rv-badge-orange {
-  background: rgba(251,146,60,0.10);
-  border: 1px solid rgba(251,146,60,0.35);
-  color: #fb923c;
+  background: rgba(251,146,60,0.18);
+  border: 1px solid rgba(251,146,60,0.45);
+  color: #fdba74;
 }
 .rv-card-overlay {
   position: absolute; inset: 0; z-index: 1;
-  background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 55%);
-  opacity: 0; transition: opacity 0.4s ease;
-  display: flex; align-items: flex-end; padding: 18px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 30%, rgba(0,0,0,0.68) 100%);
+  opacity: 0; transition: opacity 0.38s ease;
+  display: flex; align-items: flex-end; padding: 18px 20px;
 }
 .rv-card:hover .rv-card-overlay { opacity: 1; }
 .rv-card-overlay-text {
   font-family: var(--font-sans);
-  font-size: 10px; font-weight: 500;
-  letter-spacing: 0.16em; text-transform: uppercase;
-  color: var(--gold);
-  transform: translateY(6px); transition: transform 0.35s ease;
+  font-size: 0.78rem; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: #c4a464;
 }
 .rv-card:hover .rv-card-overlay-text { transform: translateY(0); }
 .rv-card-body { padding: 22px; }
 .rv-card-location {
   font-family: var(--font-sans);
-  font-size: 9px; font-weight: 500;
-  letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--gold); margin-bottom: 8px;
+  font-size: 0.68rem; font-weight: 500;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: #c4a464; margin-bottom: 8px;
 }
 .rv-card-name {
   font-family: var(--font-serif);
-  font-size: 22px; font-weight: 300;
-  color: #F5F5F5; line-height: 1.2; margin-bottom: 10px;
+  font-size: 1.45rem; font-weight: 300;
+  color: #f0ebe0; line-height: 1.2; margin-bottom: 10px;
 }
 .rv-card-specs {
   font-family: var(--font-sans);
-  font-size: 11px; font-weight: 300;
-  color: rgba(245,245,245,0.38);
+  font-size: 0.76rem; font-weight: 300;
+  color: rgba(240,235,224,0.42);
   letter-spacing: 0.04em; margin-bottom: 18px; line-height: 1.5;
 }
 .rv-card-price-label {
@@ -2053,22 +2055,26 @@ img { display: block; }
 }
 .rv-card-price {
   font-family: var(--font-serif);
-  font-size: 26px; font-weight: 300;
-  color: var(--gold); line-height: 1; margin-bottom: 20px;
+  font-size: 1.5rem; font-weight: 400;
+  color: #c4a464; line-height: 1; margin-bottom: 20px;
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 .rv-card-price.updating { opacity: 0; transform: scale(0.95); }
 .rv-card-btn {
   display: block; width: 100%; text-align: center;
-  padding: 13px; background: transparent;
-  color: var(--gold); border: 1px solid rgba(198,169,107,0.40);
+  padding: 11px 18px; background: transparent;
+  color: #f0ebe0; border: 1px solid rgba(240,235,224,0.22);
   border-radius: 8px; font-family: var(--font-sans);
-  font-size: 10px; font-weight: 500;
-  letter-spacing: 0.12em; text-transform: uppercase;
+  font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.13em; text-transform: uppercase;
   text-decoration: none; cursor: pointer;
-  transition: background 0.3s ease, border-color 0.3s ease;
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
-.rv-card-btn:hover { background: rgba(198,169,107,0.08); border-color: var(--gold); }
+.rv-card-btn:hover {
+  background: rgba(196,164,100,0.12);
+  border-color: rgba(196,164,100,0.55);
+  color: #c4a464;
+}
 
 /* ═══════════════════════════════════════════
    RENTALS — DARK CTA
@@ -2366,7 +2372,7 @@ img { display: block; }
   margin-top: 12px; line-height: 1.6;
 }
 
-.vd-related { background: #F5F0E8; padding: 0 clamp(32px,7vw,96px) 80px; }
+.vd-related { background: #f7f4ef; border-radius: 20px; padding: 48px 40px; margin: 40px auto; }
 .vd-related-title {
   font-family: var(--font-serif);
   font-size: clamp(22px,3vw,32px); font-weight: 300;
@@ -2616,9 +2622,10 @@ img { display: block; }
 
 /* --- Related villas --- */
 .vd-related {
-  background: #0B0B0B;
-  padding: 80px 5%;
-  margin-top: 80px;
+  background: #f7f4ef;
+  border-radius: 20px;
+  padding: 48px 40px;
+  margin: 40px auto;
 }
 
 .vd-related-title {
@@ -2645,4 +2652,21 @@ img { display: block; }
 
 #vdInfo > div:last-child {
   margin-bottom: 0;
+}
+
+/* --- Related cards — mobile (max-width: 640px) --- */
+@media (max-width: 640px) {
+  .vd-related {
+    border-radius: 14px;
+    padding: 24px 18px;
+  }
+  .rv-card-img {
+    height: 195px;
+  }
+  .rv-card-name {
+    font-size: 1.25rem;
+  }
+  .rv-card-price {
+    font-size: 1.3rem;
+  }
 }
