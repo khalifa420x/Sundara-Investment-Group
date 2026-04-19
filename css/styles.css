@@ -2761,7 +2761,7 @@ img { display: block; }
 .inv-form-hint{font-family:'Outfit',sans-serif;font-size:13px;font-weight:300;color:rgba(255,255,255,0.48);line-height:1.7;margin:0 0 22px}
 .inv-form-note{font-family:'Outfit',sans-serif;font-size:10px;color:rgba(255,255,255,0.26);text-align:center;letter-spacing:0.06em;margin:0}
 
-.inv-bottom-cta{position:relative;padding:120px 6%;text-align:center;background-image:url('images/bali-coast.jpg');background-size:cover;background-position:center center;background-attachment:scroll}
+.inv-bottom-cta{position:relative;padding:120px 6%;text-align:center;background-image:url('../images/bali-coast.jpg');background-size:cover;background-position:center center;background-attachment:scroll}
 .inv-bottom-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.62)}
 .inv-bottom-inner{position:relative;z-index:2;max-width:640px;margin:0 auto}
 .inv-bottom-line{width:40px;height:1px;background:rgba(198,169,107,0.50);margin:0 auto 36px}
