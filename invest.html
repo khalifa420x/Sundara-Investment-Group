@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Investor Access — Sundara Investment Group</title>
+<meta name="description" content="Sundara Investment Group — Premier private real estate investment in Bali. Curated villas, managed acquisitions, exclusive returns."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="css/styles.css"/>
+<!-- styles loaded from css/styles.css -->
+</head>
+<body>
+
+<!-- ─── CUSTOM CURSOR ─── -->
+<div id="cursor"></div>
+
+<!-- ─── MOBILE MENU ─── -->
+<div id="mobile-menu" style="
+  display: none;
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: #0d0d0d;
+  z-index: 999;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 32px 48px;
+  overflow-y: auto;
+">
+
+  <!-- CLOSE BUTTON — top right, always visible -->
+  <button onclick="closeMobileMenu()" style="position:fixed;top:18px;right:18px;width:38px;height:38px;border-radius:50%;background:rgba(198,169,107,0.15);border:1px solid rgba(198,169,107,0.4);color:#C6A96B;font-size:20px;cursor:pointer;z-index:1001;display:flex;align-items:center;justify-content:center;">×</button>
+
+  <!-- NAV LINKS -->
+  <nav style="
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    gap: 0;
+  ">
+    <a href="rentals.html" onclick="closeMobileMenu()" style="
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 300;
+      color: #F5F5F5;
+      text-decoration: none;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      display: block;
+      transition: color 0.3s, padding-left 0.3s;
+    " onmouseover="this.style.color='#C6A96B';this.style.paddingLeft='8px'"
+       onmouseout="this.style.color='#F5F5F5';this.style.paddingLeft='0'">
+      <span class="lang-en-inline">Portfolio</span><span class="lang-fr-inline">Portfolio</span>
+    </a>
+    <a href="rentals.html" onclick="closeMobileMenu()" style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:#F5F5F5;text-decoration:none;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.07);display:block;">
+      <span class="lang-en-inline">Rentals</span>
+      <span class="lang-fr-inline">Locations</span>
+    </a>
+    <a href="invest.html" onclick="closeMobileMenu()" style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:#C6A96B;text-decoration:none;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.07);display:block;">
+      <span class="lang-en-inline">Invest</span>
+      <span class="lang-fr-inline">Investir</span>
+    </a>
+    <a href="#why-bali" onclick="closeMobileMenu()" style="
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 300;
+      color: #F5F5F5;
+      text-decoration: none;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      display: block;
+    "><span class="lang-en-inline">Opportunities</span><span class="lang-fr-inline">Opportunités</span></a>
+    <a href="#process" onclick="closeMobileMenu()" style="
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 300;
+      color: #F5F5F5;
+      text-decoration: none;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      display: block;
+    "><span class="lang-en-inline">Process</span><span class="lang-fr-inline">Processus</span></a>
+    <a href="#positioning" onclick="closeMobileMenu()" style="
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 300;
+      color: #F5F5F5;
+      text-decoration: none;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      display: block;
+    "><span class="lang-en-inline">Philosophy</span><span class="lang-fr-inline">Philosophie</span></a>
+    <a href="blog.html" onclick="closeMobileMenu()" style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:#F5F5F5;text-decoration:none;padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.07);display:block;">
+      <span class="lang-en-inline">Insights</span>
+      <span class="lang-fr-inline">Insights</span>
+    </a>
+  </nav>
+
+  <!-- LANG TOGGLE -->
+  <div style="
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+  ">
+    <button onclick="setLang('en'); closeMobileMenu();" style="
+      background: none;
+      border: none;
+      font-family: 'Outfit', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #C6A96B;
+      cursor: pointer;
+      padding: 4px 0;
+    ">EN</button>
+    <span style="color:rgba(255,255,255,0.15);font-size:11px">/</span>
+    <button onclick="setLang('fr'); closeMobileMenu();" style="
+      background: none;
+      border: none;
+      font-family: 'Outfit', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      cursor: pointer;
+      padding: 4px 0;
+    ">FR</button>
+  </div>
+
+  <!-- ENQUIRE CTA -->
+  <a href="contact.html" onclick="closeMobileMenu()" style="
+    display: inline-block;
+    font-family: 'Outfit', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #131313;
+    background: #C6A96B;
+    padding: 15px 32px;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.3s;
+  "><span class="lang-en-inline">Enquire →</span><span class="lang-fr-inline">Contact →</span></a>
+
+</div>
+
+<!-- ═══════════════════════════════════════
+   1. NAV
+═══════════════════════════════════════ -->
+<header id="nav" role="banner">
+  <div class="container">
+    <div class="nav-inner">
+      <!-- Logo -->
+      <a href="index.html" class="nav-logo" aria-label="Sundara Investment Group">
+        <span class="nav-logo-name">SUNDARA</span>
+        <span class="nav-logo-dot" aria-hidden="true"></span>
+        <span class="nav-logo-sub">Investment Group</span>
+      </a>
+
+      <!-- Center links -->
+      <ul class="nav-links" role="list">
+        <li><a href="rentals.html"><span class="lang-en-inline">Portfolio</span><span class="lang-fr-inline">Portfolio</span></a></li>
+        <li><a href="rentals.html"><span class="lang-en-inline">Rentals</span><span class="lang-fr-inline">Locations</span></a></li>
+        <li><a href="invest.html"><span class="lang-en-inline">Invest</span><span class="lang-fr-inline">Investir</span></a></li>
+        <li><a href="index.html#why-bali"><span class="lang-en-inline">Opportunities</span><span class="lang-fr-inline">Opportunités</span></a></li>
+        <li><a href="index.html#process"><span class="lang-en-inline">Process</span><span class="lang-fr-inline">Processus</span></a></li>
+        <li><a href="index.html#positioning"><span class="lang-en-inline">Philosophy</span><span class="lang-fr-inline">Philosophie</span></a></li>
+        <li><a href="blog.html"><span class="lang-en-inline">Insights</span><span class="lang-fr-inline">Insights</span></a></li>
+      </ul>
+
+      <!-- Right side -->
+      <div class="nav-right">
+        <button class="nav-lang" id="langToggle" onclick="toggleLang()" aria-label="Toggle language">
+          <span class="active-lang" id="langEN">EN</span>
+          <span style="opacity:0.3">/</span>
+          <span id="langFR">FR</span>
+        </button>
+        <a href="contact.html" class="nav-cta">
+          <span class="lang-en-inline">Enquire</span>
+          <span class="lang-fr-inline">Contact</span>
+        </a>
+        <button class="nav-hamburger" id="hamburger" onclick="openMobileMenu()" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════
+   INVEST HERO
+═══════════════════════════════════════ -->
+<section class="inv-hero">
+  <div class="inv-hero-bg"></div>
+  <div class="inv-hero-overlay"></div>
+  <div class="inv-hero-inner">
+    <p class="inv-eyebrow">
+      <span class="lang-en-inline">Private Investor Access</span>
+      <span class="lang-fr-inline">Accès Investisseur Privé</span>
+    </p>
+    <h1 class="inv-hero-title">
+      <span class="lang-en-inline">Private Real Estate<br><em>Investment in Bali.</em></span>
+      <span class="lang-fr-inline">Investissement Immobilier<br><em>Privé à Bali.</em></span>
+    </h1>
+    <p class="inv-hero-sub">
+      <span class="lang-en-inline">Curated acquisitions. 12–18% potential net yield. Exclusive access for qualified investors.</span>
+      <span class="lang-fr-inline">Acquisitions sélectionnées. Rendement net potentiel 12–18%. Accès exclusif aux investisseurs qualifiés.</span>
+    </p>
+    <div class="inv-hero-ctas">
+      <a href="#inv-form" class="inv-btn-gold">
+        <span class="lang-en-inline">Request Private Access →</span>
+        <span class="lang-fr-inline">Demander un Accès Privé →</span>
+      </a>
+      <a href="#inv-opps" class="inv-btn-ghost">
+        <span class="lang-en-inline">View Opportunities</span>
+        <span class="lang-fr-inline">Voir les opportunités</span>
+      </a>
+    </div>
+    <p class="inv-hero-trust">
+      <span class="lang-en-inline">Response within 48h · 100% Confidential · Limited positions</span>
+      <span class="lang-fr-inline">Réponse sous 48h · 100% Confidentiel · Positions limitées</span>
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════ -->
+<footer id="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-inner">
+      <!-- Brand -->
+      <div class="footer-brand">
+        <a href="index.html" class="footer-logo" aria-label="Sundara Investment Group">
+          <span class="footer-logo-name">SUNDARA</span>
+          <span class="nav-logo-dot" aria-hidden="true" style="margin-bottom:4px;"></span>
+        </a>
+        <p class="footer-tagline">
+          <span class="lang-en-inline">Private real estate investment in Bali. Curated acquisitions. Managed returns. Exclusive access.</span>
+          <span class="lang-fr-inline">Investissement immobilier privé à Bali. Acquisitions curatées. Rendements gérés. Accès exclusif.</span>
+        </p>
+      </div>
+
+      <!-- Navigation -->
+      <div>
+        <p class="footer-heading">
+          <span class="lang-en-inline">Navigation</span>
+          <span class="lang-fr-inline">Navigation</span>
+        </p>
+        <ul class="footer-links" role="list">
+          <li><a href="rentals.html"><span class="lang-en-inline">Portfolio</span><span class="lang-fr-inline">Portfolio</span></a></li>
+          <li><a href="index.html#why-bali"><span class="lang-en-inline">Opportunities</span><span class="lang-fr-inline">Opportunités</span></a></li>
+          <li><a href="index.html#process"><span class="lang-en-inline">Process</span><span class="lang-fr-inline">Processus</span></a></li>
+          <li><a href="index.html#positioning"><span class="lang-en-inline">Philosophy</span><span class="lang-fr-inline">Philosophie</span></a></li>
+          <li><a href="contact.html"><span class="lang-en-inline">Enquire</span><span class="lang-fr-inline">Contact</span></a></li>
+        </ul>
+      </div>
+
+      <!-- Legal -->
+      <div class="footer-legal">
+        <p class="footer-heading">
+          <span class="lang-en-inline">Legal</span>
+          <span class="lang-fr-inline">Mentions Légales</span>
+        </p>
+        <p>
+          <span class="lang-en-inline">Sundara Investment Group is not a licensed financial institution. All investment activities are conducted through appropriate legal structures in Indonesia.</span>
+          <span class="lang-fr-inline">Sundara Investment Group n'est pas un établissement financier agréé. Toutes les activités d'investissement sont menées par des structures juridiques appropriées en Indonésie.</span>
+        </p>
+        <p style="margin-top: 12px;">
+          <span class="lang-en-inline">Past performance is not indicative of future results.</span>
+          <span class="lang-fr-inline">Les performances passées ne garantissent pas les résultats futurs.</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="footer-bottom">
+      <span class="footer-copyright">
+        © 2024 Sundara Investment Group.
+        <span class="lang-en-inline">All rights reserved.</span>
+        <span class="lang-fr-inline">Tous droits réservés.</span>
+      </span>
+      <div class="footer-bottom-links">
+        <a href="#"><span class="lang-en-inline">Privacy Policy</span><span class="lang-fr-inline">Politique de Confidentialité</span></a>
+        <a href="#"><span class="lang-en-inline">Terms of Use</span><span class="lang-fr-inline">Conditions d'utilisation</span></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/lang.js"></script>
+<script src="js/animations.js"></script>
+
+</body>
+</html>
