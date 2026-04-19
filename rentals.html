@@ -8,32 +8,246 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .villa-card {
+      background:
+        radial-gradient(circle at top left, rgba(198,169,107,0.08), transparent 34%),
+        linear-gradient(180deg, #171717 0%, #141414 100%);
+      border: 1px solid rgba(198,169,107,0.12);
+      border-radius: 20px;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.03),
+        0 18px 42px rgba(0,0,0,0.24);
+      transition:
+        transform 0.35s cubic-bezier(0.22,1,0.36,1),
+        border-color 0.35s ease,
+        box-shadow 0.35s ease;
+      overflow: hidden;
+    }
+    .villa-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(198,169,107,0.22);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.04),
+        0 24px 52px rgba(0,0,0,0.3);
+    }
+    .villa-card .rv-card-img {
+      aspect-ratio: 16 / 10;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .villa-card .rv-card-img img {
+      filter: saturate(0.82) contrast(1.02) brightness(0.84);
+    }
+    .villa-card .rv-card-badge {
+      top: 18px;
+      left: 18px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .villa-card .rv-badge-green,
+    .villa-card .rv-badge-orange {
+      background: rgba(198,169,107,0.14);
+      color: #c6a96b;
+      border: 1px solid rgba(198,169,107,0.28);
+    }
+    .villa-card .rv-card-overlay {
+      background: linear-gradient(to top, rgba(12,12,12,0.82) 0%, rgba(12,12,12,0.18) 55%, transparent 100%);
+      padding: 20px;
+    }
+    .villa-card .rv-card-overlay-text {
+      color: rgba(255,255,255,0.82);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+    }
+    .villa-card .rv-card-body {
+      padding: 24px;
+      display: grid;
+      gap: 12px;
+    }
+    .villa-card .rv-card-header {
+      display: grid;
+      gap: 8px;
+    }
+    .villa-card .rv-card-name {
+      margin: 0;
+      font-size: 31px;
+      line-height: 1.02;
+      color: #f2f2f2;
+      letter-spacing: -0.02em;
+    }
+    .villa-card .rv-card-location {
+      margin: 0;
+      color: rgba(255,255,255,0.62);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+    }
+    .villa-card .rv-card-specs {
+      margin: 2px 0 0;
+      color: rgba(255,255,255,0.7);
+      font-size: 12px;
+      line-height: 1.7;
+    }
+    .villa-card .rv-card-metrics {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 4px;
+    }
+    .villa-card .rv-metric {
+      padding: 14px 14px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.02);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+    }
+    .villa-card .rv-metric-label,
+    .villa-card .rv-card-price-label {
+      margin: 0 0 7px;
+      color: rgba(255,255,255,0.48);
+      font-family: 'Outfit', sans-serif;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .villa-card .rv-card-price,
+    .villa-card .rv-card-badge-copy {
+      margin: 0;
+      color: #c6a96b;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      line-height: 1.35;
+    }
+    .villa-card .rv-card-price {
+      font-size: 13px;
+    }
+    .villa-card .rv-card-badge-copy {
+      font-size: 11px;
+    }
+    .villa-card .rv-card-actions {
+      display: grid;
+      grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+      gap: 12px;
+      margin-top: 4px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .villa-card .rv-card-btn,
+    .villa-card .rv-card-btn-secondary {
+      min-height: 52px;
+      border-radius: 15px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        background-color 0.3s ease,
+        border-color 0.3s ease,
+        color 0.3s ease;
+    }
+    .villa-card .rv-card-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 16px 26px;
+      background: #c6a96b;
+      color: #111111;
+      border: 1px solid rgba(171,144,86,0.26);
+      box-shadow: 0 12px 24px rgba(198,169,107,0.22);
+    }
+    .villa-card .rv-card-btn:hover {
+      background: #b99c5f;
+      transform: translateY(-2px);
+      box-shadow: 0 16px 28px rgba(198,169,107,0.28);
+      border-color: rgba(171,144,86,0.34);
+    }
+    .villa-card .rv-card-btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 14px 20px;
+      background: transparent;
+      color: rgba(255,255,255,0.78);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .villa-card .rv-card-btn-secondary:hover {
+      background: rgba(255,255,255,0.03);
+      color: #f2f2f2;
+      border-color: rgba(255,255,255,0.28);
+      transform: translateY(-2px);
+    }
+    @media (max-width: 960px) {
+      .villa-card .rv-card-body {
+        padding: 22px 20px 20px;
+      }
+      .villa-card .rv-card-metrics,
+      .villa-card .rv-card-actions {
+        grid-template-columns: 1fr;
+      }
+      .villa-card .rv-card-btn,
+      .villa-card .rv-card-btn-secondary {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
 
 <div id="cursor"></div>
 
-<!-- ─── NAV ─── -->
-<header class="r-nav">
-  <a href="index.html" class="r-nav-logo">SUNDARA <span>·</span> Investment Group</a>
-  <div class="r-nav-right">
-    <div class="cur-switch">
-      <button class="cur-btn" data-cur="USD" onclick="setCurrency('USD')">USD</button>
-      <span class="cur-sep">/</span>
-      <button class="cur-btn" data-cur="EUR" onclick="setCurrency('EUR')">EUR</button>
-      <span class="cur-sep">/</span>
-      <button class="cur-btn" data-cur="GBP" onclick="setCurrency('GBP')">GBP</button>
-      <span class="cur-sep">/</span>
-      <button class="cur-btn" data-cur="IDR" onclick="setCurrency('IDR')">IDR</button>
+<!-- Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ NAV Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ -->
+<header id="nav" role="banner">
+  <div class="container">
+    <div class="nav-inner">
+      <!-- Logo -->
+      <a href="index.html" class="nav-logo" aria-label="Sundara Investment Group">
+        <span class="nav-logo-name">SUNDARA</span>
+        <span class="nav-logo-dot" aria-hidden="true"></span>
+        <span class="nav-logo-sub">Investment Group</span>
+      </a>
+
+      <!-- Center links -->
+      <ul class="nav-links" role="list">
+        <li><a href="rentals.html"><span class="lang-en-inline">Rentals</span><span class="lang-fr-inline">Locations</span></a></li>
+        <li><a href="invest.html"><span class="lang-en-inline">Invest</span><span class="lang-fr-inline">Investir</span></a></li>
+        <li><a href="index.html#positioning"><span class="lang-en-inline">Philosophy</span><span class="lang-fr-inline">Philosophie</span></a></li>
+        <li><a href="blog.html"><span class="lang-en-inline">Insights</span><span class="lang-fr-inline">Insights</span></a></li>
+      </ul>
+
+      <!-- Right side -->
+      <div class="nav-right">
+        <button class="nav-lang" id="langToggle" onclick="toggleLang()" aria-label="Toggle language">
+          <span class="active-lang" id="langEN">EN</span>
+          <span style="opacity:0.3">/</span>
+          <span id="langFR">FR</span>
+        </button>
+        <a href="contact.html" class="nav-cta">
+          <span class="lang-en-inline">Enquire</span>
+          <span class="lang-fr-inline">Contact</span>
+        </a>
+        <button class="nav-hamburger" id="hamburger" onclick="openMobileMenu()" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
-    <a href="index.html" class="r-nav-back">
-      <span class="lang-en-inline">← Home</span>
-      <span class="lang-fr-inline">← Accueil</span>
-    </a>
   </div>
 </header>
 
-<!-- ─── HERO ─── -->
+<!-- Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ HERO Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ -->
 <section class="rent-hero">
   <div class="rent-hero-bg"></div>
   <div class="rent-hero-overlay"></div>
@@ -62,7 +276,7 @@
   </div>
 </section>
 
-<!-- ─── FILTER BAR ─── -->
+<!-- Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ FILTER BAR Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ -->
 <div class="rent-filter-bar">
   <div class="rent-filter-tabs">
     <button class="rent-filter-tab active" onclick="filterVillas('all', this)">
@@ -81,12 +295,12 @@
   <span class="rent-filter-count" id="rentCount">3 villas</span>
 </div>
 
-<!-- ─── VILLA GRID ─── -->
+<!-- Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ VILLA GRID Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ -->
 <section class="rent-grid-section">
   <div class="rent-grid" id="rentGrid"></div>
 </section>
 
-<!-- ─── DARK CTA ─── -->
+<!-- Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ DARK CTA Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ -->
 <section class="rent-dark-cta">
   <div class="rent-dark-cta-inner">
     <div class="rent-dark-cta-line"></div>
@@ -135,7 +349,7 @@
 <script src="js/lang.js"></script>
 <script src="js/animations.js"></script>
 <script>
-/* ─── VILLA DATA ──────────────────────────────────────── */
+/* Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ VILLA DATA Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
 const VILLAS = [
   {
     id: "villa-sundara-serenity",
@@ -187,7 +401,7 @@ const VILLAS = [
   }
 ];
 
-/* ─── CURRENCY ────────────────────────────────────────── */
+/* Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ CURRENCY Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
 const CUR_RATES = { USD: 1, EUR: 0.92, GBP: 0.79, IDR: 15800 };
 const CUR_SYMS  = { USD: '$', EUR: '€', GBP: '£', IDR: 'IDR\u00a0' };
 let activeCur = localStorage.getItem('sundara-currency') || 'USD';
@@ -217,14 +431,14 @@ function syncCurBtns() {
   });
 }
 
-/* ─── REVEAL OBSERVER ─────────────────────────────────── */
+/* Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ REVEAL OBSERVER Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
 const rvIO = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) { e.target.classList.add('visible'); rvIO.unobserve(e.target); }
   });
 }, { threshold: 0.06, rootMargin: '0px 0px -40px 0px' });
 
-/* ─── FILTER ──────────────────────────────────────────── */
+/* Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ FILTER Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
 function filterVillas(type, btn) {
   document.querySelectorAll('.rent-filter-tab').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
@@ -237,7 +451,7 @@ function filterVillas(type, btn) {
   document.getElementById('rentCount').textContent = n + (n === 1 ? ' villa' : ' villas');
 }
 
-/* ─── RENDER ──────────────────────────────────────────── */
+/* Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ RENDER Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
 function renderCards() {
   const lang = localStorage.getItem('sundara-lang') || 'en';
   const fr = lang === 'fr';
@@ -245,18 +459,20 @@ function renderCards() {
   grid.innerHTML = '';
 
   VILLAS.forEach(v => {
-    const name    = fr ? v.name_fr : v.name_en;
-    const badge   = fr ? v.badge_fr : v.badge_en;
-    const suffix  = fr ? '\u00a0/ nuit' : '\u00a0/ night';
-    const fromLbl = fr ? 'À partir de' : 'From';
-    const ctaLbl  = fr ? 'Vérifier disponibilités\u00a0→' : 'Check Availability\u00a0→';
-    const viewLbl = fr ? 'Voir les détails\u00a0→' : 'View Details\u00a0→';
-    const specs   = fr
-      ? `${v.bedrooms}\u00a0chambres\u00a0· Piscine privée\u00a0· ${v.sqm}\u00a0m²`
-      : `${v.bedrooms}\u00a0bedrooms\u00a0· Private pool\u00a0· ${v.sqm}\u00a0sqm`;
+    const name = fr ? v.name_fr : v.name_en;
+    const badge = fr ? v.badge_fr : v.badge_en;
+    const suffix = fr ? '\u00a0/ nuit' : '\u00a0/ night';
+    const fromLbl = fr ? '\u00c0 partir de' : 'From';
+    const ctaLbl = fr ? 'V\u00e9rifier disponibilit\u00e9s\u00a0\u2192' : 'Check Availability\u00a0\u2192';
+    const viewLbl = fr ? 'Voir les d\u00e9tails\u00a0\u2192' : 'View Details\u00a0\u2192';
+    const statusLbl = fr ? 'Statut' : 'Status';
+    const rateLbl = fr ? 'Tarif' : 'Rate';
+    const specs = fr
+      ? `${v.bedrooms}\u00a0chambres\u00a0\u00b7 Piscine priv\u00e9e\u00a0\u00b7 ${v.sqm}\u00a0m\u00b2`
+      : `${v.bedrooms}\u00a0bedrooms\u00a0\u00b7 Private pool\u00a0\u00b7 ${v.sqm}\u00a0sqm`;
 
     const card = document.createElement('div');
-    card.className = 'rv-card reveal';
+    card.className = 'villa-card reveal';
     card.dataset.type = v.type;
     card.addEventListener('click', () => { window.location = 'villa.html?id=' + v.id; });
 
@@ -267,14 +483,27 @@ function renderCards() {
         '<div class="rv-card-overlay"><span class="rv-card-overlay-text">' + viewLbl + '</span></div>' +
       '</div>' +
       '<div class="rv-card-body">' +
-        '<p class="rv-card-location">' + v.location + '</p>' +
-        '<h3 class="rv-card-name">' + name + '</h3>' +
+        '<div class="rv-card-header">' +
+          '<h3 class="rv-card-name">' + name + '</h3>' +
+          '<p class="rv-card-location">' + v.location + '</p>' +
+        '</div>' +
         '<p class="rv-card-specs">' + specs + '</p>' +
-        '<p class="rv-card-price-label">' + fromLbl + '</p>' +
-        '<p class="rv-card-price" data-price-usd="' + v.price_usd + '" data-suffix="' + suffix + '">' +
-          fmtPrice(v.price_usd, activeCur) + suffix +
-        '</p>' +
-        '<a href="villa.html?id=' + v.id + '" class="rv-card-btn" onclick="event.stopPropagation()">' + ctaLbl + '</a>' +
+        '<div class="rv-card-metrics">' +
+          '<div class="rv-metric">' +
+            '<p class="rv-card-price-label">' + rateLbl + '</p>' +
+            '<p class="rv-card-price" data-price-usd="' + v.price_usd + '" data-suffix="' + suffix + '">' +
+              fromLbl + ' ' + fmtPrice(v.price_usd, activeCur) + suffix +
+            '</p>' +
+          '</div>' +
+          '<div class="rv-metric">' +
+            '<p class="rv-metric-label">' + statusLbl + '</p>' +
+            '<p class="rv-card-badge-copy">' + badge + '</p>' +
+          '</div>' +
+        '</div>' +
+        '<div class="rv-card-actions">' +
+          '<a href="contact.html?type=rental" class="rv-card-btn" onclick="event.stopPropagation()">' + ctaLbl + '</a>' +
+          '<a href="villa.html?id=' + v.id + '" class="rv-card-btn-secondary" onclick="event.stopPropagation()">' + viewLbl + '</a>' +
+        '</div>' +
       '</div>';
 
     grid.appendChild(card);
@@ -284,8 +513,7 @@ function renderCards() {
   document.getElementById('rentCount').textContent = VILLAS.length + ' villas';
   syncCurBtns();
 }
-
-/* ─── CURSOR (supplement animations.js for dynamic cards) */
+/* Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ CURSOR (supplement animations.js for dynamic cards) */
 const cur = document.getElementById('cursor');
 function bindCursorCard(el) {
   if (!cur) return;
@@ -293,7 +521,7 @@ function bindCursorCard(el) {
   el.addEventListener('mouseleave', () => cur.classList.remove('expand'));
 }
 
-/* ─── INIT ────────────────────────────────────────────── */
+/* Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ INIT Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
 renderCards();
 document.querySelectorAll('.rv-card').forEach(bindCursorCard);
 </script>

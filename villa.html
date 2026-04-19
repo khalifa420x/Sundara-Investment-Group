@@ -19,22 +19,40 @@
 </div>
 
 <!-- ─── NAV ─── -->
-<header class="r-nav">
-  <a href="index.html" class="r-nav-logo">SUNDARA <span>·</span> Investment Group</a>
-  <div class="r-nav-right">
-    <div class="cur-switch">
-      <button class="cur-btn" data-cur="USD" onclick="setCurrency('USD')">USD</button>
-      <span class="cur-sep">/</span>
-      <button class="cur-btn" data-cur="EUR" onclick="setCurrency('EUR')">EUR</button>
-      <span class="cur-sep">/</span>
-      <button class="cur-btn" data-cur="GBP" onclick="setCurrency('GBP')">GBP</button>
-      <span class="cur-sep">/</span>
-      <button class="cur-btn" data-cur="IDR" onclick="setCurrency('IDR')">IDR</button>
+<header id="nav" role="banner">
+  <div class="container">
+    <div class="nav-inner">
+      <!-- Logo -->
+      <a href="index.html" class="nav-logo" aria-label="Sundara Investment Group">
+        <span class="nav-logo-name">SUNDARA</span>
+        <span class="nav-logo-dot" aria-hidden="true"></span>
+        <span class="nav-logo-sub">Investment Group</span>
+      </a>
+
+      <!-- Center links -->
+      <ul class="nav-links" role="list">
+        <li><a href="rentals.html"><span class="lang-en-inline">Rentals</span><span class="lang-fr-inline">Locations</span></a></li>
+        <li><a href="invest.html"><span class="lang-en-inline">Invest</span><span class="lang-fr-inline">Investir</span></a></li>
+        <li><a href="index.html#positioning"><span class="lang-en-inline">Philosophy</span><span class="lang-fr-inline">Philosophie</span></a></li>
+        <li><a href="blog.html"><span class="lang-en-inline">Insights</span><span class="lang-fr-inline">Insights</span></a></li>
+      </ul>
+
+      <!-- Right side -->
+      <div class="nav-right">
+        <button class="nav-lang" id="langToggle" onclick="toggleLang()" aria-label="Toggle language">
+          <span class="active-lang" id="langEN">EN</span>
+          <span style="opacity:0.3">/</span>
+          <span id="langFR">FR</span>
+        </button>
+        <a href="contact.html" class="nav-cta">
+          <span class="lang-en-inline">Enquire</span>
+          <span class="lang-fr-inline">Contact</span>
+        </a>
+        <button class="nav-hamburger" id="hamburger" onclick="openMobileMenu()" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
-    <a href="rentals.html" class="r-nav-back">
-      <span class="lang-en-inline">← Rentals</span>
-      <span class="lang-fr-inline">← Locations</span>
-    </a>
   </div>
 </header>
 
