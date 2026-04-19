@@ -2732,3 +2732,34 @@ img { display: block; }
 .inv-kpi-lbl{display:block;font-family:'Outfit',sans-serif;font-size:9px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.32)}
 .inv-opp-cta{display:block;width:100%;padding:12px;background:transparent;border:1px solid rgba(198,169,107,0.28);color:#C6A96B;font-family:'Outfit',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;text-align:center;text-decoration:none;border-radius:5px;transition:all 0.3s}
 .inv-opp-cta:hover{background:rgba(198,169,107,0.08);border-color:#C6A96B;transform:translateY(-1px)}
+
+/* ─── INVEST PROCESS / FORM / BOTTOM CTA ─── */
+.inv-process{background:#F5F0E8;padding:88px 6%}
+.inv-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:rgba(198,169,107,0.12);border-radius:10px;overflow:hidden}
+@media(max-width:768px){.inv-steps{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.inv-steps{grid-template-columns:1fr}}
+.inv-step{background:#fff;padding:36px 28px;transition:background 0.3s}
+.inv-step:hover{background:#faf7f2}
+.inv-step-n{font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:300;color:rgba(198,169,107,0.32);line-height:1;margin-bottom:18px}
+.inv-step-t{font-family:'Outfit',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#1A1A1A;margin:0 0 12px}
+.inv-step-d{font-family:'Outfit',sans-serif;font-size:13px;font-weight:300;color:#6B6560;line-height:1.75;margin:0}
+
+.inv-form-sec{background:#0B0B0B;padding:88px 6%;border-top:1px solid rgba(198,169,107,0.10)}
+.inv-form-inner{display:grid;grid-template-columns:1fr 460px;gap:72px;align-items:center}
+@media(max-width:960px){.inv-form-inner{grid-template-columns:1fr;gap:44px}}
+.inv-form-title{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4vw,48px);font-weight:300;color:#fff;margin:14px 0 18px;line-height:1.1}
+.inv-form-title em{font-style:italic;color:#C6A96B}
+.inv-form-desc{font-family:'Outfit',sans-serif;font-size:14px;font-weight:300;color:rgba(255,255,255,0.42);line-height:1.8;margin:0 0 32px;max-width:400px}
+.inv-form-stats{display:flex;gap:36px}
+.inv-stat-n{display:block;font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:300;color:#C6A96B;line-height:1}
+.inv-stat-l{display:block;font-family:'Outfit',sans-serif;font-size:10px;font-weight:400;letter-spacing:0.10em;text-transform:uppercase;color:rgba(255,255,255,0.32);margin-top:4px}
+.inv-form-right{background:#141414;border:1px solid rgba(198,169,107,0.15);border-radius:10px;padding:36px 32px}
+.inv-form-hint{font-family:'Outfit',sans-serif;font-size:13px;font-weight:300;color:rgba(255,255,255,0.48);line-height:1.7;margin:0 0 22px}
+.inv-form-note{font-family:'Outfit',sans-serif;font-size:10px;color:rgba(255,255,255,0.26);text-align:center;letter-spacing:0.06em;margin:0}
+
+.inv-bottom-cta{position:relative;padding:120px 6%;text-align:center;background-image:url('images/bali-coast.jpg');background-size:cover;background-position:center 40%;background-attachment:fixed}
+.inv-bottom-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.62)}
+.inv-bottom-inner{position:relative;z-index:2;max-width:640px;margin:0 auto}
+.inv-bottom-line{width:40px;height:1px;background:rgba(198,169,107,0.50);margin:0 auto 36px}
+.inv-bottom-title{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,5vw,58px);font-weight:300;color:#fff;margin:16px 0 18px;line-height:1.05}
+.inv-bottom-desc{font-family:'Outfit',sans-serif;font-size:14px;font-weight:300;color:rgba(255,255,255,0.52);line-height:1.7;margin:0 0 36px}
