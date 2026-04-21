@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ROI Simulator — Sundara Investment Group</title>
+<meta name="description" content="Simulate your Bali villa investment ROI. Real 2025–2026 market data: rental income, charges, land appreciation and 5-year wealth projection by zone."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Outfit:wght@300;400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="css/styles.css"/>
+<style>
+/* ── PAGE DARK OVERRIDE ── */
+body {
+  background: #0D1210 !important;
+  color: #EDE5D5 !important;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 70% 50% at 15% 0, rgba(201,169,110,.05) 0, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 85% 100%, rgba(41,129,143,.05) 0, transparent 50%),
+    radial-gradient(ellipse 40% 30% at 50% 50%, rgba(201,169,110,.02) 0, transparent 60%);
+}
+
+/* ── TOKENS ── */
+:root {
+  --sim-gold: #C9A96E;
+  --sim-gold-d: #7A5520;
+  --sim-gold-l: #F0DFB4;
+  --sim-gold-pale: rgba(201,169,110,.08);
+  --sim-gold-pale2: rgba(201,169,110,.14);
+  --sim-teal: #29818F;
+  --sim-teal-pale: rgba(41,129,143,.09);
+  --sim-green: #3DAA6E;
+  --sim-red: #C04040;
+  --sim-amber: #D4880A;
+  --sim-bg: #07100E;
+  --sim-bg2: #0C1512;
+  --sim-bg3: #101A17;
+  --sim-bg4: #16201D;
+  --sim-bg5: #1C2822;
+  --sim-text: #EDE5D5;
+  --sim-text2: rgba(237,229,213,.65);
+  --sim-text3: rgba(237,229,213,.32);
+  --sim-border: rgba(201,169,110,.11);
+  --sim-border2: rgba(201,169,110,.22);
+  --sim-border3: rgba(201,169,110,.38);
+  --sim-radius: 14px;
+  --sim-radius-sm: 8px;
+  --sim-radius-lg: 20px;
+  --sim-shadow: 0 2px 8px rgba(0,0,0,.3), 0 0 0 1px rgba(201,169,110,.08);
+  --sim-shadow-gold: 0 0 0 1px rgba(201,169,110,.2), 0 8px 32px rgba(0,0,0,.4);
+}
+
+/* ── HERO ── */
+.sim-hero {
+  position: relative;
+  z-index: 1;
+  padding: 100px 40px 52px;
+  text-align: center;
+  border-bottom: 1px solid var(--sim-border);
+  overflow: hidden;
+}
+.sim-hero-orb {
+  position: absolute;
+  width: 600px; height: 600px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,169,110,.07) 0, transparent 70%);
+  top: -140px; left: 50%; transform: translateX(-50%);
+  pointer-events: none;
+}
+.sim-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 9px; letter-spacing: .28em; text-transform: uppercase;
+  color: var(--sim-teal);
+  border: 1px solid rgba(41,129,143,.25); padding: 5px 14px; border-radius: 20px;
+  background: rgba(41,129,143,.06); margin-bottom: 20px;
+}
+.sim-hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(42px, 6vw, 68px); font-weight: 300; line-height: 1.04;
+  color: var(--sim-text); margin-bottom: 14px;
+}
+.sim-hero-title em { font-style: italic; color: var(--sim-gold); }
+.sim-hero-desc {
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px; font-weight: 300; color: var(--sim-text2);
+  max-width: 560px; margin: 0 auto 28px; line-height: 1.75;
+}
+.sim-hero-stats {
+  display: inline-flex;
+  border: 1px solid var(--sim-border2); border-radius: var(--sim-radius);
+  background: var(--sim-bg2); overflow: hidden;
+}
+.sim-hstat {
+  padding: 12px 24px; text-align: center;
+  border-right: 1px solid var(--sim-border);
+}
+.sim-hstat:last-child { border-right: none; }
+.sim-hstat-val {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; color: var(--sim-gold);
+}
+.sim-hstat-lbl {
+  font-family: 'Outfit', sans-serif;
+  font-size: 8px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--sim-text3); margin-top: 2px;
+}
+
+/* ── MAIN LAYOUT ── */
+.sim-main {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: 390px 1fr;
+  min-height: calc(100vh - 180px);
+}
+@media(max-width: 960px) { .sim-main { grid-template-columns: 1fr; } }
+
+/* ── SIDEBAR ── */
+.sim-sidebar {
+  background: var(--sim-bg2);
+  border-right: 1px solid var(--sim-border);
+  box-shadow: 4px 0 24px rgba(0,0,0,.2);
+  overflow-y: auto; padding: 24px 20px 56px;
+  position: sticky; top: 80px; height: calc(100vh - 80px);
+  scrollbar-width: thin; scrollbar-color: rgba(201,169,110,.15) transparent;
+}
+@media(max-width: 960px) { .sim-sidebar { position: static; height: auto; } }
+.sim-sidebar::-webkit-scrollbar { width: 3px; }
+.sim-sidebar::-webkit-scrollbar-thumb { background: rgba(201,169,110,.15); border-radius: 2px; }
+
+.s-sec { margin-bottom: 22px; }
+.s-head {
+  display: flex; align-items: center; gap: 8px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 8px; letter-spacing: .26em; text-transform: uppercase;
+  color: var(--sim-gold); margin-bottom: 12px;
+  padding-bottom: 8px; border-bottom: 1px solid var(--sim-border);
+}
+.s-head-dot { width: 4px; height: 4px; background: var(--sim-gold); border-radius: 50%; }
+
+/* Currency selector */
+.curr-row {
+  display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 8px;
+}
+.cpill {
+  font-family: 'Outfit', sans-serif;
+  font-size: 9px; font-weight: 500; letter-spacing: .08em;
+  padding: 5px 11px; border: 1px solid var(--sim-border);
+  color: var(--sim-text3); cursor: pointer;
+  transition: all 250ms cubic-bezier(.4,0,.2,1);
+  border-radius: 20px; user-select: none;
+}
+.cpill:hover { border-color: var(--sim-border2); color: var(--sim-text2); transform: translateY(-1px); }
+.cpill.on { border-color: var(--sim-gold); color: var(--sim-gold); background: rgba(201,169,110,.08); }
+.curr-rate {
+  font-family: 'Outfit', sans-serif;
+  font-size: 8px; color: var(--sim-text3); letter-spacing: .06em;
+  margin-top: 5px; transition: opacity 250ms ease;
+}
+.curr-rate span { color: var(--sim-teal); }
+
+/* Zone cards */
+.zone-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.zc {
+  padding: 11px 10px; border: 1px solid var(--sim-border);
+  background: var(--sim-bg3); cursor: pointer;
+  border-radius: var(--sim-radius-sm);
+  transition: all 250ms cubic-bezier(.4,0,.2,1);
+  position: relative; overflow: hidden;
+  box-shadow: var(--sim-shadow);
+}
+.zc::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(201,169,110,.08), transparent);
+  opacity: 0; transition: opacity 250ms;
+}
+.zc:hover { border-color: var(--sim-border2); transform: translateY(-2px); box-shadow: var(--sim-shadow-gold); }
+.zc:hover::before { opacity: 1; }
+.zc.on {
+  border-color: var(--sim-gold);
+  background: linear-gradient(135deg, rgba(201,169,110,.1), rgba(201,169,110,.04));
+  box-shadow: 0 0 0 1px rgba(201,169,110,.4), 0 8px 24px rgba(201,169,110,.08);
+}
+.zc.on::before { opacity: 1; }
+.zc-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+.zc-name { font-family: 'Outfit', sans-serif; font-size: 10px; font-weight: 500; color: var(--sim-text); }
+.zc-emoji { font-size: 14px; }
+.zc-roi { font-family: 'Cormorant Garamond', serif; font-size: 17px; color: var(--sim-gold); }
+.zc-tag { font-family: 'Outfit', sans-serif; font-size: 7px; letter-spacing: .1em; text-transform: uppercase; color: var(--sim-text3); }
+
+/* Type toggle */
+.type-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.type-card {
+  padding: 10px 8px; border: 1px solid var(--sim-border);
+  background: var(--sim-bg3); border-radius: var(--sim-radius-sm);
+  cursor: pointer; text-align: center;
+  transition: all 250ms cubic-bezier(.4,0,.2,1);
+  box-shadow: var(--sim-shadow);
+}
+.type-card:hover { border-color: var(--sim-border2); transform: translateY(-1px); }
+.type-card.on { border-color: var(--sim-teal); background: rgba(41,129,143,.08); }
+.type-card .ti { font-size: 18px; margin-bottom: 4px; }
+.type-card .tl { font-family: 'Outfit', sans-serif; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--sim-text2); }
+.type-card.on .tl { color: var(--sim-teal); }
+
+/* Sliders */
+.sg { margin-bottom: 13px; }
+.sg-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+.sg-lbl { font-family: 'Outfit', sans-serif; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--sim-text2); }
+.sg-val { font-family: 'Cormorant Garamond', serif; font-size: 19px; color: var(--sim-gold); line-height: 1; }
+.sg-unit { font-family: 'Outfit', sans-serif; font-size: 8px; color: var(--sim-text3); margin-left: 2px; }
+input[type=range] {
+  width: 100%; -webkit-appearance: none; height: 2px;
+  background: linear-gradient(to right, var(--sim-gold) var(--pct, 50%), rgba(201,169,110,.12) var(--pct, 50%));
+  border-radius: 1px; outline: none; cursor: pointer;
+  transition: background .1s;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 16px; height: 16px;
+  background: var(--sim-bg); border: 2px solid var(--sim-gold);
+  border-radius: 50%; cursor: pointer;
+  box-shadow: 0 0 0 3px rgba(201,169,110,.15);
+  transition: box-shadow 200ms ease, transform 200ms ease;
+}
+input[type=range]:hover::-webkit-slider-thumb {
+  box-shadow: 0 0 0 4px rgba(201,169,110,.15);
+  transform: scale(1.12);
+}
+input[type=range]:focus::-webkit-slider-thumb {
+  box-shadow: 0 0 0 4px rgba(201,169,110,.15);
+}
+.sg-mm { display: flex; justify-content: space-between; font-family: 'Outfit', sans-serif; font-size: 7px; color: var(--sim-text3); margin-top: 3px; }
+
+/* Option pills */
+.opt-pills { display: flex; gap: 5px; flex-wrap: wrap; }
+.opill {
+  font-family: 'Outfit', sans-serif;
+  font-size: 8px; letter-spacing: .1em; text-transform: uppercase;
+  padding: 4px 10px; border: 1px solid var(--sim-border); color: var(--sim-text3);
+  cursor: pointer; transition: all 250ms cubic-bezier(.4,0,.2,1);
+  border-radius: 20px; user-select: none;
+}
+.opill:hover { border-color: var(--sim-border2); color: var(--sim-text2); transform: translateY(-1px); }
+.opill.on { border-color: var(--sim-gold); color: var(--sim-gold); background: rgba(201,169,110,.07); }
+
+/* Appre pills */
+.appre-pills { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 8px; }
+.apill {
+  font-family: 'Outfit', sans-serif;
+  font-size: 8px; letter-spacing: .08em;
+  padding: 4px 10px; border: 1px solid var(--sim-border); color: var(--sim-text3);
+  cursor: pointer; transition: all 250ms cubic-bezier(.4,0,.2,1);
+  border-radius: 20px; user-select: none;
+}
+.apill:hover { border-color: var(--sim-border2); transform: translateY(-1px); }
+.apill.on { border-color: var(--sim-teal); color: var(--sim-teal); background: rgba(41,129,143,.07); }
+
+.sdiv { height: 1px; background: var(--sim-border); margin: 16px 0; }
+
+/* ── RESULTS ── */
+.sim-results { padding: 28px 28px 64px; overflow-y: visible; }
+
+/* ROI HERO */
+.roi-hero {
+  background: linear-gradient(135deg, var(--sim-bg3) 0, var(--sim-bg2) 100%);
+  border: 1px solid var(--sim-border2); border-radius: var(--sim-radius-lg);
+  padding: 28px; margin-bottom: 14px;
+  position: relative; overflow: hidden;
+  box-shadow: var(--sim-shadow);
+  transition: box-shadow 300ms cubic-bezier(.4,0,.2,1);
+}
+.roi-hero:hover { box-shadow: var(--sim-shadow-gold); }
+.roi-hero::before {
+  content: ''; position: absolute;
+  top: -60px; right: -60px; width: 200px; height: 200px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,169,110,.1) 0, transparent 70%);
+  pointer-events: none;
+}
+.roi-hero-grid { display: grid; grid-template-columns: 1fr 1px 1fr; gap: 24px; align-items: center; }
+@media(max-width: 700px) { .roi-hero-grid { grid-template-columns: 1fr 1fr; } }
+.roi-main { text-align: center; }
+.roi-eyebrow { font-family: 'Outfit', sans-serif; font-size: 8px; letter-spacing: .22em; text-transform: uppercase; color: var(--sim-text3); margin-bottom: 6px; }
+.roi-big { font-family: 'Cormorant Garamond', serif; font-size: 72px; font-weight: 300; color: var(--sim-gold); line-height: .9; }
+.roi-pct { font-size: 26px; }
+.roi-lbl { font-family: 'Outfit', sans-serif; font-size: 10px; color: var(--sim-text2); margin-top: 6px; }
+.roi-divider { background: var(--sim-border2); height: 80px; }
+.roi-side {}
+.roi-s-lbl { font-family: 'Outfit', sans-serif; font-size: 7px; letter-spacing: .18em; text-transform: uppercase; color: var(--sim-text3); margin-bottom: 5px; }
+.roi-s-val { font-family: 'Cormorant Garamond', serif; font-size: 28px; color: var(--sim-teal); line-height: 1; transition: opacity 200ms ease; }
+.roi-cf-val { font-family: 'Cormorant Garamond', serif; font-size: 24px; line-height: 1; transition: opacity 200ms ease; }
+.roi-s-sub { font-family: 'Outfit', sans-serif; font-size: 8px; color: var(--sim-text3); margin-top: 2px; }
+.roi-payback {
+  grid-column: 1/-1; padding: 10px 14px;
+  background: rgba(201,169,110,.05); border: 1px solid rgba(201,169,110,.12);
+  border-radius: var(--sim-radius-sm);
+  font-family: 'Outfit', sans-serif; font-size: 10px; color: var(--sim-text2); text-align: center;
+}
+.roi-payback span { color: var(--sim-gold-l); font-weight: 500; }
+
+/* KPI CARDS */
+.kpi-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 12px; }
+@media(max-width: 700px) { .kpi-row { grid-template-columns: 1fr 1fr; } }
+.kpi {
+  background: var(--sim-bg3); border: 1px solid var(--sim-border);
+  padding: 15px 14px; border-radius: var(--sim-radius);
+  position: relative; overflow: hidden;
+  box-shadow: var(--sim-shadow);
+  transition: transform 300ms cubic-bezier(.4,0,.2,1), box-shadow 300ms cubic-bezier(.4,0,.2,1);
+}
+.kpi:hover { transform: translateY(-2px); box-shadow: var(--sim-shadow-gold); }
+.kpi-accent { position: absolute; top: 0; left: 0; right: 0; height: 2px; border-radius: 2px 2px 0 0; }
+.kpi-lbl { font-family: 'Outfit', sans-serif; font-size: 7px; letter-spacing: .18em; text-transform: uppercase; color: var(--sim-text3); margin-bottom: 7px; }
+.kpi-v { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 400; line-height: 1; transition: opacity 200ms ease; }
+.kpi-sub { font-family: 'Outfit', sans-serif; font-size: 8px; color: var(--sim-text3); margin-top: 4px; }
+
+/* CASHFLOW */
+.cf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+.cf {
+  background: var(--sim-bg3); border: 1px solid var(--sim-border);
+  padding: 13px 15px; border-radius: var(--sim-radius);
+  box-shadow: var(--sim-shadow);
+  transition: transform 300ms cubic-bezier(.4,0,.2,1), box-shadow 300ms cubic-bezier(.4,0,.2,1);
+}
+.cf:hover { transform: translateY(-2px); box-shadow: var(--sim-shadow-gold); }
+.cf-lbl { font-family: 'Outfit', sans-serif; font-size: 7px; letter-spacing: .16em; text-transform: uppercase; color: var(--sim-text3); margin-bottom: 5px; }
+.cf-v { font-family: 'Cormorant Garamond', serif; font-size: 22px; line-height: 1; transition: opacity 200ms ease; }
+.cf-sub { font-family: 'Outfit', sans-serif; font-size: 8px; color: var(--sim-text3); margin-top: 2px; }
+
+/* CARD */
+.card {
+  background: var(--sim-bg3); border: 1px solid var(--sim-border);
+  border-radius: var(--sim-radius); margin-bottom: 12px; overflow: hidden;
+  box-shadow: var(--sim-shadow);
+  transition: box-shadow 300ms cubic-bezier(.4,0,.2,1);
+}
+.card:hover { box-shadow: var(--sim-shadow-gold); }
+.card-head {
+  padding: 12px 18px; border-bottom: 1px solid var(--sim-border);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.card-title { font-family: 'Outfit', sans-serif; font-size: 8px; letter-spacing: .2em; text-transform: uppercase; color: var(--sim-text2); }
+.card-note { font-family: 'Outfit', sans-serif; font-size: 8px; color: var(--sim-text3); }
+
+/* BREAKDOWN */
+.brow {
+  display: grid; grid-template-columns: 1fr 88px 100px;
+  align-items: center; gap: 10px; padding: 9px 18px;
+  border-bottom: 1px solid rgba(201,169,110,.04);
+  transition: background .15s;
+}
+.brow:hover { background: rgba(201,169,110,.03); }
+.brow:last-child { border-bottom: none; }
+.brow.total {
+  background: rgba(201,169,110,.05);
+  border-top: 1px solid var(--sim-border);
+  padding: 12px 18px;
+}
+.brow-lbl { font-family: 'Outfit', sans-serif; font-size: 10px; color: var(--sim-text2); }
+.brow.total .brow-lbl { font-weight: 500; color: var(--sim-text); }
+.brow-bar-wrap { height: 3px; background: rgba(255,255,255,.05); border-radius: 2px; overflow: hidden; }
+.brow-bar { height: 100%; border-radius: 2px; transition: width .5s cubic-bezier(.4,0,.2,1); }
+.brow-val { font-family: 'Cormorant Garamond', serif; font-size: 14px; text-align: right; white-space: nowrap; transition: opacity 200ms ease; }
+
+/* ZONE INTEL */
+.zi-badge {
+  font-family: 'Outfit', sans-serif;
+  font-size: 9px; letter-spacing: .1em; padding: 3px 10px;
+  border: 1px solid var(--sim-border2); color: var(--sim-gold); border-radius: 20px;
+}
+.zi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.zi-item { padding: 12px 18px; border-bottom: 1px solid rgba(201,169,110,.04); border-right: 1px solid rgba(201,169,110,.04); }
+.zi-item:nth-child(2n) { border-right: none; }
+.zi-item:nth-last-child(-n+2) { border-bottom: none; }
+.zi-lbl { font-family: 'Outfit', sans-serif; font-size: 7px; letter-spacing: .16em; text-transform: uppercase; color: var(--sim-text3); margin-bottom: 3px; }
+.zi-v { font-size: 13px; color: var(--sim-text); line-height: 1.4; }
+.zi-note { font-family: 'Outfit', sans-serif; font-size: 8px; color: var(--sim-text3); margin-top: 2px; }
+.zi-desc {
+  padding: 16px 18px;
+  background: rgba(41,129,143,.05);
+  border-top: 1px solid rgba(41,129,143,.12);
+}
+.zi-desc-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px; font-style: italic; font-weight: 300;
+  color: var(--sim-text2); line-height: 1.7;
+}
+.zi-desc-text::before { content: '"'; color: var(--sim-teal); font-size: 20px; line-height: 0; vertical-align: -.25em; margin-right: 4px; }
+.zi-desc-text::after { content: '"'; color: var(--sim-teal); font-size: 20px; line-height: 0; vertical-align: -.25em; margin-left: 4px; }
+.zi-warn {
+  margin: 0 18px 14px; padding: 10px 13px;
+  background: rgba(192,64,64,.06); border: 1px solid rgba(192,64,64,.18);
+  border-radius: var(--sim-radius-sm);
+  font-family: 'Outfit', sans-serif; font-size: 9px; color: rgba(237,229,213,.6); line-height: 1.5;
+}
+.zi-warn::before { content: '⚠ '; color: var(--sim-red); }
+
+/* RISK */
+.risk-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin-bottom: 12px; }
+@media(max-width: 700px) { .risk-row { grid-template-columns: 1fr 1fr; } }
+.risk-c {
+  background: var(--sim-bg3); border: 1px solid var(--sim-border);
+  padding: 12px 10px; border-radius: var(--sim-radius); text-align: center;
+  box-shadow: var(--sim-shadow);
+  transition: transform 300ms cubic-bezier(.4,0,.2,1), box-shadow 300ms cubic-bezier(.4,0,.2,1);
+}
+.risk-c:hover { transform: translateY(-2px); box-shadow: var(--sim-shadow-gold); }
+.risk-lbl { font-family: 'Outfit', sans-serif; font-size: 7px; letter-spacing: .13em; text-transform: uppercase; color: var(--sim-text3); margin-bottom: 8px; }
+.risk-bar-w { height: 4px; background: rgba(255,255,255,.06); border-radius: 2px; margin-bottom: 6px; overflow: hidden; }
+.risk-bar-f { height: 100%; border-radius: 2px; transition: width .6s cubic-bezier(.4,0,.2,1); }
+.risk-val { font-family: 'Outfit', sans-serif; font-size: 11px; font-weight: 500; }
+
+/* PROJ TABLE */
+.proj-table { width: 100%; border-collapse: collapse; }
+.proj-table th {
+  padding: 9px 14px; font-family: 'Outfit', sans-serif;
+  font-size: 7px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--sim-text3); text-align: right;
+  background: var(--sim-bg4); font-weight: 400;
+  border-bottom: 1px solid var(--sim-border);
+}
+.proj-table th:first-child { text-align: left; }
+.proj-table td {
+  padding: 10px 14px; font-family: 'Outfit', sans-serif;
+  font-size: 11px; color: var(--sim-text2);
+  text-align: right; border-bottom: 1px solid rgba(201,169,110,.04);
+  transition: background .15s, opacity 200ms ease;
+}
+.proj-table tr:hover td { background: rgba(201,169,110,.03); }
+.proj-table td:first-child { font-family: 'Cormorant Garamond', serif; font-size: 14px; color: var(--sim-gold); text-align: left; }
+.proj-table tr:last-child td { border-bottom: none; background: rgba(201,169,110,.05); color: var(--sim-text); font-weight: 500; }
+
+.pos { color: var(--sim-green) !important; }
+.neg { color: var(--sim-red) !important; }
+.neu { color: var(--sim-gold) !important; }
+
+/* DISCLAIMER */
+.disc {
+  padding: 14px 16px; border: 1px solid var(--sim-border);
+  background: rgba(201,169,110,.03); border-radius: var(--sim-radius);
+  font-family: 'Outfit', sans-serif; font-size: 8px; color: var(--sim-text3);
+  line-height: 1.7; margin-top: 12px;
+}
+.disc strong { color: var(--sim-text2); }
+
+/* ── SCROLL REVEAL ── */
+.sim-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 500ms ease-out, transform 500ms ease-out;
+}
+.sim-reveal.visible { opacity: 1; transform: translateY(0); }
+.sim-reveal-d1 { transition-delay: 80ms; }
+.sim-reveal-d2 { transition-delay: 160ms; }
+.sim-reveal-d3 { transition-delay: 240ms; }
+
+@keyframes simFadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+.sim-hero-anim { animation: simFadeUp .7s ease both; }
+.sim-hero-anim-d1 { animation: simFadeUp .7s .1s ease both; }
+.sim-hero-anim-d2 { animation: simFadeUp .7s .2s ease both; }
+.sim-hero-anim-d3 { animation: simFadeUp .7s .28s ease both; }
+
+/* ── FOOTER OVERRIDE for dark page ── */
+#footer {
+  background: #0D1210 !important;
+  border-top: 1px solid rgba(201,169,110,.12);
+}
+#footer .footer-logo-name, #footer .footer-tagline,
+#footer .footer-heading, #footer .footer-links a,
+#footer .footer-legal p, #footer .footer-copyright,
+#footer .footer-bottom-links a {
+  color: rgba(237,229,213,.7) !important;
+}
+#footer .footer-links a:hover, #footer .footer-bottom-links a:hover {
+  color: #C9A96E !important;
+}
+
+/* ── MOBILE ── */
+@media(max-width: 700px) {
+  .sim-hero { padding: 90px 16px 32px; }
+  .sim-hero-title { font-size: 38px; }
+  .sim-hero-stats { display: none; }
+  .sim-sidebar, .sim-results { padding: 16px 12px 32px; }
+  .roi-big { font-size: 52px; }
+  .roi-divider { display: none; }
+  .roi-hero-grid { grid-template-columns: 1fr 1fr !important; }
+  .zone-grid { grid-template-columns: 1fr 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── CUSTOM CURSOR ─── -->
+<div id="cursor"></div>
+
+<!-- ─── MOBILE MENU ─── -->
+<div id="mobile-menu" style="
+  display: none;
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: #0d0d0d;
+  z-index: 999;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 32px 48px;
+  overflow-y: auto;
+">
+  <button onclick="closeMobileMenu()" style="position:fixed;top:18px;right:18px;width:38px;height:38px;border-radius:50%;background:rgba(198,169,107,0.15);border:1px solid rgba(198,169,107,0.4);color:#C6A96B;font-size:20px;cursor:pointer;z-index:1001;display:flex;align-items:center;justify-content:center;">×</button>
+  <nav style="display:flex;flex-direction:column;width:100%;margin-top:40px;margin-bottom:40px;gap:0;">
+    <a href="rentals.html" onclick="closeMobileMenu()" style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:#F5F5F5;text-decoration:none;padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.07);display:block;">
+      <span class="lang-en-inline">Rentals</span><span class="lang-fr-inline">Locations</span>
+    </a>
+    <a href="invest.html" onclick="closeMobileMenu()" style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:#F5F5F5;text-decoration:none;padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.07);display:block;">
+      <span class="lang-en-inline">Invest</span><span class="lang-fr-inline">Investir</span>
+    </a>
+    <a href="simulator.html" onclick="closeMobileMenu()" style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:#C9A96E;text-decoration:none;padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.07);display:block;">
+      <span class="lang-en-inline">Simulator</span><span class="lang-fr-inline">Simulateur</span>
+    </a>
+    <a href="index.html#positioning" onclick="closeMobileMenu()" style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:#F5F5F5;text-decoration:none;padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.07);display:block;">
+      <span class="lang-en-inline">Philosophy</span><span class="lang-fr-inline">Philosophie</span>
+    </a>
+    <a href="blog.html" onclick="closeMobileMenu()" style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:#F5F5F5;text-decoration:none;padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.07);display:block;">
+      <span class="lang-en-inline">Insights</span><span class="lang-fr-inline">Insights</span>
+    </a>
+  </nav>
+  <div style="display:flex;align-items:center;gap:16px;margin-bottom:28px;">
+    <button onclick="setLang('en'); closeMobileMenu();" style="background:none;border:none;font-family:'Outfit',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:#C6A96B;cursor:pointer;padding:4px 0;">EN</button>
+    <span style="color:rgba(255,255,255,0.15);font-size:11px">/</span>
+    <button onclick="setLang('fr'); closeMobileMenu();" style="background:none;border:none;font-family:'Outfit',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.35);cursor:pointer;padding:4px 0;">FR</button>
+  </div>
+  <a href="contact.html" onclick="closeMobileMenu()" style="display:inline-block;font-family:'Outfit',sans-serif;font-size:10px;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:#131313;background:#C6A96B;padding:15px 32px;text-decoration:none;border-radius:6px;transition:background 0.3s;"><span class="lang-en-inline">Enquire →</span><span class="lang-fr-inline">Contact →</span></a>
+</div>
+
+<!-- ═══ NAV ═══ -->
+<header id="nav" role="banner">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Sundara Investment Group">
+        <span class="nav-logo-name">SUNDARA</span>
+        <span class="nav-logo-dot" aria-hidden="true"></span>
+        <span class="nav-logo-sub">Investment Group</span>
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a href="rentals.html"><span class="lang-en-inline">Rentals</span><span class="lang-fr-inline">Locations</span></a></li>
+        <li><a href="invest.html"><span class="lang-en-inline">Invest</span><span class="lang-fr-inline">Investir</span></a></li>
+        <li><a href="simulator.html" style="color:#C9A96E !important"><span class="lang-en-inline">Simulator</span><span class="lang-fr-inline">Simulateur</span></a></li>
+        <li><a href="index.html#positioning"><span class="lang-en-inline">Philosophy</span><span class="lang-fr-inline">Philosophie</span></a></li>
+        <li><a href="blog.html"><span class="lang-en-inline">Insights</span><span class="lang-fr-inline">Insights</span></a></li>
+      </ul>
+      <div class="nav-right">
+        <button class="nav-lang" id="langToggle" onclick="toggleLang()" aria-label="Toggle language">
+          <span class="active-lang" id="langEN">EN</span>
+          <span style="opacity:0.3">/</span>
+          <span id="langFR">FR</span>
+        </button>
+        <a href="contact.html" class="nav-cta">
+          <span class="lang-en-inline">Enquire</span>
+          <span class="lang-fr-inline">Contact</span>
+        </a>
+        <button class="nav-hamburger" id="hamburger" onclick="openMobileMenu()" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══ HERO ═══ -->
+<section class="sim-hero">
+  <div class="sim-hero-orb"></div>
+  <div class="sim-eyebrow sim-hero-anim">
+    <span class="lang-en-inline">Exclusive Investment Analysis Tool</span>
+    <span class="lang-fr-inline">Outil d'analyse investissement exclusif</span>
+  </div>
+  <h1 class="sim-hero-title sim-hero-anim-d1">
+    <span class="lang-en-inline">Simulate your <em>return</em><br>on investment in Bali</span>
+    <span class="lang-fr-inline">Simulez votre <em>retour</em><br>sur investissement à Bali</span>
+  </h1>
+  <p class="sim-hero-desc sim-hero-anim-d2">
+    <span class="lang-en-inline">Based on real 2025–2026 market data. Rental income, charges, land appreciation and 5-year wealth projection — by zone and investment profile.</span>
+    <span class="lang-fr-inline">Basé sur les données réelles 2025–2026. Revenus locatifs, charges, appréciation foncière et projection patrimoine sur 5 ans — par zone et profil d'investissement.</span>
+  </p>
+  <div class="sim-hero-stats sim-hero-anim-d3">
+    <div class="sim-hstat">
+      <div class="sim-hstat-val">6</div>
+      <div class="sim-hstat-lbl"><span class="lang-en-inline">Zones analysed</span><span class="lang-fr-inline">Zones analysées</span></div>
+    </div>
+    <div class="sim-hstat">
+      <div class="sim-hstat-val">12–18%</div>
+      <div class="sim-hstat-lbl"><span class="lang-en-inline">Prime gross ROI</span><span class="lang-fr-inline">ROI brut prime</span></div>
+    </div>
+    <div class="sim-hstat">
+      <div class="sim-hstat-val">5 <span style="font-size:14px"><span class="lang-en-inline">yr</span><span class="lang-fr-inline">ans</span></span></div>
+      <div class="sim-hstat-lbl"><span class="lang-en-inline">Projection</span><span class="lang-fr-inline">Projection</span></div>
+    </div>
+    <div class="sim-hstat">
+      <div class="sim-hstat-val">2025</div>
+      <div class="sim-hstat-lbl"><span class="lang-en-inline">Market data</span><span class="lang-fr-inline">Données marché</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MAIN ═══ -->
+<div class="sim-main">
+
+<!-- ══ SIDEBAR ══ -->
+<aside class="sim-sidebar">
+
+  <!-- Currency -->
+  <div class="s-sec">
+    <div class="s-head"><div class="s-head-dot"></div><span class="lang-en-inline">Display Currency</span><span class="lang-fr-inline">Devise d'affichage</span></div>
+    <div class="curr-row" id="curr-row">
+      <div class="cpill on" onclick="setCurr('USD',this)">USD</div>
+      <div class="cpill" onclick="setCurr('EUR',this)">EUR</div>
+      <div class="cpill" onclick="setCurr('AUD',this)">AUD</div>
+      <div class="cpill" onclick="setCurr('GBP',this)">GBP</div>
+      <div class="cpill" onclick="setCurr('IDR',this)">IDR</div>
+    </div>
+    <div class="curr-rate" id="curr-rate-display">
+      <span class="lang-en-inline">Sliders remain in USD · reference market</span>
+      <span class="lang-fr-inline">Sliders en USD · devise de référence marché</span>
+    </div>
+  </div>
+
+  <!-- Zone -->
+  <div class="s-sec">
+    <div class="s-head"><div class="s-head-dot"></div><span class="lang-en-inline">Investment Zone</span><span class="lang-fr-inline">Zone d'investissement</span></div>
+    <div class="zone-grid" id="zone-grid"></div>
+  </div>
+
+  <!-- Type -->
+  <div class="s-sec">
+    <div class="s-head"><div class="s-head-dot"></div><span class="lang-en-inline">Rental Type</span><span class="lang-fr-inline">Type de location</span></div>
+    <div class="type-row">
+      <div class="type-card on" id="tc-court" onclick="setType('court')">
+        <div class="ti">🌴</div>
+        <div class="tl">
+          <span class="lang-en-inline">Short-term<br><span style="opacity:.55;font-size:7px">Airbnb / nightly</span></span>
+          <span class="lang-fr-inline">Courte durée<br><span style="opacity:.55;font-size:7px">Airbnb / nuitée</span></span>
+        </div>
+      </div>
+      <div class="type-card" id="tc-long" onclick="setType('long')">
+        <div class="ti">📅</div>
+        <div class="tl">
+          <span class="lang-en-inline">Long-term<br><span style="opacity:.55;font-size:7px">Monthly / annual</span></span>
+          <span class="lang-fr-inline">Longue durée<br><span style="opacity:.55;font-size:7px">Mensuel / annuel</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sdiv"></div>
+
+  <!-- Budget & Villa -->
+  <div class="s-sec">
+    <div class="s-head"><div class="s-head-dot"></div><span class="lang-en-inline">Budget & Villa</span><span class="lang-fr-inline">Budget & villa</span></div>
+    <div class="sg">
+      <div class="sg-top">
+        <span class="sg-lbl"><span class="lang-en-inline">Acquisition Price</span><span class="lang-fr-inline">Prix d'acquisition</span></span>
+        <span><span class="sg-val" id="v-budget">350,000</span><span class="sg-unit">USD</span></span>
+      </div>
+      <input type="range" id="s-budget" min="80000" max="2000000" step="10000" value="350000" oninput="sr(this,'v-budget',fUSD);go()">
+      <div class="sg-mm"><span>$80k</span><span>$2M</span></div>
+    </div>
+    <div class="sg">
+      <div class="sg-top">
+        <span class="sg-lbl"><span class="lang-en-inline">Bedrooms</span><span class="lang-fr-inline">Chambres</span></span>
+        <span><span class="sg-val" id="v-beds">3</span><span class="sg-unit"><span class="lang-en-inline">bd.</span><span class="lang-fr-inline">ch.</span></span></span>
+      </div>
+      <input type="range" id="s-beds" min="1" max="7" step="1" value="3" oninput="sr(this,'v-beds',x=>x);go()">
+      <div class="sg-mm"><span>1</span><span>7+</span></div>
+    </div>
+    <div class="sg">
+      <div class="sg-top">
+        <span class="sg-lbl"><span class="lang-en-inline">Built Area</span><span class="lang-fr-inline">Surface bâtie</span></span>
+        <span><span class="sg-val" id="v-size">250</span><span class="sg-unit">m²</span></span>
+      </div>
+      <input type="range" id="s-size" min="60" max="1200" step="10" value="250" oninput="sr(this,'v-size',x=>x);go()">
+      <div class="sg-mm"><span>60</span><span>1200m²</span></div>
+    </div>
+  </div>
+
+  <!-- Rental Params -->
+  <div class="s-sec">
+    <div class="s-head"><div class="s-head-dot"></div><span class="lang-en-inline">Rental Parameters</span><span class="lang-fr-inline">Paramètres locatifs</span></div>
+    <div class="sg" id="sg-nightly">
+      <div class="sg-top">
+        <span class="sg-lbl"><span class="lang-en-inline">Avg. nightly rate</span><span class="lang-fr-inline">Tarif nuitée moyen</span></span>
+        <span><span class="sg-val" id="v-nightly">350</span><span class="sg-unit">USD/night</span></span>
+      </div>
+      <input type="range" id="s-nightly" min="50" max="2500" step="10" value="350" oninput="sr(this,'v-nightly',x=>x);go()">
+      <div class="sg-mm"><span>$50</span><span>$2,500</span></div>
+    </div>
+    <div class="sg" id="sg-monthly" style="display:none">
+      <div class="sg-top">
+        <span class="sg-lbl"><span class="lang-en-inline">Monthly rent</span><span class="lang-fr-inline">Loyer mensuel</span></span>
+        <span><span class="sg-val" id="v-monthly">2500</span><span class="sg-unit">USD/mo</span></span>
+      </div>
+      <input type="range" id="s-monthly" min="300" max="15000" step="100" value="2500" oninput="sr(this,'v-monthly',x=>x);go()">
+      <div class="sg-mm"><span>$300</span><span>$15k</span></div>
+    </div>
+    <div class="sg" id="sg-occ">
+      <div class="sg-top">
+        <span class="sg-lbl"><span class="lang-en-inline">Occupancy rate</span><span class="lang-fr-inline">Taux d'occupation</span></span>
+        <span><span class="sg-val" id="v-occ">70</span><span class="sg-unit">%</span></span>
+      </div>
+      <input type="range" id="s-occ" min="20" max="95" step="1" value="70" oninput="sr(this,'v-occ',x=>x);go()">
+      <div class="sg-mm"><span>20%</span><span>95%</span></div>
+    </div>
+    <div class="sg">
+      <div class="sg-top">
+        <span class="sg-lbl"><span class="lang-en-inline">OTA + management fees</span><span class="lang-fr-inline">Frais gestion OTA + manager</span></span>
+        <span><span class="sg-val" id="v-mgmt">25</span><span class="sg-unit">%</span></span>
+      </div>
+      <input type="range" id="s-mgmt" min="10" max="40" step="1" value="25" oninput="sr(this,'v-mgmt',x=>x);go()">
+      <div class="sg-mm"><span>10%</span><span>40%</span></div>
+    </div>
+  </div>
+
+  <!-- Operational Costs -->
+  <div class="s-sec">
+    <div class="s-head"><div class="s-head-dot"></div><span class="lang-en-inline">Operating costs / yr</span><span class="lang-fr-inline">Charges opérationnelles / an</span></div>
+    <div class="sg">
+      <div class="sg-top">
+        <span class="sg-lbl"><span class="lang-en-inline">Maintenance & upkeep</span><span class="lang-fr-inline">Entretien & maintenance</span></span>
+        <span><span class="sg-val" id="v-maint">4000</span><span class="sg-unit">USD</span></span>
+      </div>
+      <input type="range" id="s-maint" min="500" max="25000" step="250" value="4000" oninput="sr(this,'v-maint',x=>x);go()">
+      <div class="sg-mm"><span>$500</span><span>$25k</span></div>
+    </div>
+    <div class="sg">
+      <div class="sg-top">
+        <span class="sg-lbl"><span class="lang-en-inline">Staff (guard, cleaning…)</span><span class="lang-fr-inline">Staff (gardien, ménage…)</span></span>
+        <span><span class="sg-val" id="v-staff">6000</span><span class="sg-unit">USD</span></span>
+      </div>
+      <input type="range" id="s-staff" min="0" max="30000" step="500" value="6000" oninput="sr(this,'v-staff',x=>x);go()">
+      <div class="sg-mm"><span>$0</span><span>$30k</span></div>
+    </div>
+    <div class="sg">
+      <div class="sg-top">
+        <span class="sg-lbl"><span class="lang-en-inline">Utilities (water, elec, internet)</span><span class="lang-fr-inline">Utilities (eau, élec, internet)</span></span>
+        <span><span class="sg-val" id="v-util">2400</span><span class="sg-unit">USD</span></span>
+      </div>
+      <input type="range" id="s-util" min="600" max="12000" step="200" value="2400" oninput="sr(this,'v-util',x=>x);go()">
+      <div class="sg-mm"><span>$600</span><span>$12k</span></div>
+    </div>
+    <div class="sg">
+      <div class="sg-top">
+        <span class="sg-lbl"><span class="lang-en-inline">Taxes & insurance</span><span class="lang-fr-inline">Taxes & assurances</span></span>
+        <span><span class="sg-val" id="v-tax">2000</span><span class="sg-unit">USD</span></span>
+      </div>
+      <input type="range" id="s-tax" min="500" max="15000" step="250" value="2000" oninput="sr(this,'v-tax',x=>x);go()">
+      <div class="sg-mm"><span>$500</span><span>$15k</span></div>
+    </div>
+  </div>
+
+  <!-- Premium Options -->
+  <div class="s-sec">
+    <div class="s-head"><div class="s-head-dot"></div><span class="lang-en-inline">Premium Options</span><span class="lang-fr-inline">Options premium</span></div>
+    <div class="opt-pills">
+      <div class="opill on" onclick="tOpt(this,'pool')">🏊 <span class="lang-en-inline">Pool</span><span class="lang-fr-inline">Piscine</span></div>
+      <div class="opill on" onclick="tOpt(this,'staff')">👤 <span class="lang-en-inline">Staff</span><span class="lang-fr-inline">Staff</span></div>
+      <div class="opill" onclick="tOpt(this,'ocean')">🌊 <span class="lang-en-inline">Ocean view</span><span class="lang-fr-inline">Vue mer</span></div>
+      <div class="opill" onclick="tOpt(this,'airbnb')">⭐ <span class="lang-en-inline">Airbnb Pro</span><span class="lang-fr-inline">Airbnb Pro</span></div>
+      <div class="opill" onclick="tOpt(this,'new')">✨ <span class="lang-en-inline">New build</span><span class="lang-fr-inline">Neuf</span></div>
+      <div class="opill" onclick="tOpt(this,'managed')">⚙️ <span class="lang-en-inline">Full management</span><span class="lang-fr-inline">Géré clé en main</span></div>
+    </div>
+    <div style="margin-top:12px;font-family:'Outfit',sans-serif;font-size:7px;letter-spacing:.16em;text-transform:uppercase;color:var(--sim-text3);margin-bottom:7px;">
+      <span class="lang-en-inline">Land appreciation / yr</span>
+      <span class="lang-fr-inline">Appréciation foncière / an</span>
+    </div>
+    <div class="appre-pills">
+      <div class="apill" id="ap-low" onclick="setAp('low',this)">📉 <span class="lang-en-inline">5% conservative</span><span class="lang-fr-inline">5% conservateur</span></div>
+      <div class="apill on" id="ap-mid" onclick="setAp('mid',this)">📈 <span class="lang-en-inline">10% market</span><span class="lang-fr-inline">10% marché</span></div>
+      <div class="apill" id="ap-high" onclick="setAp('high',this)">🚀 <span class="lang-en-inline">15% premium</span><span class="lang-fr-inline">15% premium</span></div>
+    </div>
+  </div>
+
+</aside><!-- /sidebar -->
+
+<!-- ══ RESULTS ══ -->
+<div class="sim-results">
+
+  <!-- ROI HERO -->
+  <div class="roi-hero sim-reveal">
+    <div class="roi-hero-grid">
+      <div class="roi-main">
+        <div class="roi-eyebrow"><span class="lang-en-inline">Annual gross yield</span><span class="lang-fr-inline">Rendement brut annuel</span></div>
+        <div class="roi-big"><span id="r-gross-pct">11.2</span><span class="roi-pct">%</span></div>
+        <div class="roi-lbl"><span class="lang-en-inline">On acquisition price</span><span class="lang-fr-inline">Sur prix d'acquisition</span></div>
+      </div>
+      <div class="roi-divider"></div>
+      <div class="roi-side">
+        <div class="roi-s-lbl"><span class="lang-en-inline">Net yield</span><span class="lang-fr-inline">Rendement net</span></div>
+        <div class="roi-s-val"><span id="r-net-pct">7.4</span>%</div>
+        <div class="roi-s-sub"><span class="lang-en-inline">After all charges</span><span class="lang-fr-inline">Après toutes charges</span></div>
+        <div style="margin-top:12px;">
+          <div class="roi-s-lbl"><span class="lang-en-inline">Monthly net cashflow</span><span class="lang-fr-inline">Cashflow mensuel net</span></div>
+          <div class="roi-cf-val" id="r-cf-style">+$2,156</div>
+        </div>
+      </div>
+      <div class="roi-payback" id="r-payback-txt">
+        <span class="lang-en-inline">Capital repaid in <span id="r-pb-yrs-en">8.9</span> years via rental income alone</span>
+        <span class="lang-fr-inline">Capital remboursé en <span id="r-pb-yrs-fr">8.9</span> ans via les seuls revenus locatifs nets</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- KPIs -->
+  <div class="kpi-row">
+    <div class="kpi sim-reveal sim-reveal-d1">
+      <div class="kpi-accent" style="background:linear-gradient(to right,var(--sim-gold),transparent)"></div>
+      <div class="kpi-lbl"><span class="lang-en-inline">Gross income / yr</span><span class="lang-fr-inline">Revenu brut / an</span></div>
+      <div class="kpi-v neu" id="r-gross-amt">$39,200</div>
+      <div class="kpi-sub"><span class="lang-en-inline">Before charges</span><span class="lang-fr-inline">Avant charges</span></div>
+    </div>
+    <div class="kpi sim-reveal sim-reveal-d2">
+      <div class="kpi-accent" style="background:linear-gradient(to right,var(--sim-teal),transparent)"></div>
+      <div class="kpi-lbl"><span class="lang-en-inline">Net income / yr</span><span class="lang-fr-inline">Revenu net / an</span></div>
+      <div class="kpi-v" id="r-net-amt" style="color:var(--sim-teal)">$25,900</div>
+      <div class="kpi-sub"><span class="lang-en-inline">After all charges</span><span class="lang-fr-inline">Après toutes charges</span></div>
+    </div>
+    <div class="kpi sim-reveal sim-reveal-d3">
+      <div class="kpi-accent" style="background:linear-gradient(to right,var(--sim-green),transparent)"></div>
+      <div class="kpi-lbl"><span class="lang-en-inline">Estimated value yr 5</span><span class="lang-fr-inline">Valeur estimée an 5</span></div>
+      <div class="kpi-v pos" id="r-val5">$563k</div>
+      <div class="kpi-sub" id="r-val5-sub">+10% / <span class="lang-en-inline">yr</span><span class="lang-fr-inline">an</span></div>
+    </div>
+  </div>
+
+  <!-- CASHFLOW -->
+  <div class="cf-row">
+    <div class="cf sim-reveal">
+      <div class="cf-lbl"><span class="lang-en-inline">Avg. monthly rental income</span><span class="lang-fr-inline">Revenu locatif mensuel moyen</span></div>
+      <div class="cf-v pos" id="r-rev-mo">+$3,267</div>
+      <div class="cf-sub"><span class="lang-en-inline">Gross</span><span class="lang-fr-inline">Brut</span></div>
+    </div>
+    <div class="cf sim-reveal sim-reveal-d1">
+      <div class="cf-lbl"><span class="lang-en-inline">Total monthly charges</span><span class="lang-fr-inline">Charges mensuelles totales</span></div>
+      <div class="cf-v neg" id="r-ch-mo">-$1,111</div>
+      <div class="cf-sub"><span class="lang-en-inline">Mgmt + operations</span><span class="lang-fr-inline">Gestion + opérationnel</span></div>
+    </div>
+  </div>
+
+  <!-- BREAKDOWN -->
+  <div class="card sim-reveal">
+    <div class="card-head">
+      <span class="card-title"><span class="lang-en-inline">Income & charges breakdown</span><span class="lang-fr-inline">Décomposition revenus & charges</span></span>
+      <span class="card-note" id="bd-currency-note">USD / <span class="lang-en-inline">yr</span><span class="lang-fr-inline">an</span></span>
+    </div>
+    <div id="breakdown"></div>
+  </div>
+
+  <!-- ZONE INTEL -->
+  <div class="card sim-reveal">
+    <div class="card-head">
+      <span class="card-title"><span class="lang-en-inline">Market intelligence</span><span class="lang-fr-inline">Intelligence marché</span></span>
+      <span class="zi-badge" id="zi-badge">Canggu</span>
+    </div>
+    <div id="zi-grid"></div>
+    <div class="zi-desc"><div class="zi-desc-text" id="zi-desc"></div></div>
+    <div class="zi-warn" id="zi-warn"></div>
+  </div>
+
+  <!-- RISK -->
+  <div class="risk-row sim-reveal" id="risk-row"></div>
+
+  <!-- 5-YEAR PROJ -->
+  <div class="card sim-reveal">
+    <div class="card-head">
+      <span class="card-title"><span class="lang-en-inline">5-year wealth projection</span><span class="lang-fr-inline">Projection patrimoine sur 5 ans</span></span>
+      <span class="card-note"><span class="lang-en-inline">Cumulative income + land appreciation</span><span class="lang-fr-inline">Revenus cumulés + appréciation foncière</span></span>
+    </div>
+    <div style="overflow-x:auto;">
+      <table class="proj-table">
+        <thead><tr>
+          <th><span class="lang-en-inline">Year</span><span class="lang-fr-inline">Année</span></th>
+          <th><span class="lang-en-inline">Net income</span><span class="lang-fr-inline">Revenu net</span></th>
+          <th><span class="lang-en-inline">Cumul. income</span><span class="lang-fr-inline">Cumul revenus</span></th>
+          <th><span class="lang-en-inline">Villa value</span><span class="lang-fr-inline">Valeur villa</span></th>
+          <th><span class="lang-en-inline">Total wealth</span><span class="lang-fr-inline">Patrimoine total</span></th>
+          <th><span class="lang-en-inline">Cumul. ROI</span><span class="lang-fr-inline">ROI cumulé</span></th>
+        </tr></thead>
+        <tbody id="proj-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- DISCLAIMER -->
+  <div class="disc sim-reveal">
+    <div class="lang-en">
+      <strong>Disclaimer:</strong> This simulator is provided for informational purposes, based on average 2025–2026 market data (sources: Bamboo Routes, Bali Villa Realty, Rumavi, Coco Development Group, BaliHomeImmo). Actual returns depend on precise location, management quality, seasonality, and market conditions. <strong>This does not constitute investment advice.</strong> Projections are non-contractual. Currency rates are live or estimated fallback values.
+    </div>
+    <div class="lang-fr">
+      <strong>Avertissement :</strong> Ce simulateur est fourni à titre indicatif, basé sur des données de marché moyennes 2025–2026 (sources : Bamboo Routes, Bali Villa Realty, Rumavi, Coco Development Group, BaliHomeImmo). Les rendements réels dépendent de l'emplacement précis, la qualité de gestion, la saisonnalité et les conditions de marché. <strong>Ce document ne constitue pas un conseil en investissement.</strong> Projections non contractuelles. Taux de change en temps réel ou valeurs de secours estimées.
+    </div>
+  </div>
+
+</div><!-- /results -->
+</div><!-- /sim-main -->
+
+<!-- ═══ FOOTER ═══ -->
+<footer id="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="footer-logo" aria-label="Sundara Investment Group">
+          <span class="footer-logo-name">SUNDARA</span>
+          <span class="nav-logo-dot" aria-hidden="true" style="margin-bottom:4px;"></span>
+        </a>
+        <p class="footer-tagline">
+          <span class="lang-en-inline">Private real estate investment in Bali. Curated acquisitions. Managed returns. Exclusive access.</span>
+          <span class="lang-fr-inline">Investissement immobilier privé à Bali. Acquisitions curatées. Rendements gérés. Accès exclusif.</span>
+        </p>
+      </div>
+      <div>
+        <p class="footer-heading">
+          <span class="lang-en-inline">Navigation</span>
+          <span class="lang-fr-inline">Navigation</span>
+        </p>
+        <ul class="footer-links" role="list">
+          <li><a href="rentals.html"><span class="lang-en-inline">Portfolio</span><span class="lang-fr-inline">Portfolio</span></a></li>
+          <li><a href="index.html#why-bali"><span class="lang-en-inline">Opportunities</span><span class="lang-fr-inline">Opportunités</span></a></li>
+          <li><a href="simulator.html"><span class="lang-en-inline">ROI Simulator</span><span class="lang-fr-inline">Simulateur ROI</span></a></li>
+          <li><a href="index.html#positioning"><span class="lang-en-inline">Philosophy</span><span class="lang-fr-inline">Philosophie</span></a></li>
+          <li><a href="contact.html"><span class="lang-en-inline">Enquire</span><span class="lang-fr-inline">Contact</span></a></li>
+        </ul>
+      </div>
+      <div class="footer-legal">
+        <p class="footer-heading">
+          <span class="lang-en-inline">Legal</span>
+          <span class="lang-fr-inline">Mentions Légales</span>
+        </p>
+        <p>
+          <span class="lang-en-inline">Sundara Investment Group is not a licensed financial institution. All investment activities are conducted through appropriate legal structures in Indonesia.</span>
+          <span class="lang-fr-inline">Sundara Investment Group n'est pas un établissement financier agréé. Toutes les activités d'investissement sont menées par des structures juridiques appropriées en Indonésie.</span>
+        </p>
+        <p style="margin-top:12px;">
+          <span class="lang-en-inline">Past performance is not indicative of future results.</span>
+          <span class="lang-fr-inline">Les performances passées ne garantissent pas les résultats futurs.</span>
+        </p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copyright">
+        © 2025 Sundara Investment Group.
+        <span class="lang-en-inline">All rights reserved.</span>
+        <span class="lang-fr-inline">Tous droits réservés.</span>
+      </span>
+      <div class="footer-bottom-links">
+        <a href="#"><span class="lang-en-inline">Privacy Policy</span><span class="lang-fr-inline">Politique de Confidentialité</span></a>
+        <a href="#"><span class="lang-en-inline">Terms of Use</span><span class="lang-fr-inline">Conditions d'utilisation</span></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/lang.js"></script>
+<script src="js/animations.js"></script>
+<script>
+/* ════════════════════════════════════
+   ZONE DATA
+════════════════════════════════════ */
+const Z = {
+  canggu: {
+    name: 'Canggu', full: 'Canggu / Berawa', e: '🏄',
+    netY: [7, 12], grossY: [10, 15],
+    occH: 85, occL: 65,
+    nb:  {1:180,2:280,3:420,4:600,5:800,6:1100,7:1400},
+    nbH: {1:280,2:480,3:700,4:950,5:1300,6:1800,7:2400},
+    ml:  {1:900,2:1500,3:2200,4:3000,5:4000,6:5500,7:7000},
+    pr: '$300k – $1.2M', psm: 1671, appr: 12, la: '$35k–$80k / are',
+    dem_en: 'Digital nomads, surfers, long-stay expats',
+    dem_fr: 'Digital nomads, surfers, expatriés long séjour',
+    tag_en: 'Mature market · High liquidity · Blue-chip',
+    tag_fr: 'Marché mature · Haute liquidité · Blue-chip',
+    desc_en: "Canggu is Bali's most liquid and in-demand market. Favored by digital nomads, surfers, and long-stay expats, this zone offers modern infrastructure — fiber, coworkings, international restaurants — that maintains a steady stream of premium tenants year-round. It's the 'blue-chip' asset of Bali: high entry point, but fast exit and a deep buyer pool.",
+    desc_fr: "Canggu est le marché le plus liquide et le plus demandé de Bali. Plébiscitée par les digital nomads, la clientèle surf et les expatriés, cette zone offre une infrastructure moderne (fibre, coworkings, restaurants internationaux) qui maintient un flux constant de locataires premium toute l'année. C'est l'actif \"blue-chip\" de Bali — entrée coûteuse, mais exit rapide et pool d'acheteurs profond.",
+    risk_en: 'Growing saturation since 2022–2024: oversupply of generic villas. Differentiation (design, professional management, Airbnb SuperHost status) becomes essential to sustain occupancy rates. Tightening regulation on new construction.',
+    risk_fr: "Saturation croissante depuis 2022–2024 : suroffre de villas génériques. La différenciation (design, gestion pro, Airbnb SuperHost) devient indispensable pour tenir les taux d'occupation. Réglementation en durcissement sur les nouvelles constructions.",
+    rs: {dem: 9, comp: 3, reg: 4, liq: 9}
+  },
+  seminyak: {
+    name: 'Seminyak', full: 'Seminyak / Petitenget', e: '🌅',
+    netY: [6, 11], grossY: [9, 14],
+    occH: 82, occL: 60,
+    nb:  {1:200,2:320,3:480,4:700,5:950,6:1300,7:1700},
+    nbH: {1:350,2:550,3:800,4:1100,5:1500,6:2100,7:2800},
+    ml:  {1:1000,2:1800,3:2800,4:3800,5:5000,6:7000,7:9000},
+    pr: '$350k – $1.5M', psm: 1224, appr: 10, la: '$40k–$100k / are',
+    dem_en: 'Luxury couples, premium families, high-end hospitality clients',
+    dem_fr: 'Couples luxury, famille premium, clientèle hôtelière haut-de-gamme',
+    tag_en: 'Established luxury · Premium pricing · Affluent clientele',
+    tag_fr: 'Luxe établi · Premium pricing · Clientèle aisée',
+    desc_en: "Seminyak is the most mature and premium zone in Bali. It attracts high-net-worth international clients accustomed to 5-star standards. 4+ bedroom villas with pool and integrated staff consistently outperform. The price per sqm is high, but nightly rates are the island's best, generating exceptional gross cashflow for well-positioned properties.",
+    desc_fr: "Seminyak est la zone la plus mature et la plus premium de Bali. Elle attire une clientèle internationale à fort pouvoir d'achat, habituée aux standards 5 étoiles. Les villas 4+ chambres avec pool et staff intégré y surperforment systématiquement. Le prix au m² reste élevé, mais les tarifs nuitée sont les plus hauts de l'île, ce qui génère un cashflow brut exceptionnel pour des propriétés bien positionnées.",
+    risk_en: 'Entry prices among the highest in Bali. Direct competition with luxury hotels and resorts. An under-managed or poorly designed villa will quickly fall out of the market. Decoration budget and professional management are non-negotiable.',
+    risk_fr: "Prix d'entrée parmi les plus élevés de Bali. Concurrence frontale avec les hôtels et resorts de luxe. Une villa sous-gérée ou mal décorée sera rapidement hors marché. Budget décoration et gestion professionnelle sont non-négociables.",
+    rs: {dem: 8, comp: 4, reg: 4, liq: 8}
+  },
+  uluwatu: {
+    name: 'Uluwatu', full: 'Uluwatu / Bukit', e: '🏔️',
+    netY: [7, 11], grossY: [9, 13],
+    occH: 80, occL: 58,
+    nb:  {1:160,2:280,3:420,4:620,5:850,6:1200,7:1600},
+    nbH: {1:280,2:500,3:750,4:1050,5:1400,6:2000,7:2700},
+    ml:  {1:700,2:1200,3:1900,4:2700,5:3600,6:5000,7:6500},
+    pr: '$200k – $900k', psm: 966, appr: 13, la: '$18k–$55k / are',
+    dem_en: 'Premium surfers, cliffside villas, yoga retreats, young creatives',
+    dem_fr: 'Surfeurs premium, villas cliffside, yoga retreats, jeunes créatifs',
+    tag_en: 'Best ROI 2026 · ~40% cheaper than Canggu · Strong potential',
+    tag_fr: 'Meilleur ROI 2026 · ~40% moins cher que Canggu · Fort potentiel',
+    desc_en: "Uluwatu represents the most compelling opportunity of 2026 according to analysts. Comparable to Canggu in nightly rates, but with an entry price ~40% lower — this gap generates a significantly higher potential ROI. The Bukit peninsula attracts ultra-premium clients (cliff villas, ocean views, spectacular sunsets) and benefits from strong demand growth driven by surf and wellness culture.",
+    desc_fr: "Uluwatu représente l'opportunité la plus intéressante de 2026 selon les analystes. Comparable à Canggu en termes de tarifs nuitée, mais avec un prix d'entrée ~40% inférieur — ce gap génère un ROI potentiel nettement supérieur. La péninsule du Bukit attire une clientèle ultra-premium (villas cliff, vue océan, couchers de soleil spectaculaires) et bénéficie d'une demande en forte croissance portée par le surf et le wellness.",
+    risk_en: 'Infrastructure still developing: some roads remain narrow, internet connectivity can be unstable in remote areas. Reduced accessibility limits mass rental demand, requiring a clear premium positioning. Critical zoning: ITR verification mandatory after the regulatory tightening of July 2025.',
+    risk_fr: "Infrastructure encore en développement : certaines routes restent étroites, la connexion internet peut être instable dans les zones les plus reculées. L'accessibilité réduit la demande locative de masse, ce qui exige un positionnement premium clair. Zoning critique : vérification ITR indispensable après le durcissement réglementaire de juillet 2025.",
+    rs: {dem: 8, comp: 6, reg: 5, liq: 7}
+  },
+  ubud: {
+    name: 'Ubud', full: 'Ubud / Tegalalang', e: '🌿',
+    netY: [4, 7], grossY: [6, 9],
+    occH: 78, occL: 55,
+    nb:  {1:120,2:200,3:300,4:420,5:580,6:800,7:1050},
+    nbH: {1:200,2:350,3:520,4:750,5:1000,6:1400,7:1900},
+    ml:  {1:550,2:900,3:1400,4:1900,5:2600,6:3600,7:4700},
+    pr: '$150k – $600k', psm: 427, appr: 7, la: '$8k–$25k / are',
+    dem_en: 'Wellness travelers, spiritual retreats, yoga, long-stay cultural tourism',
+    dem_fr: 'Voyageurs wellness, retraites spirituelles, yoga, séjours culturels longue durée',
+    tag_en: 'Wellness niche · Stable income · Loyal clientele',
+    tag_fr: 'Niche wellness · Revenus stables · Clientèle fidèle',
+    desc_en: "Ubud is the cultural and spiritual heart of Bali — and a unique real estate market. Nightly rates are lower than coastal areas, but the clientele is more loyal, stays are longer, and seasonality is less pronounced. Villas with rice terrace views, infinity pools, and authentic Balinese architecture generate stable income in a high-quality niche. Ideal for investors seeking consistency over yield maximization.",
+    desc_fr: "Ubud est le coeur culturel et spirituel de Bali — et un marché immobilier à part. Les tarifs nuitée sont plus bas qu'en zone côtière, mais la clientèle est plus fidèle, le séjour plus long, et la saisonnalité moins prononcée. Les villas avec vue rizières, piscine à débordement et architecture balinaise authentique génèrent des revenus stables dans un segment de niche très qualitatif. Idéal pour un investisseur cherchant tranquillité et régularité plutôt que maximisation des rendements.",
+    risk_en: 'Overall yields are the lowest on the island. Saturation of the wellness market in 2024–2025 has put pressure on rates. Positioning must be highly differentiated: architecture, unique cultural experience, direct host relationship — a generic villa struggles to find its clientele here.',
+    risk_fr: "Rendements globaux les plus faibles de l'île. La saturation du marché wellness en 2024–2025 a créé une pression sur les tarifs. Le positionnement doit être très différenciant : architecture, expérience culturelle unique, relation directe avec les hôtes — une villa générique n'y trouve pas sa clientèle facilement.",
+    rs: {dem: 6, comp: 5, reg: 6, liq: 5}
+  },
+  pererenan: {
+    name: 'Pererenan', full: 'Pererenan / Seseh', e: '🌾',
+    netY: [8, 13], grossY: [11, 16],
+    occH: 80, occL: 60,
+    nb:  {1:150,2:240,3:370,4:530,5:720,6:1000,7:1300},
+    nbH: {1:250,2:420,3:640,4:900,5:1200,6:1700,7:2200},
+    ml:  {1:750,2:1300,3:2000,4:2800,5:3800,6:5200,7:6800},
+    pr: '$150k – $700k', psm: 800, appr: 14, la: '$15k–$40k / are',
+    dem_en: 'Expat families, lifestyle digital nomads, quality long stays',
+    dem_fr: 'Expatriés familles, digital nomads lifestyle, long séjour qualité',
+    tag_en: "Canggu of 2019 · Best buy-and-hold opportunity · Fast growth",
+    tag_fr: "Canggu de 2019 · Meilleure opportunité buy-and-hold · Croissance rapide",
+    desc_en: "Pererenan is THE emerging zone to watch in 2026. Located just north of Canggu, it combines the charm of a preserved Balinese village with rapidly expanding modern infrastructure. Direct surf access, flourishing cafés and coworkings, prices still 30–40% below Canggu — but catching up fast. Early-mover investors from 2022–2023 are already seeing significant capital appreciation. The quintessential buy-and-hold profile: already solid rental yield + structural capital gain over 5 years.",
+    desc_fr: "Pererenan est LA zone émergente à surveiller en 2026. Situé juste au nord de Canggu, elle combine le charme d'un village balinais préservé avec une infrastructure moderne en pleine expansion. Accès surf direct, cafés et coworkings qui fleurissent, prix encore 30–40% inférieurs à Canggu — mais en rattrapage rapide. Les investisseurs early-mover de 2022–2023 voient déjà leur capital s'apprécier significativement. C'est le profil buy-and-hold par excellence : rendement locatif déjà solide + plus-value structurelle à 5 ans.",
+    risk_en: 'Lower liquidity than Canggu or Seminyak — resale can take longer. Infrastructure (roads, addressing) remains uneven by sub-zone. Choosing the right plot and village is critical: 500 meters can make a major difference in occupancy.',
+    risk_fr: "Liquidité plus faible que Canggu ou Seminyak — la revente peut prendre plus de temps. L'infrastructure (routes, adressage) reste inégale selon les sous-zones. Choisir son terrain/village précis est critique : 500 mètres peuvent faire une différence majeure sur l'occupation.",
+    rs: {dem: 7, comp: 7, reg: 6, liq: 5}
+  },
+  lovina: {
+    name: 'Lovina', full: 'Lovina / North Bali', e: '🐬',
+    netY: [4, 7], grossY: [5, 9],
+    occH: 60, occL: 35,
+    nb:  {1:80,2:130,3:200,4:290,5:400,6:560,7:740},
+    nbH: {1:140,2:240,3:370,4:530,5:730,6:1000,7:1350},
+    ml:  {1:300,2:500,3:800,4:1100,5:1500,6:2100,7:2800},
+    pr: '$60k – $350k', psm: 250, appr: 15, la: '$3k–$12k / are',
+    dem_en: 'Eco-tourists, expat retirees, long-stay budget-premium, diving',
+    dem_fr: 'Éco-touristes, retraités expatriés, long séjour budget-premium, plongée',
+    tag_en: 'Long-term bet · International airport planned · Floor prices',
+    tag_fr: "Pari long terme · Aéroport international prévu · Prix plancher",
+    desc_en: "Lovina is the most speculative and exciting market in Bali over a 5–10 year horizon. Land prices are 10–15x lower than Canggu, rental demand remains limited today — but the North Bali International Airport project could radically transform the dynamics. Investors with a long horizon and appetite for risk can acquire land and villas at floor prices ahead of revaluation. Sundara Investment Group has been developing projects here since 2023.",
+    desc_fr: "Lovina est le marché le plus spéculatif et le plus excitant de Bali à horizon 5–10 ans. Les prix fonciers sont 10 à 15 fois inférieurs à Canggu, la demande locative reste limitée aujourd'hui — mais le projet d'aéroport international de Bali Nord (North Bali International Airport) pourrait radicalement transformer la dynamique. Les investisseurs avec un horizon long et un appétit pour le risque peuvent acquérir des terrains et villas à des prix plancher avant la revalorisation. Sundara Investment Group y développe des projets depuis 2023.",
+    risk_en: 'Current rental yields low (5–9% gross) and occupancy rates low (35–60%). The airport is not yet built — timeline and delivery remain uncertain. Limited infrastructure and services. This market suits patient investors with a long-term vision, not those seeking immediate cashflow.',
+    risk_fr: "Rendements locatifs actuels faibles (5–9% brut) et taux d'occupation bas (35–60%). L'aéroport n'est pas encore construit — le calendrier et la réalisation restent incertains. Infrastructure et services limités. Ce marché est adapté aux investisseurs patients avec une vision long terme, pas à ceux cherchant un cashflow immédiat.",
+    rs: {dem: 4, comp: 9, reg: 8, liq: 3}
+  }
+};
+
+/* ════════════════════════════════════
+   STATE
+════════════════════════════════════ */
+let az = 'canggu', lt = 'court', opts = new Set(['pool', 'staff']), appre = 'mid';
+const apRates = {low: .05, mid: .10, high: .15};
+
+/* ════════════════════════════════════
+   CURRENCY
+════════════════════════════════════ */
+let activeCurr = 'USD';
+const FALLBACK_RATES = {USD: 1, EUR: 0.92, AUD: 1.53, GBP: 0.79, IDR: 16200};
+let liveRates = {...FALLBACK_RATES};
+let ratesLoaded = false;
+
+const CURR_SYMBOLS = {USD: '$', EUR: '€', AUD: 'A$', GBP: '£', IDR: 'Rp '};
+const CURR_NAMES = {USD: 'USD', EUR: 'EUR', AUD: 'AUD', GBP: 'GBP', IDR: 'IDR'};
+
+function fetchRates() {
+  fetch('https://api.exchangerate-api.com/v4/latest/USD')
+    .then(r => r.json())
+    .then(data => {
+      if (data && data.rates) {
+        liveRates = {
+          USD: 1,
+          EUR: data.rates.EUR || FALLBACK_RATES.EUR,
+          AUD: data.rates.AUD || FALLBACK_RATES.AUD,
+          GBP: data.rates.GBP || FALLBACK_RATES.GBP,
+          IDR: data.rates.IDR || FALLBACK_RATES.IDR
+        };
+        ratesLoaded = true;
+        updateRateDisplay();
+        go();
+      }
+    })
+    .catch(() => { ratesLoaded = false; updateRateDisplay(); });
+}
+
+function updateRateDisplay() {
+  const el = document.getElementById('curr-rate-display');
+  if (!el) return;
+  if (activeCurr === 'USD') {
+    el.innerHTML = `<span class="lang-en-inline">Sliders remain in USD · reference market</span><span class="lang-fr-inline">Sliders en USD · devise de référence marché</span>`;
+    if (typeof applyLang === 'function') return; // re-trigger lang visibility
+    return;
+  }
+  const rate = liveRates[activeCurr] || FALLBACK_RATES[activeCurr];
+  const src = ratesLoaded ? 'Live rate' : 'Estimated';
+  const srcFr = ratesLoaded ? 'Taux live' : 'Estimé';
+  if (activeCurr === 'IDR') {
+    el.innerHTML = `<span>1 USD = <span>${(rate).toLocaleString('id-ID')} IDR</span> — ${src}</span>`;
+  } else {
+    el.innerHTML = `<span>1 USD = <span>${rate.toFixed(4)} ${activeCurr}</span> — ${src}</span>`;
+  }
+}
+
+function setCurr(c, el) {
+  activeCurr = c;
+  document.querySelectorAll('.cpill').forEach(p => p.classList.remove('on'));
+  el.classList.add('on');
+  updateRateDisplay();
+  // fade amounts then go
+  fadeResults(() => go());
+}
+
+function fmtCurr(usdVal) {
+  const rate = liveRates[activeCurr] || FALLBACK_RATES[activeCurr];
+  const v = usdVal * rate;
+  if (activeCurr === 'IDR') {
+    return 'Rp ' + Math.round(v).toLocaleString('id-ID');
+  }
+  const sym = CURR_SYMBOLS[activeCurr];
+  if (Math.abs(v) >= 1000000) return sym + (v/1000000).toFixed(2).replace(/\.?0+$/, '') + 'M';
+  if (Math.abs(v) >= 1000 && Math.abs(v) % 1000 < 50) return sym + (v/1000).toFixed(0) + 'k';
+  return sym + Math.round(Math.abs(v)).toLocaleString('en-US');
+}
+
+function fmtCurrRaw(usdVal) {
+  const rate = liveRates[activeCurr] || FALLBACK_RATES[activeCurr];
+  const v = usdVal * rate;
+  if (activeCurr === 'IDR') return 'Rp ' + Math.round(v).toLocaleString('id-ID');
+  const sym = CURR_SYMBOLS[activeCurr];
+  return sym + Math.round(Math.abs(v)).toLocaleString('en-US');
+}
+
+function fmtCurrK(usdVal) {
+  const rate = liveRates[activeCurr] || FALLBACK_RATES[activeCurr];
+  const v = usdVal * rate;
+  if (activeCurr === 'IDR') return 'Rp ' + (Math.round(v/1000000)).toLocaleString('id-ID') + 'M';
+  const sym = CURR_SYMBOLS[activeCurr];
+  return sym + Math.round(v/1000) + 'k';
+}
+
+function fadeResults(cb) {
+  const els = document.querySelectorAll('.kpi-v, .cf-v, .roi-s-val, .roi-cf-val, .brow-val, .proj-table td');
+  els.forEach(el => { el.style.opacity = '0'; });
+  setTimeout(() => { cb(); els.forEach(el => { el.style.opacity = '1'; }); }, 200);
+}
+
+/* ════════════════════════════════════
+   HELPERS
+════════════════════════════════════ */
+function fUSD(v) {
+  if (v >= 1000000) return (v/1000000).toFixed(2).replace(/\.?0+$/, '') + 'M';
+  if (v >= 1000 && v % 1000 === 0) return (v/1000) + 'k';
+  return Math.round(v).toLocaleString('en-US');
+}
+function sr(el, vid, fmt) {
+  const v = parseFloat(el.value), mn = parseFloat(el.min), mx = parseFloat(el.max);
+  el.style.setProperty('--pct', ((v - mn) / (mx - mn) * 100).toFixed(1) + '%');
+  g(vid).textContent = fmt(v);
+}
+function g(id) { return document.getElementById(id); }
+function gv(id) { return parseFloat(g(id).value); }
+function set(id, v) { g(id).value = v; }
+function st(id, v) { g(id).textContent = v; }
+
+function getLang() {
+  return (localStorage.getItem('sundara-lang') || 'en');
+}
+
+/* ════════════════════════════════════
+   ZONE / TYPE
+════════════════════════════════════ */
+function buildZones() {
+  const gEl = document.getElementById('zone-grid');
+  gEl.innerHTML = Object.entries(Z).map(([k, z]) => `
+    <div class="zc ${k === az ? 'on' : ''}" onclick="setZ('${k}')">
+      <div class="zc-top"><span class="zc-name">${z.e} ${z.name}</span></div>
+      <div class="zc-roi">${z.netY[0]}–${z.netY[1]}%</div>
+      <div class="zc-tag">net ROI</div>
+    </div>`).join('');
+}
+
+function setZ(k) {
+  az = k; buildZones();
+  const z = Z[k], beds = Math.min(7, Math.max(1, parseInt(gv('s-beds'))));
+  if (lt === 'court') {
+    set('s-nightly', z.nb[beds] || z.nb[3]);
+    sr(g('s-nightly'), 'v-nightly', x => x);
+    const o = Math.round((z.occH + z.occL) / 2);
+    set('s-occ', o); sr(g('s-occ'), 'v-occ', x => x);
+  } else {
+    set('s-monthly', z.ml[beds] || z.ml[3]);
+    sr(g('s-monthly'), 'v-monthly', x => x);
+  }
+  go();
+}
+
+function setType(t) {
+  lt = t;
+  g('tc-court').classList.toggle('on', t === 'court');
+  g('tc-long').classList.toggle('on', t === 'long');
+  g('sg-nightly').style.display = t === 'court' ? 'block' : 'none';
+  g('sg-monthly').style.display = t === 'long' ? 'block' : 'none';
+  g('sg-occ').style.display = t === 'court' ? 'block' : 'none';
+  setZ(az);
+}
+
+function tOpt(el, k) { opts.has(k) ? opts.delete(k) : opts.add(k); el.classList.toggle('on'); go(); }
+
+function setAp(k, el) {
+  appre = k;
+  document.querySelectorAll('[id^=ap-]').forEach(e => e.classList.remove('on'));
+  el.classList.add('on'); go();
+}
+
+/* ════════════════════════════════════
+   MAIN CALC
+════════════════════════════════════ */
+function go() {
+  const z = Z[az];
+  const budget = gv('s-budget'), beds = Math.min(7, Math.max(1, Math.round(gv('s-beds'))));
+  const mgmtR = gv('s-mgmt') / 100;
+  const maint = gv('s-maint'), staff = gv('s-staff'), util = gv('s-util'), tax = gv('s-tax');
+  const lang = getLang();
+
+  let bonus = 1;
+  if (opts.has('pool'))    bonus += .12;
+  if (opts.has('ocean'))   bonus += .18;
+  if (opts.has('airbnb'))  bonus += .08;
+  if (opts.has('managed')) bonus += .06;
+  if (opts.has('new'))     bonus += .10;
+  if (opts.has('staff'))   bonus += .04;
+
+  let gross = 0, mgmtFees = 0;
+  if (lt === 'court') {
+    const nightly = gv('s-nightly') * bonus;
+    const days = Math.round(365 * gv('s-occ') / 100);
+    gross = nightly * days;
+    mgmtFees = gross * mgmtR;
+  } else {
+    const mo = gv('s-monthly') * bonus;
+    gross = mo * 12;
+    mgmtFees = gross * .10;
+  }
+  const charges = mgmtFees + maint + staff + util + tax;
+  const net = gross - charges;
+  const roiG = (gross / budget * 100), roiN = (net / budget * 100);
+  const payback = net > 0 ? (budget / net) : 999;
+  const cfMo = net / 12, revMo = gross / 12, chMo = charges / 12;
+  const apr = apRates[appre];
+  const val5 = budget * Math.pow(1 + apr, 5);
+
+  // ROI hero
+  st('r-gross-pct', roiG.toFixed(1));
+  st('r-net-pct', roiN.toFixed(1));
+  const cfEl = g('r-cf-style');
+  const cfStr = fmtCurrRaw(Math.abs(cfMo));
+  cfEl.textContent = (cfMo >= 0 ? '+' : '-') + cfStr;
+  cfEl.style.color = cfMo >= 0 ? 'var(--sim-green)' : 'var(--sim-red)';
+  const pbStr = payback < 50 ? payback.toFixed(1) : '50+';
+  const pbUnit = lang === 'fr' ? 'ans' : 'years';
+  if (g('r-pb-yrs-en')) g('r-pb-yrs-en').textContent = pbStr + ' ' + 'years';
+  if (g('r-pb-yrs-fr')) g('r-pb-yrs-fr').textContent = pbStr + ' ans';
+
+  // KPIs
+  st('r-gross-amt', fmtCurr(gross));
+  st('r-net-amt', fmtCurr(net));
+  g('r-net-amt').style.color = net >= 0 ? 'var(--sim-teal)' : 'var(--sim-red)';
+  st('r-val5', fmtCurrK(val5));
+  g('r-val5-sub').innerHTML = `+${(apr * 100).toFixed(0)}% / <span class="lang-en-inline">yr</span><span class="lang-fr-inline">an</span>`;
+
+  // Cashflow
+  const sign = (v) => v >= 0 ? '+' : '-';
+  g('r-rev-mo').textContent = '+' + fmtCurrRaw(revMo);
+  g('r-ch-mo').textContent = '-' + fmtCurrRaw(chMo);
+
+  // Breakdown currency note
+  const currNote = activeCurr === 'USD' ? 'USD' : activeCurr;
+  if (g('bd-currency-note')) g('bd-currency-note').innerHTML = `${currNote} / <span class="lang-en-inline">yr</span><span class="lang-fr-inline">an</span>`;
+
+  // Breakdown
+  const mgmtLbl = lang === 'fr' ? `Frais gestion / OTA (${Math.round(mgmtR*100)}%)` : `Management / OTA fees (${Math.round(mgmtR*100)}%)`;
+  const rows = [
+    {l_en: 'Gross rental income',    l_fr: 'Revenu locatif brut',         v: gross,     bar: 100,                     c: 'var(--sim-gold)'},
+    {l_en: `Mgmt / OTA fees (${Math.round(mgmtR*100)}%)`, l_fr: `Frais gestion / OTA (${Math.round(mgmtR*100)}%)`, v: -mgmtFees, bar: mgmtFees/gross*100, c: 'var(--sim-red)'},
+    {l_en: 'Maintenance & upkeep',   l_fr: 'Entretien & maintenance',     v: -maint,    bar: maint/gross*100,         c: 'var(--sim-red)'},
+    {l_en: 'Staff',                  l_fr: 'Staff',                       v: -staff,    bar: staff/gross*100,         c: 'var(--sim-red)'},
+    {l_en: 'Utilities',              l_fr: 'Utilities',                   v: -util,     bar: util/gross*100,          c: 'var(--sim-red)'},
+    {l_en: 'Taxes & insurance',      l_fr: 'Taxes & assurances',          v: -tax,      bar: tax/gross*100,           c: 'var(--sim-red)'},
+    {l_en: 'NET ANNUAL INCOME',      l_fr: 'REVENU NET ANNUEL',           v: net,       bar: Math.max(0,net/gross*100), c: net >= 0 ? 'var(--sim-green)' : 'var(--sim-red)', tot: true},
+  ];
+  g('breakdown').innerHTML = rows.map(r => {
+    const lbl = lang === 'fr' ? r.l_fr : r.l_en;
+    const sign = r.v >= 0 ? '+' : '-';
+    const absVal = Math.abs(r.v);
+    const displayed = sign + fmtCurrRaw(absVal);
+    return `<div class="brow${r.tot ? ' total' : ''}">
+      <div class="brow-lbl">${lbl}</div>
+      <div class="brow-bar-wrap"><div class="brow-bar" style="width:${Math.max(0,Math.min(100,r.bar)).toFixed(1)}%;background:${r.c}"></div></div>
+      <div class="brow-val" style="color:${r.c}">${displayed}</div>
+    </div>`;
+  }).join('');
+
+  // Zone intel
+  st('zi-badge', z.full);
+  const dem = lang === 'fr' ? z.dem_fr : z.dem_en;
+  const tag = lang === 'fr' ? z.tag_fr : z.tag_en;
+  g('zi-grid').innerHTML = `<div class="zi-grid">
+    <div class="zi-item"><div class="zi-lbl">${lang==='fr'?'Fourchette acquisition':'Acquisition range'}</div><div class="zi-v">${z.pr}</div><div class="zi-note">Leasehold / PT PMA</div></div>
+    <div class="zi-item"><div class="zi-lbl">${lang==='fr'?'Prix moyen / m²':'Avg price / sqm'}</div><div class="zi-v">${fmtCurr(z.psm)}</div><div class="zi-note">${lang==='fr'?'Données 2025':'2025 data'}</div></div>
+    <div class="zi-item"><div class="zi-lbl">${lang==='fr'?'Occupation haute saison':'High season occupancy'}</div><div class="zi-v">${z.occH}%</div><div class="zi-note">${lang==='fr'?'Juil–Août · Déc–Jan':'Jul–Aug · Dec–Jan'}</div></div>
+    <div class="zi-item"><div class="zi-lbl">${lang==='fr'?'Occupation basse saison':'Low season occupancy'}</div><div class="zi-v">${z.occL}%</div><div class="zi-note">${lang==='fr'?'Mai–Juin · Sep–Nov':'May–Jun · Sep–Nov'}</div></div>
+    <div class="zi-item"><div class="zi-lbl">${lang==='fr'?'Appréciation foncière':'Land appreciation'}</div><div class="zi-v">~${z.appr}% / ${lang==='fr'?'an':'yr'}</div><div class="zi-note">2022–2025</div></div>
+    <div class="zi-item"><div class="zi-lbl">${lang==='fr'?'Coût terrain':'Land cost'}</div><div class="zi-v">${z.la}</div><div class="zi-note">Leasehold</div></div>
+    <div class="zi-item" style="grid-column:1/-1"><div class="zi-lbl">${lang==='fr'?'Profil locataires':'Tenant profile'}</div><div class="zi-v">${dem}</div><div class="zi-note">${tag}</div></div>
+  </div>`;
+
+  const desc = lang === 'fr' ? z.desc_fr : z.desc_en;
+  const risk = lang === 'fr' ? z.risk_fr : z.risk_en;
+  st('zi-desc', desc);
+  st('zi-warn', risk);
+
+  // Risk gauges
+  const rs = z.rs;
+  const riskLabels = lang === 'fr'
+    ? ['Demande', 'Faible concurrence', 'Réglementation', 'Liquidité']
+    : ['Demand', 'Low competition', 'Regulation', 'Liquidity'];
+  const risks = [
+    {l: riskLabels[0], s: rs.dem,  c: 'var(--sim-green)'},
+    {l: riskLabels[1], s: rs.comp, c: 'var(--sim-teal)'},
+    {l: riskLabels[2], s: rs.reg,  c: 'var(--sim-gold)'},
+    {l: riskLabels[3], s: rs.liq,  c: 'var(--sim-gold-l)'},
+  ];
+  g('risk-row').innerHTML = risks.map(r => `
+    <div class="risk-c">
+      <div class="risk-lbl">${r.l}</div>
+      <div class="risk-bar-w"><div class="risk-bar-f" style="width:${r.s*10}%;background:${r.c}"></div></div>
+      <div class="risk-val" style="color:${r.c}">${r.s}/10</div>
+    </div>`).join('');
+
+  // 5-year projection
+  let cumRev = 0, tbody = '';
+  const yrLbl = lang === 'fr' ? 'An' : 'Yr';
+  const totLbl = lang === 'fr' ? 'Total 5 ans' : '5-year total';
+  for (let yr = 1; yr <= 5; yr++) {
+    const inf = Math.pow(1.05, yr - 1);
+    const yrNet = net * inf;
+    cumRev += yrNet;
+    const vv = budget * Math.pow(1 + apr, yr);
+    const pat = vv + cumRev;
+    const roiC = ((cumRev + vv - budget) / budget * 100);
+    tbody += `<tr>
+      <td>${yrLbl} ${yr}</td>
+      <td class="${yrNet>=0?'pos':'neg'}">${yrNet>=0?'+':'-'}${fmtCurrRaw(Math.abs(yrNet))}</td>
+      <td class="${cumRev>=0?'pos':'neg'}">${cumRev>=0?'+':'-'}${fmtCurrRaw(Math.abs(cumRev))}</td>
+      <td style="color:var(--sim-text2)">${fmtCurrK(vv)}</td>
+      <td style="color:var(--sim-gold-l)">${fmtCurrK(pat)}</td>
+      <td class="pos">+${roiC.toFixed(0)}%</td>
+    </tr>`;
+  }
+  const finalV = budget * Math.pow(1 + apr, 5);
+  const totROI = ((cumRev + finalV - budget) / budget * 100);
+  tbody += `<tr>
+    <td>${totLbl}</td>
+    <td class="pos">+${fmtCurrRaw(cumRev)}</td>
+    <td>—</td>
+    <td>${fmtCurrK(finalV)}</td>
+    <td style="color:var(--sim-gold-l)">${fmtCurrK(cumRev + finalV)}</td>
+    <td class="pos" style="font-weight:600">+${totROI.toFixed(0)}%</td>
+  </tr>`;
+  g('proj-body').innerHTML = tbody;
+}
+
+/* ════════════════════════════════════
+   SCROLL REVEAL
+════════════════════════════════════ */
+(function() {
+  if (!('IntersectionObserver' in window)) {
+    document.querySelectorAll('.sim-reveal').forEach(el => el.classList.add('visible'));
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+  // observe only elements NOT already in the viewport at load
+  setTimeout(() => {
+    document.querySelectorAll('.sim-reveal').forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top > window.innerHeight) { io.observe(el); }
+      else { el.classList.add('visible'); }
+    });
+  }, 50);
+})();
+
+/* ════════════════════════════════════
+   INIT
+════════════════════════════════════ */
+buildZones();
+document.querySelectorAll('input[type=range]').forEach(el => {
+  const v = parseFloat(el.value), mn = parseFloat(el.min), mx = parseFloat(el.max);
+  el.style.setProperty('--pct', ((v - mn) / (mx - mn) * 100).toFixed(1) + '%');
+});
+go();
+fetchRates();
+
+// Re-run calc when lang switches so zone descriptions update
+const _origApplyLang = window.setLang;
+window.setLang = function(lang) {
+  if (_origApplyLang) _origApplyLang(lang);
+  go();
+  updateRateDisplay();
+};
+</script>
+</body>
+</html>
