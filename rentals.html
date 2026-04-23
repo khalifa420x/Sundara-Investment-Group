@@ -203,6 +203,40 @@
         width: 100%;
       }
     }
+    /* ── Villa gallery carousel ── */
+    .villa-gallery { margin-top: 16px; }
+    .villa-gallery-scroll {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding-bottom: 2px;
+    }
+    .villa-gallery-scroll::-webkit-scrollbar { display: none; }
+    .villa-gallery-scroll img {
+      flex: 0 0 auto;
+      width: 150px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 10px;
+      scroll-snap-align: start;
+      filter: saturate(0.82) contrast(1.02) brightness(0.84);
+      cursor: default;
+    }
+    @media (min-width: 640px) {
+      .villa-gallery-scroll {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        overflow-x: visible;
+        scroll-snap-type: none;
+      }
+      .villa-gallery-scroll img {
+        width: 100%;
+        height: 85px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -399,6 +433,49 @@ const VILLAS = [
     badge_fr: "Disponible",
     badge_cls: "rv-badge-green",
     image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=80"
+  },
+  {
+    id: "villa-peacock-bumbak",
+    name_en: "Villa Peacock \u2014 Umalas, Kerobokan",
+    name_fr: "Villa Peacock \u2014 Umalas, Kerobokan",
+    location: "Jalan Bumbak \u2014 Umalas, Kerobokan",
+    type: "long-term",
+    extended: true,
+    badge_en: "Available",
+    badge_fr: "Disponible",
+    badge_cls: "rv-badge-green",
+    specs_en: "3 Bedrooms\u2002|\u2002300 m\u00b2\u2002|\u200210m Pool\u2002|\u2002Furnished",
+    specs_fr: "3 Chambres\u2002|\u2002300 m\u00b2\u2002|\u2002Piscine 10m\u2002|\u2002Meubl\u00e9e",
+    desc_en: "Serene tropical retreat on Jalan Bumbak \u2013 Umalas. Private 3BR villa, 10m pool, garden bungalow. Perfect for long-stay residency or rental investment in Bali.",
+    desc_fr: "Havre de paix tropical \u00e0 Jalan Bumbak \u2013 Umalas. Villa priv\u00e9e 3 chambres, piscine 10m, bungalow jardin. Id\u00e9ale pour r\u00e9sidence long terme ou investissement locatif \u00e0 Bali.",
+    image: "images/villas/villa-bumbak/cover.png",
+    gallery: [
+      "images/villas/villa-bumbak/cover.png",
+      "images/villas/villa-bumbak/garden.png",
+      "images/villas/villa-bumbak/chambre1face.jpg",
+      "images/villas/villa-bumbak/chambre2.jpg",
+      "images/villas/villa-bumbak/chambre3.jpg",
+      "images/villas/villa-bumbak/chambre1cote.jpg",
+      "images/villas/villa-bumbak/salledebain.jpg",
+      "images/villas/villa-bumbak/salon1.jpg",
+      "images/villas/villa-bumbak/salon2cote.jpg",
+      "images/villas/villa-bumbak/salon2feuilles.jpg",
+      "images/villas/villa-bumbak/sejourcote.jpg",
+      "images/villas/villa-bumbak/sejourface.jpg",
+      "images/villas/villa-bumbak/statue1.jpg",
+      "images/villas/villa-bumbak/statue2.jpg",
+      "images/villas/villa-bumbak/statue3.jpg"
+    ],
+    prices_en: [
+      { label: "10-year lease", value: "3,400,000,000 IDR", note: "fully furnished" },
+      { label: "20-year lease", value: "4,850,000,000 IDR", note: "fully furnished" },
+      { label: "Monthly rental", value: "45,000,000 IDR\u00a0/ month", note: "" }
+    ],
+    prices_fr: [
+      { label: "Bail 10 ans", value: "3\u00a0400\u00a0000\u00a0000 IDR", note: "meubl\u00e9e" },
+      { label: "Bail 20 ans", value: "4\u00a0850\u00a0000\u00a0000 IDR", note: "meubl\u00e9e" },
+      { label: "Location mensuelle", value: "45\u00a0000\u00a0000 IDR\u00a0/ mois", note: "" }
+    ]
   }
 ];
 
@@ -460,52 +537,106 @@ function renderCards() {
   grid.innerHTML = '';
 
   VILLAS.forEach(v => {
-    const name = fr ? v.name_fr : v.name_en;
-    const badge = fr ? v.badge_fr : v.badge_en;
-    const suffix = fr ? '\u00a0/ nuit' : '\u00a0/ night';
-    const fromLbl = fr ? '\u00c0 partir de' : 'From';
-    const ctaLbl = fr ? 'V\u00e9rifier disponibilit\u00e9s\u00a0\u2192' : 'Check Availability\u00a0\u2192';
-    const viewLbl = fr ? 'Voir les d\u00e9tails\u00a0\u2192' : 'View Details\u00a0\u2192';
-    const statusLbl = fr ? 'Statut' : 'Status';
-    const rateLbl = fr ? 'Tarif' : 'Rate';
-    const specs = fr
-      ? `${v.bedrooms}\u00a0chambres\u00a0\u00b7 Piscine priv\u00e9e\u00a0\u00b7 ${v.sqm}\u00a0m\u00b2`
-      : `${v.bedrooms}\u00a0bedrooms\u00a0\u00b7 Private pool\u00a0\u00b7 ${v.sqm}\u00a0sqm`;
-
     const card = document.createElement('div');
     card.className = 'villa-card reveal';
     card.dataset.type = v.type;
-    card.addEventListener('click', () => { window.location = 'villa.html?id=' + v.id; });
 
-    card.innerHTML =
-      '<div class="rv-card-img">' +
-        '<img src="' + v.image + '" alt="' + name + '" loading="lazy">' +
-        '<span class="rv-card-badge ' + v.badge_cls + '">' + badge + '</span>' +
-        '<div class="rv-card-overlay"><span class="rv-card-overlay-text">' + viewLbl + '</span></div>' +
-      '</div>' +
-      '<div class="rv-card-body">' +
-        '<div class="rv-card-header">' +
-          '<h3 class="rv-card-name">' + name + '</h3>' +
-          '<p class="rv-card-location">' + v.location + '</p>' +
+    if (v.extended) {
+      /* ── Extended card: local images · IDR prices · photo gallery · bilingual via CSS ── */
+      const galleryHtml = v.gallery.map(img =>
+        '<img src="' + img + '" alt="' + v.name_en + '" loading="lazy">'
+      ).join('');
+      const pricesHtml = v.prices_en.map(function(p, i) {
+        const pfr = v.prices_fr[i];
+        return '<p style="margin:0 0 6px;font-family:\'Outfit\',sans-serif;font-size:11px;font-weight:600;color:#c6a96b;letter-spacing:0.07em;line-height:1.5">' +
+          '<span class="lang-en-inline">' + p.label + ': ' + p.value + (p.note ? ' \u2014 ' + p.note : '') + '</span>' +
+          '<span class="lang-fr-inline">' + pfr.label + '\u00a0: ' + pfr.value + (pfr.note ? ' \u2014 ' + pfr.note : '') + '</span>' +
+        '</p>';
+      }).join('');
+      card.innerHTML =
+        '<div class="rv-card-img">' +
+          '<img src="' + v.image + '" alt="' + v.name_en + '" loading="lazy">' +
+          '<span class="rv-card-badge ' + v.badge_cls + '">' +
+            '<span class="lang-en-inline">' + v.badge_en + '</span>' +
+            '<span class="lang-fr-inline">' + v.badge_fr + '</span>' +
+          '</span>' +
+          '<div class="rv-card-overlay"><span class="rv-card-overlay-text">' +
+            '<span class="lang-en-inline">' + v.specs_en + '</span>' +
+            '<span class="lang-fr-inline">' + v.specs_fr + '</span>' +
+          '</span></div>' +
         '</div>' +
-        '<p class="rv-card-specs">' + specs + '</p>' +
-        '<div class="rv-card-metrics">' +
-          '<div class="rv-metric">' +
-            '<p class="rv-card-price-label">' + rateLbl + '</p>' +
-            '<p class="rv-card-price" data-price-usd="' + v.price_usd + '" data-suffix="' + suffix + '">' +
-              fromLbl + ' ' + fmtPrice(v.price_usd, activeCur) + suffix +
+        '<div class="rv-card-body">' +
+          '<div class="rv-card-header">' +
+            '<h3 class="rv-card-name">' + v.name_en + '</h3>' +
+            '<p class="rv-card-location">' + v.location + '</p>' +
+          '</div>' +
+          '<p class="rv-card-specs">' +
+            '<span class="lang-en-inline">' + v.specs_en + '</span>' +
+            '<span class="lang-fr-inline">' + v.specs_fr + '</span>' +
+          '</p>' +
+          '<p style="margin:4px 0 0;color:rgba(255,255,255,0.55);font-family:\'Outfit\',sans-serif;font-size:12px;line-height:1.65">' +
+            '<span class="lang-en-inline">' + v.desc_en + '</span>' +
+            '<span class="lang-fr-inline">' + v.desc_fr + '</span>' +
+          '</p>' +
+          '<div style="margin-top:14px;padding:14px;border-radius:14px;background:rgba(198,169,107,0.05);border:1px solid rgba(198,169,107,0.14)">' +
+            '<p class="rv-metric-label" style="margin:0 0 10px">' +
+              '<span class="lang-en-inline">Pricing</span>' +
+              '<span class="lang-fr-inline">Tarifs</span>' +
             '</p>' +
+            pricesHtml +
           '</div>' +
-          '<div class="rv-metric">' +
-            '<p class="rv-metric-label">' + statusLbl + '</p>' +
-            '<p class="rv-card-badge-copy">' + badge + '</p>' +
+          '<div class="villa-gallery"><div class="villa-gallery-scroll">' + galleryHtml + '</div></div>' +
+          '<div class="rv-card-actions" style="grid-template-columns:1fr">' +
+            '<a href="https://wa.me/62812155976250" class="rv-card-btn" onclick="event.stopPropagation()" target="_blank" rel="noopener">' +
+              '<span class="lang-en-inline">Book a Visit</span>' +
+              '<span class="lang-fr-inline">Demander une visite</span>' +
+            '</a>' +
           '</div>' +
+        '</div>';
+    } else {
+      /* ── Standard card ── */
+      const name = fr ? v.name_fr : v.name_en;
+      const badge = fr ? v.badge_fr : v.badge_en;
+      const suffix = fr ? '\u00a0/ nuit' : '\u00a0/ night';
+      const fromLbl = fr ? '\u00c0 partir de' : 'From';
+      const ctaLbl = fr ? 'V\u00e9rifier disponibilit\u00e9s\u00a0\u2192' : 'Check Availability\u00a0\u2192';
+      const viewLbl = fr ? 'Voir les d\u00e9tails\u00a0\u2192' : 'View Details\u00a0\u2192';
+      const statusLbl = fr ? 'Statut' : 'Status';
+      const rateLbl = fr ? 'Tarif' : 'Rate';
+      const specs = fr
+        ? `${v.bedrooms}\u00a0chambres\u00a0\u00b7 Piscine priv\u00e9e\u00a0\u00b7 ${v.sqm}\u00a0m\u00b2`
+        : `${v.bedrooms}\u00a0bedrooms\u00a0\u00b7 Private pool\u00a0\u00b7 ${v.sqm}\u00a0sqm`;
+      card.addEventListener('click', () => { window.location = 'villa.html?id=' + v.id; });
+      card.innerHTML =
+        '<div class="rv-card-img">' +
+          '<img src="' + v.image + '" alt="' + name + '" loading="lazy">' +
+          '<span class="rv-card-badge ' + v.badge_cls + '">' + badge + '</span>' +
+          '<div class="rv-card-overlay"><span class="rv-card-overlay-text">' + viewLbl + '</span></div>' +
         '</div>' +
-        '<div class="rv-card-actions">' +
-          '<a href="contact.html?type=rental" class="rv-card-btn" onclick="event.stopPropagation()">' + ctaLbl + '</a>' +
-          '<a href="villa.html?id=' + v.id + '" class="rv-card-btn-secondary" onclick="event.stopPropagation()">' + viewLbl + '</a>' +
-        '</div>' +
-      '</div>';
+        '<div class="rv-card-body">' +
+          '<div class="rv-card-header">' +
+            '<h3 class="rv-card-name">' + name + '</h3>' +
+            '<p class="rv-card-location">' + v.location + '</p>' +
+          '</div>' +
+          '<p class="rv-card-specs">' + specs + '</p>' +
+          '<div class="rv-card-metrics">' +
+            '<div class="rv-metric">' +
+              '<p class="rv-card-price-label">' + rateLbl + '</p>' +
+              '<p class="rv-card-price" data-price-usd="' + v.price_usd + '" data-suffix="' + suffix + '">' +
+                fromLbl + ' ' + fmtPrice(v.price_usd, activeCur) + suffix +
+              '</p>' +
+            '</div>' +
+            '<div class="rv-metric">' +
+              '<p class="rv-metric-label">' + statusLbl + '</p>' +
+              '<p class="rv-card-badge-copy">' + badge + '</p>' +
+            '</div>' +
+          '</div>' +
+          '<div class="rv-card-actions">' +
+            '<a href="contact.html?type=rental" class="rv-card-btn" onclick="event.stopPropagation()">' + ctaLbl + '</a>' +
+            '<a href="villa.html?id=' + v.id + '" class="rv-card-btn-secondary" onclick="event.stopPropagation()">' + viewLbl + '</a>' +
+          '</div>' +
+        '</div>';
+    }
 
     grid.appendChild(card);
     rvIO.observe(card);
