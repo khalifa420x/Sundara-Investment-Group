@@ -770,22 +770,22 @@ function buildDetail(v, lang) {
   const idr = getMainIdr(v);
 
   const leaseBlock = (v.leases && v.leases.length) ? (function() {
-    const leasesLbl = fr ? ‘Options d\u2019achat’ : ‘Lease Options’;
+    const leasesLbl = fr ? 'Options d\u2019achat' : 'Lease Options';
     const rows = v.leases.map(function(l) {
       const lbl = fr ? l.label.fr : l.label.en;
       const usdVal = l.price_idr / 15800;
-      return ‘<div class="vd-lease-row">’ +
-        ‘<span class="vd-lease-label">’ + lbl + ‘</span>’ +
-        ‘<span class="vd-lease-price" data-price-usd="’ + usdVal + ‘"’ +
-          ‘ data-price-idr="’ + l.price_idr + ‘"’ +
-          ‘ data-suffix="">’ + fmtPrice(usdVal, activeCur, l.price_idr) + ‘</span>’ +
-      ‘</div>’;
-    }).join(‘’);
-    return ‘<div class="vd-lease-block">’ +
-      ‘<p class="vd-lease-title">’ + leasesLbl + ‘</p>’ +
+      return '<div class="vd-lease-row">' +
+        '<span class="vd-lease-label">' + lbl + '</span>' +
+        '<span class="vd-lease-price" data-price-usd="' + usdVal + '"' +
+          ' data-price-idr="' + l.price_idr + '"' +
+          ' data-suffix="">' + fmtPrice(usdVal, activeCur, l.price_idr) + '</span>' +
+      '</div>';
+    }).join('');
+    return '<div class="vd-lease-block">' +
+      '<p class="vd-lease-title">' + leasesLbl + '</p>' +
       rows +
-    ‘</div>’;
-  })() : ‘’;
+    '</div>';
+  })() : '';
 
   document.getElementById('vdBooking').innerHTML =
     '<div class="vd-book-card reveal">' +
