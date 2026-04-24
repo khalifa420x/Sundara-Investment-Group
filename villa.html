@@ -25,6 +25,29 @@
     @media (max-width: 600px) {
       .vd-hero-price { font-size: 13px !important; white-space: normal !important; }
     }
+    @media (max-width: 768px) {
+      #vdInfo,
+      #vdBooking {
+        padding-left: 20px;
+        padding-right: 20px;
+        box-sizing: border-box;
+        width: 100%;
+      }
+      .vd-specs-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+        box-sizing: border-box;
+        gap: 1px;
+      }
+      .vd-section-label {
+        text-align: left;
+      }
+      .vd-description {
+        width: 100%;
+        box-sizing: border-box;
+      }
+    }
 
     /* ── Carousel ─────────────────────────────────────────────── */
     #vdCarousel {
@@ -36,8 +59,9 @@
     }
     .vd-carousel-wrap {
       width: 100%;
-      aspect-ratio: 16/9;
-      max-height: 600px;
+      aspect-ratio: unset;
+      height: clamp(480px, 68vh, 850px);
+      max-height: unset;
       overflow: hidden;
       position: relative;
       background: #0a0a0a;
@@ -45,8 +69,9 @@
     }
     @media (max-width: 768px) {
       .vd-carousel-wrap {
-        aspect-ratio: 4/3;
-        max-height: unset;
+        height: 72vw;
+        min-height: 260px;
+        max-height: 420px;
       }
     }
     .vd-carousel-track {
@@ -367,7 +392,7 @@ const VILLAS = [
     bathrooms: 3,
     sqm: 300,
     pool: true,
-    price_usd: 2848,
+    price_idr: 45000000,
     badge_en: "Available",
     badge_fr: "Disponible",
     badge_cls: "rv-badge-green",
@@ -376,8 +401,8 @@ const VILLAS = [
     price_period_en: "per month",
     price_period_fr: "par mois",
     cta_href: "https://wa.me/6281215597625",
-    lease_10yr_usd: 215190,
-    lease_20yr_usd: 306962,
+    lease_10yr_idr: 3400000000,
+    lease_20yr_idr: 4850000000,
     images: [
       "images/villas/villa-bumbak/cover.png",
       "images/villas/villa-bumbak/garden.png",
@@ -407,7 +432,14 @@ const CUR_RATES = { USD: 1, EUR: 0.92, GBP: 0.79, IDR: 15800 };
 const CUR_SYMS  = { USD: '$', EUR: '€', GBP: '£', IDR: 'IDR\u00a0' };
 let activeCur = localStorage.getItem('sundara-currency') || 'USD';
 
-function fmtPrice(usd, cur) {
+function fmtPrice(usd, cur, idr) {
+  if (idr !== undefined) {
+    // Prix stocké nativement en IDR
+    if (cur === 'IDR') return 'IDR\u00a0' + idr.toLocaleString('id-ID');
+    const val = Math.round(idr / CUR_RATES['IDR'] * CUR_RATES[cur]);
+    return CUR_SYMS[cur] + val.toLocaleString('en-US');
+  }
+  // Prix stocké en USD (villas short-term)
   const val = Math.round(usd * CUR_RATES[cur]);
   if (cur === 'IDR') return 'IDR\u00a0' + val.toLocaleString('id-ID');
   return CUR_SYMS[cur] + val.toLocaleString('en-US');
@@ -419,7 +451,8 @@ function setCurrency(cur) {
   document.querySelectorAll('[data-price-usd]').forEach(el => {
     el.classList.add('updating');
     setTimeout(() => {
-      el.textContent = fmtPrice(+el.dataset.priceUsd, activeCur) + (el.dataset.suffix || '');
+      const idr = el.dataset.priceIdr ? +el.dataset.priceIdr : undefined;
+      el.textContent = fmtPrice(+el.dataset.priceUsd, activeCur, idr) + (el.dataset.suffix || '');
       el.classList.remove('updating');
     }, 150);
   });
@@ -460,8 +493,10 @@ function buildHero(v, lang) {
         '<p class="vd-hero-specs">' + specs + '</p>' +
         '<div class="vd-hero-price-wrap">' +
           '<span class="vd-hero-price-label">' + fromLbl + '</span>' +
-          '<span class="vd-hero-price" data-price-usd="' + v.price_usd + '" data-suffix="' + suffix + '">' +
-            fmtPrice(v.price_usd, activeCur) + suffix +
+          '<span class="vd-hero-price" data-price-usd="' + (v.price_usd||0) + '"' +
+            (v.price_idr ? ' data-price-idr="' + v.price_idr + '"' : '') +
+            ' data-suffix="' + suffix + '">' +
+            fmtPrice(v.price_usd||0, activeCur, v.price_idr) + suffix +
           '</span>' +
         '</div>' +
       '</div>' +
@@ -475,8 +510,10 @@ function buildHero(v, lang) {
     '<div class="vd-sticky-bar" id="vdStickyBar">' +
       '<span class="vd-sticky-name">' + name + '</span>' +
       '<div class="vd-sticky-right">' +
-        '<span class="vd-sticky-price" data-price-usd="' + v.price_usd + '" data-suffix="' + suffix + '">' +
-          fmtPrice(v.price_usd, activeCur) + suffix +
+        '<span class="vd-sticky-price" data-price-usd="' + (v.price_usd||0) + '"' +
+          (v.price_idr ? ' data-price-idr="' + v.price_idr + '"' : '') +
+          ' data-suffix="' + suffix + '">' +
+          fmtPrice(v.price_usd||0, activeCur, v.price_idr) + suffix +
         '</span>' +
         '<a href="' + stickyCtaHref + '" class="vd-sticky-btn"' + stickyCtaExtra + '>' + ctaLbl + '</a>' +
       '</div>' +
@@ -607,7 +644,7 @@ function buildDetail(v, lang) {
       '<div class="vd-amenities">' + amenItems + '</div>' +
     '</div>';
 
-  const leaseBlock = v.lease_10yr_usd ? (function() {
+  const leaseBlock = (v.lease_10yr_usd || v.lease_10yr_idr) ? (function() {
     const leaseLbl = fr ? 'Options d\u2019achat' : 'Lease Options';
     const l10Lbl   = fr ? 'Bail 10 ans' : '10-yr Lease';
     const l20Lbl   = fr ? 'Bail 20 ans' : '20-yr Lease';
@@ -615,11 +652,15 @@ function buildDetail(v, lang) {
       '<p class="vd-lease-title">' + leaseLbl + '</p>' +
       '<div class="vd-lease-row">' +
         '<span class="vd-lease-label">' + l10Lbl + '</span>' +
-        '<span class="vd-lease-price" data-price-usd="' + v.lease_10yr_usd + '" data-suffix="">' + fmtPrice(v.lease_10yr_usd, activeCur) + '</span>' +
+        '<span class="vd-lease-price" data-price-usd="0"' +
+          (v.lease_10yr_idr ? ' data-price-idr="' + v.lease_10yr_idr + '"' : ' data-price-usd="' + (v.lease_10yr_usd||0) + '"') +
+          ' data-suffix="">' + fmtPrice(v.lease_10yr_usd||0, activeCur, v.lease_10yr_idr) + '</span>' +
       '</div>' +
       '<div class="vd-lease-row">' +
         '<span class="vd-lease-label">' + l20Lbl + '</span>' +
-        '<span class="vd-lease-price" data-price-usd="' + v.lease_20yr_usd + '" data-suffix="">' + fmtPrice(v.lease_20yr_usd, activeCur) + '</span>' +
+        '<span class="vd-lease-price" data-price-usd="0"' +
+          (v.lease_20yr_idr ? ' data-price-idr="' + v.lease_20yr_idr + '"' : ' data-price-usd="' + (v.lease_20yr_usd||0) + '"') +
+          ' data-suffix="">' + fmtPrice(v.lease_20yr_usd||0, activeCur, v.lease_20yr_idr) + '</span>' +
       '</div>' +
     '</div>';
   })() : '';
@@ -627,8 +668,10 @@ function buildDetail(v, lang) {
   document.getElementById('vdBooking').innerHTML =
     '<div class="vd-book-card reveal">' +
       '<p class="vd-book-price-label">' + fromLbl + '</p>' +
-      '<p class="vd-book-price" data-price-usd="' + v.price_usd + '" data-suffix="">' +
-        fmtPrice(v.price_usd, activeCur) +
+      '<p class="vd-book-price" data-price-usd="' + (v.price_usd||0) + '"' +
+        (v.price_idr ? ' data-price-idr="' + v.price_idr + '"' : '') +
+        ' data-suffix="">' +
+        fmtPrice(v.price_usd||0, activeCur, v.price_idr) +
       '</p>' +
       '<p class="vd-book-price-night">' + nightLbl + '</p>' +
       '<div class="vd-book-divider"></div>' +
