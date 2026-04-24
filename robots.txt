@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /simulator.html
+Disallow: /sundara-roi-simulator.html
+
+Sitemap: https://sundara-investment-group.vercel.app/sitemap.xml

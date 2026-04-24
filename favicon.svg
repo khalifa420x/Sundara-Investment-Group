@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" fill="#0d0d0d"/>
+  <!-- Bâtiment central blanc -->
+  <rect x="13" y="8" width="6" height="16" fill="white"/>
+  <!-- Bâtiment gauche or -->
+  <rect x="7" y="13" width="5" height="11" fill="none" stroke="#B8922A" stroke-width="1.2"/>
+  <!-- Bâtiment droit or -->
+  <rect x="20" y="11" width="5" height="13" fill="none" stroke="#B8922A" stroke-width="1.2"/>
+  <!-- Toit droit triangulaire or -->
+  <polyline points="20,11 22.5,7 25,11" fill="none" stroke="#B8922A" stroke-width="1.2"/>
+  <!-- Ligne de sol or -->
+  <line x1="5" y1="24" x2="27" y2="24" stroke="#B8922A" stroke-width="1.2"/>
+  <!-- Ligne diagonale signature -->
+  <line x1="13" y1="8" x2="19" y2="24" stroke="#B8922A" stroke-width="1.2"/>
+</svg>
