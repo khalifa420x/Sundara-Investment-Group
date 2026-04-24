@@ -71,6 +71,145 @@
         "en": ["10m Private Pool", "Children\u2019s Pool Area", "Sunken Lounge", "60m\u00b2 Master Suite", "3rd Bedroom \u2014 Garden Bungalow", "Fully Equipped Kitchen", "3 Bathrooms En-Suite", "Gazebo", "Car & Scooter Parking", "Air Conditioning", "High-Speed WiFi"],
         "fr": ["Piscine priv\u00e9e 10m", "Espace enfants piscine", "Salon sunken", "Suite parentale 60m\u00b2", "3\u00e8me chambre \u2014 Bungalow jardin", "Cuisine enti\u00e8rement \u00e9quip\u00e9e", "3 salles de bain en-suite", "Gazebo", "Parking voiture & scooter", "Climatisation", "WiFi haut d\u00e9bit"]
       }
+    },
+    {
+      "id": "villa-kerobokan-compound",
+      "rental_show": true,
+      "invest_show": true,
+      "type": "long-term",
+      "location": "Kerobokan, Bali",
+      "name": {
+        "en": "Kerobokan Compound",
+        "fr": "Compound Kerobokan"
+      },
+      "badge": {
+        "en": "3 of 4 Units Available",
+        "fr": "3 Unit\u00e9s sur 4 Disponibles",
+        "cls": "rv-badge-green"
+      },
+      "bedrooms": 2,
+      "bathrooms": 3,
+      "sqm": 130,
+      "pool": true,
+      "price_idr_night": null,
+      "price_idr_month": null,
+      "price_idr_year": 180000000,
+      "leases": [
+        {
+          "years": 19,
+          "price_idr": 2100000000,
+          "label": {
+            "en": "19-yr Lease",
+            "fr": "Bail 19 ans"
+          }
+        }
+      ],
+      "suffix": {
+        "en": "\u00a0/ year",
+        "fr": "\u00a0/ an"
+      },
+      "period": {
+        "en": "per year",
+        "fr": "par an"
+      },
+      "cta_href": "https://wa.me/6281215597625",
+      "cta_label": {
+        "en": "Enquire Now \u2192",
+        "fr": "Nous Contacter \u2192"
+      },
+      "invest_yield": "~18%",
+      "invest_label": {
+        "en": "Est. Net ROI (Airbnb)",
+        "fr": "ROI Net Est. (Airbnb)"
+      },
+      "cover": "images/villas/villa-kerobokan-compound/cover.png",
+      "images": [
+        "images/villas/villa-kerobokan-compound/cover.png",
+        "images/villas/villa-kerobokan-compound/piscine1.jpg",
+        "images/villas/villa-kerobokan-compound/piscine2.jpg",
+        "images/villas/villa-kerobokan-compound/piscine3.jpg",
+        "images/villas/villa-kerobokan-compound/piscine.png",
+        "images/villas/villa-kerobokan-compound/ensemble.jpg",
+        "images/villas/villa-kerobokan-compound/chambre.jpg",
+        "images/villas/villa-kerobokan-compound/chambre1.jpg",
+        "images/villas/villa-kerobokan-compound/chambre2.png",
+        "images/villas/villa-kerobokan-compound/salledebain.png",
+        "images/villas/villa-kerobokan-compound/salledebain1.png",
+        "images/villas/villa-kerobokan-compound/cuisine.jpg",
+        "images/villas/villa-kerobokan-compound/gaziniere.jpg",
+        "images/villas/villa-kerobokan-compound/table.jpg",
+        "images/villas/villa-kerobokan-compound/table1.jpg",
+        "images/villas/villa-kerobokan-compound/canape.jpg",
+        "images/villas/villa-kerobokan-compound/porte.jpg",
+        "images/villas/villa-kerobokan-compound/rentree.jpg",
+        "images/villas/villa-kerobokan-compound/rentree2.jpg"
+      ],
+      "seo": {
+        "title": {
+          "en": "Kerobokan Compound \u2014 Private Pool Villa Bali | 2BR | 18% ROI Airbnb",
+          "fr": "Compound Kerobokan \u2014 Villa Piscine Bali | 2 Chambres | ROI 18% Airbnb"
+        },
+        "description": {
+          "en": "Fully equipped 2BR private pool villa in Kerobokan, Bali. 19-yr lease 2.1B IDR. Each bedroom en-suite with AC & TV. ~18% net ROI. 3 of 4 units still available.",
+          "fr": "Villa 2 chambres piscine priv\u00e9e \u00e0 Kerobokan, Bali. Bail 19 ans 2,1 Mds IDR. Chaque chambre en-suite clim\u00e9 et TV. ROI net ~18%. 3 unit\u00e9s sur 4 disponibles."
+        },
+        "keywords": {
+          "en": [
+            "villa kerobokan bali lease",
+            "bali investment villa airbnb",
+            "private pool villa bali buy",
+            "kerobokan compound bali",
+            "bali villa 2 bedroom ensuite",
+            "bali leasehold villa roi",
+            "villa bali between seminyak canggu",
+            "bali real estate investment 2025"
+          ],
+          "fr": [
+            "villa kerobokan bail bali",
+            "investissement villa bali airbnb",
+            "villa piscine priv\u00e9e bali achat",
+            "compound kerobokan bali",
+            "villa bali 2 chambres en-suite",
+            "villa bali rendement locatif",
+            "villa bali entre seminyak canggu",
+            "immobilier bali investissement 2025"
+          ]
+        }
+      },
+      "desc": {
+        "en": "**Rare Compound Opportunity \u2014 3 of 4 Units Still Available**\n\nNestled in the heart of Kerobokan, Bali\u2019s most coveted investment corridor sitting directly between the luxury of Seminyak and the creative energy of Canggu, this fully equipped private pool villa is one of only 4 identical units in an exclusive compound \u2014 and 3 are still available.\n\nWhether you\u2019re a first-time Bali investor or building a portfolio, this is the entry-level ticket into one of the island\u2019s highest-demand rental zones \u2014 at a price that still makes sense.\n\n**The Villa**\n\nSpread across a 130m\u00b2 plot, every detail of this villa has been designed for comfort, autonomy, and rental performance:\n\n- 2 spacious bedrooms, each with its own **en-suite bathroom**, **air conditioning**, and **private flat-screen TV** \u2014 total privacy guaranteed for every guest\n- A stunning **private pool (5.3m \u00d7 3.5m)** \u2014 your guests\u2019 first photo every morning\n- 3rd independent bathroom for added flexibility\n- Fully equipped kitchen with gas stove, refrigerator, and all essentials\n- Comfortable living and dining area, ideal for families or couples\n- Dedicated storage room\n- High-speed **Biznet fiber internet** \u2014 non-negotiable for modern travelers\n- **5,500W power supply** and **artesian well water** \u2014 full infrastructure autonomy, zero dependency on unreliable sources\n\n**Why Kerobokan?**\n\nKerobokan is not Canggu hype-pricing. Not Seminyak luxury markup. It\u2019s the sweet spot \u2014 5 minutes from Echo Beach, 7 minutes from Seminyak Square, walking distance to top restaurants, spas, and the best of Bali\u2019s lifestyle. High tourist foot traffic. Strong year-round demand. And still accessible pricing compared to its neighbors.\n\nInvestors who missed Canggu in 2018 are buying Kerobokan now.\n\n**Investment Performance**\n\n| | |\n|---|---|\n| Lease | 19 years \u2014 2,100,000,000 IDR |\n| Long-term rental | 180,000,000 IDR / year |\n| Est. Airbnb gross revenue | ~608,000,000 IDR / year |\n| Platform & management fees | ~38% |\n| **Est. net revenue** | **~377,000,000 IDR / year** |\n| **Est. net ROI** | **~18%** |\n| Payback period | ~5.5 years |\n\n*Figures are indicative and based on comparable Kerobokan short-term rental properties. Actual performance depends on management, seasonality, and occupancy rates.*\n\n**Only 3 units remaining.** These won\u2019t last. Contact us on WhatsApp to arrange a site visit.",
+        "fr": "**Opportunit\u00e9 Compound Rare \u2014 3 Unit\u00e9s sur 4 Encore Disponibles**\n\nSitu\u00e9e au c\u0153ur de Kerobokan, le corridor d\u2019investissement le plus convoit\u00e9 de Bali \u2014 entre le luxe de Seminyak et l\u2019\u00e9nergie cr\u00e9ative de Canggu \u2014 cette villa avec piscine priv\u00e9e enti\u00e8rement \u00e9quip\u00e9e est l\u2019une des 4 unit\u00e9s identiques d\u2019un compound exclusif. Et 3 sont encore disponibles.\n\nQue vous soyez un primo-investisseur \u00e0 Bali ou en train de constituer un portefeuille, c\u2019est le ticket d\u2019entr\u00e9e id\u00e9al dans l\u2019une des zones locatives les plus demand\u00e9es de l\u2019\u00eele \u2014 \u00e0 un prix qui a encore du sens.\n\n**La Villa**\n\nSur un terrain de 130m\u00b2, chaque d\u00e9tail a \u00e9t\u00e9 pens\u00e9 pour le confort, l\u2019autonomie et la performance locative :\n\n- 2 chambres spacieuses, chacune avec sa propre **salle de bain priv\u00e9e (en-suite)**, la **climatisation** et une **t\u00e9l\u00e9vision** \u2014 intimit\u00e9 totale garantie pour chaque voyageur\n- Une magnifique **piscine priv\u00e9e (5,3m \u00d7 3,5m)** \u2014 la premi\u00e8re photo de vos h\u00f4tes chaque matin\n- 3\u00e8me salle de bain ind\u00e9pendante pour plus de flexibilit\u00e9\n- Cuisine enti\u00e8rement \u00e9quip\u00e9e : gazini\u00e8re, r\u00e9frig\u00e9rateur, tout le n\u00e9cessaire\n- Salon et salle \u00e0 manger confortables, parfaits pour les familles ou les couples\n- Salle de stockage d\u00e9di\u00e9e\n- **Fibre Biznet haut d\u00e9bit** \u2014 indispensable pour les voyageurs modernes\n- **Alimentation 5 500W** et **eau de puits artisien** \u2014 autonomie infrastructurelle totale\n\n**Pourquoi Kerobokan ?**\n\nKerobokan, ce n\u2019est pas la surench\u00e8re de Canggu. Pas les prix premium de Seminyak. C\u2019est le point d\u2019\u00e9quilibre parfait \u2014 \u00e0 5 minutes d\u2019Echo Beach, 7 minutes de Seminyak Square, \u00e0 deux pas des meilleurs restaurants et spas de Bali. Fort achalandage touristique, demande locative soutenue toute l\u2019ann\u00e9e, et des prix encore accessibles par rapport \u00e0 ses voisins.\n\nCeux qui ont rat\u00e9 Canggu en 2018 ach\u00e8tent Kerobokan aujourd\u2019hui.\n\n**Performance Investissement**\n\n| | |\n|---|---|\n| Bail | 19 ans \u2014 2 100 000 000 IDR |\n| Location longue dur\u00e9e | 180 000 000 IDR / an |\n| Revenu brut Airbnb estim\u00e9 | ~608 000 000 IDR / an |\n| Frais plateforme & gestion | ~38% |\n| **Revenu net estim\u00e9** | **~377 000 000 IDR / an** |\n| **ROI net estim\u00e9** | **~18%** |\n| Retour sur investissement | ~5,5 ans |\n\n*Chiffres \u00e0 titre indicatif, bas\u00e9s sur des biens comparables en location courte dur\u00e9e \u00e0 Kerobokan. Les performances r\u00e9elles d\u00e9pendent de la gestion, de la saisonnalit\u00e9 et du taux d\u2019occupation.*\n\n**Plus que 3 unit\u00e9s disponibles.** Ne tardez pas. Contactez-nous sur WhatsApp pour organiser une visite."
+      },
+      "amenities": {
+        "en": [
+          "Private Pool 5.3m\u00d73.5m",
+          "2 En-Suite Bedrooms",
+          "3 Bathrooms",
+          "AC in Every Bedroom",
+          "Flat-Screen TV per Room",
+          "Fully Equipped Kitchen",
+          "Gas Stove & Refrigerator",
+          "Storage Room",
+          "Biznet Fiber Internet",
+          "5,500W Power Supply",
+          "Artesian Well Water",
+          "130m\u00b2 Land Plot"
+        ],
+        "fr": [
+          "Piscine priv\u00e9e 5,3m\u00d73,5m",
+          "2 Chambres en-suite",
+          "3 Salles de bain",
+          "Climatisation dans chaque chambre",
+          "T\u00e9l\u00e9vision par chambre",
+          "Cuisine enti\u00e8rement \u00e9quip\u00e9e",
+          "Gazini\u00e8re & R\u00e9frig\u00e9rateur",
+          "Salle de stockage",
+          "Fibre Biznet",
+          "Alimentation 5 500W",
+          "Eau de puits artisien",
+          "Terrain 130m\u00b2"
+        ]
+      }
     }
   ]
 }
