@@ -275,6 +275,69 @@
       transition: opacity 0.2s, transform 0.2s;
     }
     .vd-lease-price.updating { opacity: 0; transform: scale(0.95); }
+
+    .vd-roi-block {
+      background: #ffffff;
+      border: 1px solid rgba(198,169,107,0.25);
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin-top: 48px;
+      margin-bottom: 0;
+    }
+    .vd-roi-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #C6A96B;
+      margin: 0 0 20px;
+    }
+    .vd-roi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 600px) {
+      .vd-roi-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+    }
+    .vd-roi-item {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 16px;
+      background: #FAFAF7;
+      border-radius: 8px;
+      border: 1px solid rgba(198,169,107,0.12);
+    }
+    .vd-roi-val {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 300;
+      color: #C6A96B;
+      line-height: 1;
+    }
+    .vd-roi-lbl {
+      font-family: 'Outfit', sans-serif;
+      font-size: 10px;
+      font-weight: 400;
+      color: #8A8278;
+      letter-spacing: 0.06em;
+    }
+    .vd-roi-note {
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px;
+      font-weight: 300;
+      color: #6B6560;
+      line-height: 1.7;
+      margin: 0;
+      padding-top: 16px;
+      border-top: 1px solid rgba(198,169,107,0.12);
+    }
   </style>
 </head>
 <body>
@@ -652,6 +715,32 @@ function buildDetail(v, lang) {
     '<div class="reveal">' +
       '<p class="vd-section-label">' + aboutLbl + '</p>' +
       '<p class="vd-description">' + desc + '</p>' +
+      (v.lease_20yr_idr ? (function() {
+        return '<div class="vd-roi-block">' +
+          '<p class="vd-roi-title">' +
+            (fr ? 'Potentiel d\u2019investissement' : 'Investment Potential') +
+          '</p>' +
+          '<div class="vd-roi-grid">' +
+            '<div class="vd-roi-item">' +
+              '<span class="vd-roi-val">$76K \u2013 $130K</span>' +
+              '<span class="vd-roi-lbl">' + (fr ? 'Revenu brut estim\u00e9 / an' : 'Est. gross revenue / yr') + '</span>' +
+            '</div>' +
+            '<div class="vd-roi-item">' +
+              '<span class="vd-roi-val">70\u201380%</span>' +
+              '<span class="vd-roi-lbl">' + (fr ? 'Taux d\u2019occupation moyen' : 'Avg occupancy rate') + '</span>' +
+            '</div>' +
+            '<div class="vd-roi-item">' +
+              '<span class="vd-roi-val">15\u201320%</span>' +
+              '<span class="vd-roi-lbl">' + (fr ? 'ROI net annuel estim\u00e9' : 'Est. net annual ROI') + '</span>' +
+            '</div>' +
+          '</div>' +
+          '<p class="vd-roi-note">' +
+            (fr
+              ? 'Bail 20 ans \u00e0 IDR\u00a04.850.000.000 (\u2248 307\u00a0000 USD). Revenus nets estim\u00e9s apr\u00e8s charges\u00a0: ~53\u00a0000 USD\/an. Enti\u00e8rement meubl\u00e9e, op\u00e9rationnelle d\u00e8s le premier jour.'
+              : '20-year leasehold at IDR\u00a04,850,000,000 (approx. $307,000). Estimated net revenue after operating costs\u00a0: ~$53,000\/yr. Fully furnished and operational from day one.') +
+          '</p>' +
+        '</div>';
+      })() : '') +
     '</div>' +
     '<div class="reveal">' +
       '<p class="vd-section-label">' + specsLbl + '</p>' +

@@ -415,15 +415,11 @@ document.querySelectorAll('.reveal').forEach(el=>rvIO.observe(el));
 
   VILLAS.filter(v => v.invest_show).forEach(v => {
     const name = fr ? v.name.fr : v.name.en;
-    const idr10 = v.lease_10yr_idr;
-    const leaseDisplay = idr10
-      ? 'IDR ' + idr10.toLocaleString('id-ID')
-      : (v.price_idr_month
-          ? 'IDR ' + v.price_idr_month.toLocaleString('id-ID')
-          : '');
-    const leaseLbl = v.invest_label
-      ? (fr ? v.invest_label.fr : v.invest_label.en)
+    const idr20 = v.lease_20yr_idr;
+    const leaseDisplay = idr20
+      ? 'IDR ' + idr20.toLocaleString('id-ID')
       : '';
+    const leaseLbl = fr ? 'Bail 20 ans' : '20yr Lease';
     const visitLbl  = fr ? 'Demander une visite →' : 'Book a Visit →';
     const detailLbl = fr ? 'Voir les détails →' : 'View Details →';
     const bedsLbl   = fr ? 'Chambres' : 'Bedrooms';
